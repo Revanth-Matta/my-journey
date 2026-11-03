@@ -14,19 +14,27 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://unpkg.com/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
 </head>
-    
-    <body>
 
+<body>
     <div class="app-container">
         <header class="app-header">
             <div class="logo-space">
                 <span class="pulse-indicator"></span>
-                <strong>REVANTH K. MATTA</strong> <span class="divider">|</span> Healthcare & Work Quality Hub
+                <strong>REVANTH K. MATTA</strong>
+                <span class="divider">|</span>
+                Healthcare & Work Quality Hub
             </div>
+
             <div class="system-status">
-                <div class="status-pill"><i data-lucide="shield-check"></i> Standard Compliant</div>
-                <div class="status-pill"><i data-lucide="activity"></i> 100% Work Target</div>
-                <div class="status-pill available"><i data-lucide="zap"></i> Ready to Start</div>
+                <div class="status-pill">
+                    <i data-lucide="shield-check"></i> Standard Compliant
+                </div>
+                <div class="status-pill">
+                    <i data-lucide="activity"></i> 100% Work Target
+                </div>
+                <div class="status-pill available">
+                    <i data-lucide="zap"></i> Ready to Start
+                </div>
             </div>
         </header>
 
@@ -35,52 +43,86 @@
                 <div class="profile-card glass-card">
                     <div class="meta-title">MY JOB ROLE</div>
                     <h1>Healthcare Operations Specialist</h1>
-                    <p>Organising complex medical documentation and data files into accurate, secure, and reliable everyday workflows.</p>
+                    <p>
+                        Organising complex medical documentation and data files into accurate,
+                        secure, and reliable everyday workflows.
+                    </p>
                 </div>
 
                 <div class="metrics-grid">
                     <div class="metric-token glass-card" data-tilt>
-                        <div class="token-header"><i data-lucide="trending-up"></i><span>AUDIT RATING</span></div>
+                        <div class="token-header">
+                            <i data-lucide="trending-up"></i>
+                            <span>AUDIT RATING</span>
+                        </div>
                         <div class="token-value">95%+</div>
                         <div class="token-footer">Accuracy Verification</div>
                     </div>
+
                     <div class="metric-token glass-card" data-tilt>
-                        <div class="token-header"><i data-lucide="target"></i><span>ERROR RATE</span></div>
+                        <div class="token-header">
+                            <i data-lucide="target"></i>
+                            <span>ERROR RATE</span>
+                        </div>
                         <div class="token-value">&lt; 5%</div>
                         <div class="token-footer">Strict Quality Standard</div>
                     </div>
                 </div>
 
                 <div class="bio-card glass-card">
-                    <div class="meta-title"><i data-lucide="fingerprint"></i> MY WORK PHILOSOPHY</div>
-                    <p>Outside of normal daily tasks, I have a natural habit for neat structure and careful organisation. I look at workplace checklists not just as basic rules, but as an engaging puzzle to make paths easier for my whole team.</p>
+                    <div class="meta-title">
+                        <i data-lucide="fingerprint"></i> MY WORK PHILOSOPHY
+                    </div>
+                    <p>
+                        Outside of normal daily tasks, I have a natural habit for neat structure
+                        and careful organisation. I look at workplace checklists not just as basic
+                        rules, but as an engaging puzzle to make paths easier for my whole team.
+                    </p>
                 </div>
             </section>
 
             <section class="panel-right glass-card">
                 <div class="control-tabs">
-                    <button class="tab-btn active" onclick="switchDomain('healthcare')"><i data-lucide="heart-pulse"></i> Medical Tasks</button>
-                    <button class="tab-btn" onclick="switchDomain('quality')"><i data-lucide="check-square"></i> My Awards & Impact</button>
-                    <button class="tab-btn" onclick="switchDomain('history')"><i data-lucide="history"></i> Job History Timeline</button>
-                    <button class="tab-btn" onclick="switchDomain('education')"><i data-lucide="graduation-cap"></i> School Background</button>
+                    <button class="tab-btn active" data-domain="healthcare">
+                        <i data-lucide="heart-pulse"></i> Medical Tasks
+                    </button>
+
+                    <button class="tab-btn" data-domain="quality">
+                        <i data-lucide="check-square"></i> My Awards & Impact
+                    </button>
+
+                    <button class="tab-btn" data-domain="history">
+                        <i data-lucide="history"></i> Job History Timeline
+                    </button>
+
+                    <button class="tab-btn" data-domain="education">
+                        <i data-lucide="graduation-cap"></i> School Background
+                    </button>
                 </div>
 
                 <div id="runtime-workspace" class="runtime-content">
-                    <!-- Controlled exclusively via the script engine below -->
+                    <!-- Controlled by page-actions.js -->
                 </div>
             </section>
         </main>
 
         <footer class="app-footer">
-            <div class="footer-left">© 2026 Revanth Matta. Clean Multi-Theme Visual Design.</div>
+            <div class="footer-left">
+                © 2026 Revanth Matta. Clean Multi-Theme Visual Design.
+            </div>
+
             <div class="footer-actions">
-                <a href="mailto:revanthmatta.96@gmail.com" class="action-btn"><i data-lucide="mail"></i> Email Me Directly</a>
-                <a href="https://linkedin.com" target="_blank" class="action-btn"><i data-lucide="linkedin"></i> Connect on LinkedIn</a>
+                <a href="mailto:revanthmatta.96@gmail.com" class="action-btn">
+                    <i data-lucide="mail"></i> Email Me Directly
+                </a>
+
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="action-btn">
+                    <i data-lucide="linkedin"></i> Connect on LinkedIn
+                </a>
             </div>
         </footer>
     </div>
 
-    <script src="https://cloudflare.com"></script>
     <script src="page-actions.js"></script>
 </body>
 </html>
