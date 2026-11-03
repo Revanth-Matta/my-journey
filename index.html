@@ -1,132 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revanth Kumar Matta | Professional Work Portfolio</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revanth Kumar Matta | My Journey & Portfolio</title>
+  <meta name="description" content="My Journey — a personal portfolio by Revanth Kumar Matta, sharing my journey, interests, growth, and current focus.">
+  <meta name="author" content="Revanth Kumar Matta">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="design-styles.css">
-
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <script src="https://unpkg.com/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <div class="logo-space">
-                <span class="pulse-indicator"></span>
-                <strong>REVANTH K. MATTA</strong>
-                <span class="divider">|</span>
-                Healthcare & Work Quality Hub
-            </div>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-            <div class="system-status">
-                <div class="status-pill">
-                    <i data-lucide="shield-check"></i> Standard Compliant
-                </div>
-                <div class="status-pill">
-                    <i data-lucide="activity"></i> 100% Work Target
-                </div>
-                <div class="status-pill available">
-                    <i data-lucide="zap"></i> Ready to Start
-                </div>
-            </div>
-        </header>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#arrival">Revanth</a>
 
-        <main class="app-workspace">
-            <section class="panel-left">
-                <div class="profile-card glass-card">
-                    <div class="meta-title">MY JOB ROLE</div>
-                    <h1>Healthcare Operations Specialist</h1>
-                    <p>
-                        Organising complex medical documentation and data files into accurate,
-                        secure, and reliable everyday workflows.
-                    </p>
-                </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Toggle navigation</span>
+      </button>
 
-                <div class="metrics-grid">
-                    <div class="metric-token glass-card" data-tilt>
-                        <div class="token-header">
-                            <i data-lucide="trending-up"></i>
-                            <span>AUDIT RATING</span>
-                        </div>
-                        <div class="token-value">95%+</div>
-                        <div class="token-footer">Accuracy Verification</div>
-                    </div>
-
-                    <div class="metric-token glass-card" data-tilt>
-                        <div class="token-header">
-                            <i data-lucide="target"></i>
-                            <span>ERROR RATE</span>
-                        </div>
-                        <div class="token-value">&lt; 5%</div>
-                        <div class="token-footer">Strict Quality Standard</div>
-                    </div>
-                </div>
-
-                <div class="bio-card glass-card">
-                    <div class="meta-title">
-                        <i data-lucide="fingerprint"></i> MY WORK PHILOSOPHY
-                    </div>
-                    <p>
-                        Outside of normal daily tasks, I have a natural habit for neat structure
-                        and careful organisation. I look at workplace checklists not just as basic
-                        rules, but as an engaging puzzle to make paths easier for my whole team.
-                    </p>
-                </div>
-            </section>
-
-            <section class="panel-right glass-card">
-                <div class="control-tabs">
-                    <button class="tab-btn active" data-domain="healthcare">
-                        <i data-lucide="heart-pulse"></i> Medical Tasks
-                    </button>
-
-                    <button class="tab-btn" data-domain="quality">
-                        <i data-lucide="check-square"></i> My Awards & Impact
-                    </button>
-
-                    <button class="tab-btn" data-domain="history">
-                        <i data-lucide="history"></i> Job History Timeline
-                    </button>
-
-                    <button class="tab-btn" data-domain="education">
-                        <i data-lucide="graduation-cap"></i> School Background
-                    </button>
-                </div>
-
-                <div id="runtime-workspace" class="runtime-content">
-                    <!-- Controlled by page-actions.js -->
-                </div>
-            </section>
-        </main>
-
-        <footer class="app-footer">
-            <div class="footer-left">
-                © 2026 Revanth Matta. Clean Multi-Theme Visual Design.
-            </div>
-
-            <div class="footer-actions">
-                <a href="mailto:revanthmatta.96@gmail.com" class="action-btn">
-                    <i data-lucide="mail"></i> Email Me Directly
-                </a>
-
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="action-btn">
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45z"/>
-    </svg>
-    Connect on LinkedIn
-</a>
-            </div>
-        </footer>
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+        <ul>
+          <li><a href="#arrival">Arrival</a></li>
+          <li><a href="#journey">Journey</a></li>
+          <li><a href="#core">Core</a></li>
+          <li><a href="#recognition">Recognition</a></li>
+          <li><a href="#life">Life</a></li>
+          <li><a href="#now">Now</a></li>
+          <li><a href="#connect">Connect</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <script src="page-actions.js"></script>
+  <main id="main">
+    <section class="arrival" id="arrival" aria-labelledby="arrival-heading">
+      <div class="container arrival-grid">
+        <div class="arrival-content reveal">
+          <p class="eyebrow">Hello, I’m</p>
+
+          <h1 id="arrival-heading">Revanth.</h1>
+
+          <p class="role">Operations and Quality Assurance Specialist</p>
+
+          <p class="skill-line">
+            Medical Records Retrieval · Quality Auditing · Claims Verification<br>
+            Process Improvement · Customer Support<br>
+            Travel &amp; Expense Invoice Processing &amp; Verification
+          </p>
+
+          <p class="intro">
+            I bring experience across healthcare and non-healthcare operations,
+            quality-focused processes, claims verification, customer support,
+            and the processing and auditing of travel and expense invoices.
+            My work is guided by accuracy, structure, and a practical
+            understanding of how strong processes support better outcomes.
+          </p>
+
+          <div class="arrival-actions">
+            <a class="btn btn-primary" href="#journey">Explore My Journey</a>
+            <a class="btn btn-secondary"
+               href="https://revanth-matta.github.io/"
+               target="_blank"
+               rel="noopener noreferrer">
+              Professional Snapshot
+            </a>
+            <a class="btn btn-ghost" href="mailto:revanthkm13@gmail.com">Say Hello</a>
+          </div>
+        </div>
+
+        <div class="arrival-visual reveal">
+          <div class="portrait-wrap">
+            <img
+              class="portrait"
+              src="images/revanth-portrait.png"
+              alt="Portrait of Revanth Kumar Matta"
+            >
+          </div>
+
+          <div class="metric-wheel" aria-label="Career highlights">
+            <div class="metric-track">
+              <span>Career Started 2018</span>
+              <span>4 Organizations</span>
+              <span>Multiple Recognitions</span>
+              <span>Quality &amp; Accuracy Focus</span>
+              <span>Open to Opportunities</span>
+              <span>Career Started 2018</span>
+              <span>4 Organizations</span>
+              <span>Multiple Recognitions</span>
+              <span>Quality &amp; Accuracy Focus</span>
+              <span>Open to Opportunities</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="journey" id="journey" aria-labelledby="journey-heading">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="journey-heading">The Journey</h2>
+          <p>From foundation to professional growth</p>
+        </div>
+
+        <ol class="timeline">
+          <li class="timeline-item reveal">
+            <div class="timeline-node" aria-hidden="true"></div>
+
+            <div class="timeline-card">
+              <span class="timeline-year">2013</span>
+              <h3>Foundation Completed</h3>
+              <p>Completed 10th class.</p>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-node" aria-hidden="true"></div>
+
+            <div class="timeline-card">
+              <span class="timeline-year">2015</span>
+              <h3>Intermediate Education</h3>
+              <p>Completed Intermediate education.</p>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-node" aria-hidden="true"></div>
+
+            <div class="timeline-card">
+              <span class="timeline-year">2018</span>
+              <h3>Degree Completed</h3>
+              <p>Graduated and transitioned from academics to professional work.</p>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-node milestone" aria-hidden="true"></div>
+
+            <div class="timeline-card">
+              <span class="timeline-year">2018</span>
+              <h3>HGS</h3>
+              <p>Where my professional journey began.</p>
+
+              <figure class="journey-photo">
+                <img
+                  src="images/hgs-induction-group.jpg"
+                  alt="Revanth with his HGS induction batch during the induction program"
+                >
+                <figcaption>Beginning at HGS with my induction batch.</figcaption>
+              </figure>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-node" aria-hidden="true"></div>
+
+            <div class="timeline-card">
+              <span class="timeline-year">2021</span>
+              <h3>Artech Infosystems</h3>
+              <p>A new chapter and new experiences.</p>
+
+              <div class="process-visual" aria-hidden="true">
+                <span class="process-step">Claim document</span>
+                <span class="process-arrow"></span>
+                <span class="process-step">Verification checklist</span>
+                <span class="process-arrow"></span>
+                <span class="process-step">Resolution</span>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-node" aria-hidden="true"></div>
+
+            <div class="timeline-card">
+              <span class="timeline-year">2022</span>
+              <h3>24/7 IntouchCX</h3>
+              <p>Another step forward in my journey.</p>
+
+              <div class="process-visual" aria-hidden="true">
+                <span class="process-step">Customer query</span>
+                <span class="process-arrow"></span>
+                <span class="process-step">Support interaction</span>
+                <span class="process-arrow"></span>
+                <span class="process-step">Resolution</span>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item reveal">
+            <div class="timeline-node" aria-hidden="true"></div>
+
+            <div class="timeline-card">
+              <span class="timeline-year">2023</span>
+              <h3>Tech Mahindra</h3>
+              <p>A meaningful chapter in my professional journey.</p>
+
+              <figure class="journey-photo">
+                <img
+                  src="images/techm-tambola-award.jpg"
+                  alt="Revanth receiving a gift card from his manager after winning a tambola competition at Tech Mahindra"
+                >
+                <figcaption>
+                  Won a tambola competition at Tech Mahindra;
+                  gift card presented by my manager.
+                </figcaption>
+              </figure>
+            </div>
+          </li>
+        </ol>
+
+        <div class="journey-cta reveal">
+          <p>Want the professional side of the story?</p>
+
+          <a class="btn btn-primary"
+             href="https://revanth-matta.github.io/"
+             target="_blank"
+             rel="noopener noreferrer">
+            Know More
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="core" id="core" aria-labelledby="core-heading">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="core-heading">Professional Core</h2>
+          <p>The strengths I bring to my work</p>
+        </div>
+
+        <div class="card-grid core-grid">
+          <article class="card reveal">
+            <h3>Accuracy</h3>
+            <p>Care and consistency in every task.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Medical Records Retrieval</h3>
+            <p>Locating and organizing medical records.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Quality Auditing</h3>
+            <p>Reviewing work with a quality-first mindset.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Verification &amp; Processing</h3>
+            <p>Claims, queries, escalations, and travel &amp; expense invoices.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Customer Support</h3>
+            <p>Clear communication and practical resolution.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Documentation &amp; Reporting</h3>
+            <p>Organized records and clear reporting.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Process Improvement</h3>
+            <p>Finding clearer and better ways to work.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Team Collaboration</h3>
+            <p>Working well with people and shared goals.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Attention to Detail</h3>
+            <p>Noticing what matters and getting it right.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Adaptability</h3>
+            <p>Adjusting to new processes and environments.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="recognition" id="recognition" aria-labelledby="recognition-heading">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="recognition-heading">Impact &amp; Recognition</h2>
+          <p>Moments that reflect consistency and contribution</p>
+        </div>
+
+        <div class="recognition-grid">
+          <article class="recognition-card reveal">
+            <figure>
+              <img
+                src="images/hgs-star-performers-group.jpg"
+                alt="Revanth with fellow HGS Star Performers during a recognition event"
+              >
+            </figure>
+
+            <h3>HGS Star Performer</h3>
+            <p>Recognized among Star Performers at HGS.</p>
+          </article>
+
+          <article class="recognition-card reveal">
+            <figure>
+              <img
+                src="images/techm-tambola-award.jpg"
+                alt="Revanth receiving a gift card from his manager after winning a tambola competition at Tech Mahindra"
+              >
+            </figure>
+
+            <h3>Tech Mahindra Tambola Competition Winner</h3>
+            <p>Won a team competition; gift card presented by my manager.</p>
+          </article>
+
+          <article class="recognition-card reveal">
+            <div class="badge-visual" aria-hidden="true">★</div>
+
+            <h3>Consistent Quality Focus</h3>
+            <p>A recurring theme across my professional journey.</p>
+          </article>
+
+          <article class="recognition-card reveal">
+            <div class="badge-visual" aria-hidden="true">◎</div>
+
+            <h3>Team Contribution</h3>
+            <p>Working effectively with people, processes, and shared goals.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="work-style" aria-labelledby="work-heading">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="work-heading">How I Work</h2>
+          <p>A practical, people-centered approach</p>
+        </div>
+
+        <div class="card-grid three-grid">
+          <article class="card reveal">
+            <h3>Accuracy First</h3>
+            <p>Care with details, documentation, and consistency.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Process-Minded</h3>
+            <p>Looking for clarity, structure, and better ways to work.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>People-Oriented</h3>
+            <p>Valuing communication, collaboration, and shared outcomes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="life" id="life" aria-labelledby="life-heading">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="life-heading">Life in Progress</h2>
+          <p>The interests and curiosity beyond work</p>
+        </div>
+
+        <div class="card-grid life-grid">
+          <article class="card reveal">
+            <h3>Reading &amp; Writing</h3>
+            <p>Web novels, storytelling, and drafting an original web novel.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Games &amp; Strategy</h3>
+            <p>Strategy, role-playing, survival, sandbox, and open-world games; online chess.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Design &amp; Digital Products</h3>
+            <p>Graphics, Canva experiments, digital tools, and portfolio ideas.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Learning &amp; Exploration</h3>
+            <p>Data analysis, digital marketing, and AI-assisted tools.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Food &amp; Curiosity</h3>
+            <p>Interest in exploring different cuisines and new experiences.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="now" id="now" aria-labelledby="now-heading">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="now-heading">Now</h2>
+          <p>What I’m focused on at the moment</p>
+        </div>
+
+        <div class="now-grid">
+          <article class="card reveal">
+            <h3>Data Analyst Certification</h3>
+            <p>Building analytical skills and practical understanding.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Exploring Opportunities</h3>
+            <p>Open to roles across operations, quality assurance, and customer experience.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Web Novel in Drafting</h3>
+            <p>Developing an original story and writing practice.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3>Portfolio &amp; AI Tools</h3>
+            <p>Exploring personal tools, design, and AI-assisted workflows.</p>
+          </article>
+        </div>
+
+        <p class="open-badge reveal">Open to Opportunities</p>
+      </div>
+    </section>
+
+    <section class="snapshot" aria-labelledby="snapshot-heading">
+      <div class="container snapshot-inner reveal">
+        <h2 id="snapshot-heading">Professional Snapshot</h2>
+
+        <p>
+          This personal portfolio shares my journey and interests.
+          For a detailed view of my professional experience,
+          achievements, and resume, open the door below.
+        </p>
+
+        <a class="resume-door"
+           href="https://revanth-matta.github.io/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Open my detailed resume portfolio in a new tab">
+          <span class="door-frame" aria-hidden="true">
+            <span class="door">
+              <span class="door-handle"></span>
+            </span>
+            <span class="door-light"></span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="connect" id="connect" aria-labelledby="connect-heading">
+      <div class="container connect-inner reveal">
+        <h2 id="connect-heading">Let’s Connect</h2>
+
+        <p>
+          Have a thought, opportunity, or conversation in mind?<br>
+          I’d be happy to hear from you.
+        </p>
+
+        <div class="connect-details">
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:revanthkm13@gmail.com">revanthkm13@gmail.com</a>
+          </p>
+
+          <p>
+            <strong>LinkedIn:</strong>
+            <a
+              href="https://www.linkedin.com/in/revanthkumarmatta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @revanthkumarmatta
+            </a>
+          </p>
+        </div>
+
+        <div class="connect-actions">
+          <a class="btn btn-primary" href="mailto:revanthkm13@gmail.com">Email Me</a>
+
+          <a class="btn btn-secondary"
+             href="https://www.linkedin.com/in/revanthkumarmatta"
+             target="_blank"
+             rel="noopener noreferrer">
+            LinkedIn Profile
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">
+        © 2026 Revanth Kumar Matta<br>
+        Built with curiosity, structure, and a love for learning.
+      </p>
+
+      <nav class="footer-links" aria-label="Footer links">
+        <a
+          href="https://www.linkedin.com/in/revanthkumarmatta"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+
+        <span aria-hidden="true">·</span>
+
+        <a href="mailto:revanthkm13@gmail.com">Email</a>
+
+        <span aria-hidden="true">·</span>
+
+        <a
+          href="https://revanth-matta.github.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Resume
+        </a>
+      </nav>
+    </div>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 5l-7 7h4v7h6v-7h4z"></path>
+    </svg>
+  </button>
+
+  <script src="script.js"></script>
 </body>
 </html>
