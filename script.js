@@ -1,57 +1,67 @@
 /* =========================================
-   My Journey — Revanth Kumar Matta
-   Cinematic Journey interactions
+   Revanth’s Journey — Modern Journey
+   Interaction layer
 ========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const menuToggle = document.querySelector(".menu-toggle");
-  const primaryNav = document.querySelector(".primary-nav");
-  const navLinks = document.querySelectorAll(".journey-rail a");
-
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-  const htmlElement = document.documentElement;
-
-  const backToTop = document.querySelector(".back-to-top");
-  const arrivalSection = document.querySelector("#arrival");
-
-  const resumeDoor = document.querySelector(".resume-door");
-  const resumeFooterLink = document.querySelector(".resume-footer-link");
-
-  const routeDialog = document.querySelector("#route-dialog");
-  const routeSpace = document.querySelector("#route-space");
-  const routeContent = document.querySelector("#route-content");
-  const routeClose = document.querySelector(".route-close");
-  const routeCards = document.querySelectorAll(".route-card");
-
-  const coreGrid = document.querySelector("#core-grid");
-  const coreCards = document.querySelectorAll(".core-card");
-
-  const visitorCount = document.querySelector("#visitor-count");
-
-  const sections = document.querySelectorAll("main section[id]");
-  const revealElements = document.querySelectorAll(".reveal");
+  const html = document.documentElement;
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  const EMAIL_ADDRESS = "revanthkm13@gmail.com";
+
+  const themeToggle = document.querySelector("[data-theme-toggle]");
+  const menuToggle = document.querySelector(".menu-toggle");
+  const mobileNavigation = document.querySelector(".mobile-navigation");
+
+  const desktopNavLinks = document.querySelectorAll(".journey-rail a");
+  const mobileNavLinks = document.querySelectorAll(".mobile-navigation a");
+  const sections = document.querySelectorAll("main section[id]");
+
+  const revealElements = document.querySelectorAll(".reveal");
+  const backToTop = document.querySelector(".back-to-top");
+  const arrivalSection = document.querySelector("#arrival");
+
+  const routeTimeline = document.querySelector("[data-route-timeline]");
+  const milestones = document.querySelectorAll("[data-milestone]");
+  const timelineViewport = document.querySelector(".timeline-viewport");
+  const timelinePrev = document.querySelector("[data-timeline-prev]");
+  const timelineNext = document.querySelector("[data-timeline-next]");
+  const timelinePause = document.querySelector("[data-timeline-pause]");
+  const routeOrb = document.querySelector(".route-orb");
+
+  const routeButtons = document.querySelectorAll("[data-route]");
+  const routeDialog = document.querySelector("#route-dialog");
+  const routeSpace = document.querySelector("#route-space");
+  const routeContent = document.querySelector("#route-content");
+  const routeClose = document.querySelector(".route-close");
+  const routeReturn = document.querySelector("[data-route-return]");
+
+  const visitorCount = document.querySelector("#visitor-count");
+  const yearElement = document.querySelector("#year");
+
+  /* -----------------------------------------
+     Current year
+  ----------------------------------------- */
+
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
   /* -----------------------------------------
      Theme
   ----------------------------------------- */
 
-  const storedTheme = localStorage.getItem("my-journey-theme");
+  const applyTheme = (theme) => {
+    html.setAttribute("data-theme", theme);
 
-  if (storedTheme === "light" || storedTheme === "dark") {
-    htmlElement.setAttribute("data-theme", storedTheme);
-  } else if (
-    window.matchMedia("(prefers-color-scheme: light)").matches
-  ) {
-    htmlElement.setAttribute("data-theme", "light");
-  }
+    if (!themeToggle) {
+      return;
+    }
 
-  const updateThemeToggle = () => {
-    const currentTheme = htmlElement.getAttribute("data-theme");
-    const isLight = currentTheme === "light";
+    const isLight = theme === "light";
 
     themeToggle.setAttribute("aria-pressed", String(isLight));
     themeToggle.setAttribute(
@@ -60,16 +70,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
+  const systemPrefersLight = window.matchMedia(
+    "(prefers-color-scheme: light)"
+  ).matches;
+
+  applyTheme(systemPrefersLight ? "light" : "dark");
+
   if (themeToggle) {
-    updateThemeToggle();
-
     themeToggle.addEventListener("click", () => {
-      const currentTheme = htmlElement.getAttribute("data-theme");
-      const nextTheme = currentTheme === "light" ? "dark" : "light";
-
-      htmlElement.setAttribute("data-theme", nextTheme);
-      localStorage.setItem("my-journey-theme", nextTheme);
-      updateThemeToggle();
+      const currentTheme = html.getAttribute("data-theme");
+      applyTheme(currentTheme === "light" ? "dark" : "light");
     });
   }
 
@@ -77,51 +87,67 @@ document.addEventListener("DOMContentLoaded", () => {
      Mobile navigation
   ----------------------------------------- */
 
-  if (menuToggle && primaryNav) {
+  const closeMobileNavigation = (returnFocus = false) => {
+    if (!mobileNavigation || !menuToggle) {
+      return;
+    }
+
+    mobileNavigation.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open navigation menu");
+
+    if (returnFocus) {
+      menuToggle.focus();
+    }
+  };
+
+  if (menuToggle && mobileNavigation) {
     menuToggle.addEventListener("click", () => {
-      const isOpen = primaryNav.classList.toggle("is-open");
+      const isOpen = mobileNavigation.classList.toggle("is-open");
+
       menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+      );
     });
 
-    navLinks.forEach((link) => {
+    mobileNavLinks.forEach((link) => {
       link.addEventListener("click", () => {
-        primaryNav.classList.remove("is-open");
-        menuToggle.setAttribute("aria-expanded", "false");
+        closeMobileNavigation();
       });
     });
 
     document.addEventListener("keydown", (event) => {
       if (
         event.key === "Escape" &&
-        primaryNav.classList.contains("is-open")
+        mobileNavigation.classList.contains("is-open")
       ) {
-        primaryNav.classList.remove("is-open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.focus();
+        closeMobileNavigation(true);
       }
     });
   }
 
   /* -----------------------------------------
-     Active navigation
+     Active Journey Rail
   ----------------------------------------- */
+
+  const setActiveSection = (sectionId) => {
+    const allNavLinks = [...desktopNavLinks, ...mobileNavLinks];
+
+    allNavLinks.forEach((link) => {
+      const isActive = link.getAttribute("href") === `#${sectionId}`;
+      link.classList.toggle("is-active", isActive);
+    });
+  };
 
   if ("IntersectionObserver" in window && sections.length > 0) {
     const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
           }
-
-          const sectionId = entry.target.id;
-
-          navLinks.forEach((link) => {
-            const isActive =
-              link.getAttribute("data-section") === sectionId;
-
-            link.classList.toggle("is-active", isActive);
-          });
         });
       },
       {
@@ -136,13 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -----------------------------------------
-     Scroll reveal animations
+     Scroll reveal
   ----------------------------------------- */
 
-  if (
-    prefersReducedMotion ||
-    !("IntersectionObserver" in window)
-  ) {
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
     revealElements.forEach((element) => {
       element.classList.add("is-visible");
     });
@@ -168,45 +191,174 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -----------------------------------------
-     Professional Core spotlight
+     Route Timeline
   ----------------------------------------- */
 
-  if (coreGrid && coreCards.length > 0) {
-    coreCards.forEach((card) => {
-      card.addEventListener("mouseenter", () => {
-        coreCards.forEach((otherCard) => {
-          otherCard.classList.toggle("is-selected", otherCard === card);
-        });
+  let activeMilestoneIndex = 0;
+  let timelinePaused = prefersReducedMotion;
+  let timelineTimer = null;
+
+  const activateMilestone = (index, scrollIntoView = true) => {
+    if (milestones.length === 0) {
+      return;
+    }
+
+    activeMilestoneIndex = (index + milestones.length) % milestones.length;
+
+    milestones.forEach((milestone, milestoneIndex) => {
+      milestone.classList.toggle(
+        "is-active",
+        milestoneIndex === activeMilestoneIndex
+      );
+    });
+
+    if (scrollIntoView && timelineViewport) {
+      const activeMilestone = milestones[activeMilestoneIndex];
+      const viewportWidth = timelineViewport.clientWidth;
+      const milestoneLeft = activeMilestone.offsetLeft;
+      const milestoneWidth = activeMilestone.offsetWidth;
+
+      timelineViewport.scrollTo({
+        left:
+          milestoneLeft -
+          viewportWidth / 2 +
+          milestoneWidth / 2,
+        behavior: prefersReducedMotion ? "auto" : "smooth"
       });
+    }
+  };
 
-      card.addEventListener("focus", () => {
-        coreCards.forEach((otherCard) => {
-          otherCard.classList.toggle("is-selected", otherCard === card);
-        });
+  const stopTimeline = () => {
+    if (timelineTimer) {
+      clearInterval(timelineTimer);
+      timelineTimer = null;
+    }
+  };
+
+  const startTimeline = () => {
+    if (prefersReducedMotion || timelinePaused || milestones.length === 0) {
+      return;
+    }
+
+    stopTimeline();
+
+    timelineTimer = setInterval(() => {
+      activateMilestone(activeMilestoneIndex + 1);
+    }, 4200);
+  };
+
+  const updatePauseButton = () => {
+    if (!timelinePause) {
+      return;
+    }
+
+    timelinePause.setAttribute("aria-pressed", String(timelinePaused));
+    timelinePause.setAttribute(
+      "aria-label",
+      timelinePaused ? "Play journey animation" : "Pause journey animation"
+    );
+
+    timelinePause.innerHTML = timelinePaused
+      ? '<span aria-hidden="true">▶</span>'
+      : '<span aria-hidden="true">❚❚</span>';
+  };
+
+  const pauseTimeline = () => {
+    timelinePaused = true;
+    updatePauseButton();
+    stopTimeline();
+
+    if (routeOrb) {
+      routeOrb.style.animationPlayState = "paused";
+    }
+  };
+
+  const playTimeline = () => {
+    timelinePaused = false;
+    updatePauseButton();
+    startTimeline();
+
+    if (routeOrb) {
+      routeOrb.style.animationPlayState = "running";
+    }
+  };
+
+  if (routeOrb) {
+    routeOrb.style.animationPlayState = timelinePaused
+      ? "paused"
+      : "running";
+  }
+
+  if (milestones.length > 0) {
+    activateMilestone(0, false);
+    updatePauseButton();
+
+    if (!prefersReducedMotion) {
+      startTimeline();
+    }
+
+    if (timelinePrev) {
+      timelinePrev.addEventListener("click", () => {
+        pauseTimeline();
+        activateMilestone(activeMilestoneIndex - 1);
       });
+    }
 
-      card.addEventListener("click", () => {
-        const isSelected = card.classList.contains("is-selected");
+    if (timelineNext) {
+      timelineNext.addEventListener("click", () => {
+        pauseTimeline();
+        activateMilestone(activeMilestoneIndex + 1);
+      });
+    }
 
-        coreCards.forEach((otherCard) => {
-          otherCard.classList.remove("is-selected");
-        });
-
-        if (!isSelected) {
-          card.classList.add("is-selected");
+    if (timelinePause) {
+      timelinePause.addEventListener("click", () => {
+        if (timelinePaused) {
+          playTimeline();
+        } else {
+          pauseTimeline();
         }
+      });
+    }
+
+    milestones.forEach((milestone, index) => {
+      milestone.addEventListener("mouseenter", () => {
+        pauseTimeline();
+        activateMilestone(index);
+      });
+
+      milestone.addEventListener("focusin", () => {
+        pauseTimeline();
+        activateMilestone(index);
+      });
+
+      milestone.addEventListener("click", () => {
+        pauseTimeline();
+        activateMilestone(index);
       });
     });
 
-    coreGrid.addEventListener("mouseleave", () => {
-      coreCards.forEach((card) => {
-        card.classList.remove("is-selected");
-      });
+    document.addEventListener("keydown", (event) => {
+      if (!routeTimeline || !routeTimeline.contains(document.activeElement)) {
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        pauseTimeline();
+        activateMilestone(activeMilestoneIndex + 1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        pauseTimeline();
+        activateMilestone(activeMilestoneIndex - 1);
+      }
     });
   }
 
   /* -----------------------------------------
-     Route content
+     Route spaces
   ----------------------------------------- */
 
   const routeData = {
@@ -215,6 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
       status: "Drafting",
       intro:
         "A route shaped by stories, imagination, and the possibilities hidden inside them.",
+      theme: "reading",
       blocks: [
         {
           heading: "Currently Reading",
@@ -224,10 +377,10 @@ document.addEventListener("DOMContentLoaded", () => {
               fanfiction, and character-driven stories.
             </p>
             <p>
-              In fanfiction, I especially enjoy exploring unexplored, ignored,
-              or underutilized potential—characters, scenes, plots, and
-              “what if” moments where one different decision can change the
-              entire direction of a story.
+              In fanfiction, I especially enjoy exploring overlooked
+              potential—characters, scenes, plots, and “what if” moments
+              where one different decision changes the entire direction of
+              a story.
             </p>
           `
         },
@@ -251,24 +404,13 @@ document.addEventListener("DOMContentLoaded", () => {
           `
         },
         {
-          heading: "My Original Novel",
+          heading: "Original Novel",
           html: `
             <p>
               An original web novel is currently in the drafting stage.
+              Once preparation is complete, I plan to publish it under a
+              pen name.
             </p>
-            <p>
-              Once the preparation is complete, I plan to publish it under
-              a pen name.
-            </p>
-          `
-        },
-        {
-          heading: "Where to Read It",
-          html: `<p>Coming soon.</p>`
-        },
-        {
-          heading: "Original Novel Status",
-          html: `
             <ul>
               <li><strong>Status:</strong> Drafting</li>
               <li><strong>Chapters:</strong> In progress</li>
@@ -276,10 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
               <li><strong>Publishing:</strong> Planned</li>
               <li><strong>Platform:</strong> To be finalized</li>
               <li><strong>Pen name:</strong> Will be updated soon</li>
-              <li>
-                <strong>Resources:</strong> Free AI tools for drafting
-                and organization
-              </li>
             </ul>
           `
         },
@@ -297,8 +435,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "Stay on This Route",
-        href:
-          "mailto:revanthkm13@gmail.com?subject=Reading%20%26%20Writing%20Route"
+        href: `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(
+          "Reading & Writing Route"
+        )}`
       }
     },
 
@@ -307,6 +446,7 @@ document.addEventListener("DOMContentLoaded", () => {
       status: "Active",
       intro:
         "A route built around strategy, immersive worlds, steady improvement, and knowing when to adapt.",
+      theme: "games",
       blocks: [
         {
           heading: "Games I Enjoy",
@@ -332,7 +472,6 @@ document.addEventListener("DOMContentLoaded", () => {
               <li>BGMI</li>
               <li>Dr. Driving</li>
               <li>Need for Speed</li>
-              <li>Online shooter games</li>
               <li>GTA</li>
               <li>Free Fire</li>
               <li>SimCity</li>
@@ -354,70 +493,38 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           heading: "Memorable Games",
           html: `
-            <div class="memory-grid">
-              <div class="memory-card">
-                <strong>Subway Surfers &amp; Temple Run</strong>
-                <p>
-                  My first endless-runner experiences on a phone I bought
-                  with my own money.
-                </p>
-              </div>
-
-              <div class="memory-card">
-                <strong>Candy Crush</strong>
-                <p>
-                  I wanted to reach the end—then discovered the levels
-                  never really end.
-                </p>
-              </div>
-
-              <div class="memory-card">
-                <strong>SimCity &amp; Minecraft</strong>
-                <p>
-                  Building from a basic start while managing growing demands
-                  and increasingly impatient citizens.
-                </p>
-              </div>
-
-              <div class="memory-card">
-                <strong>Dr. Driving</strong>
-                <p>
-                  A lesson in patience, control, and the reality of driving.
-                </p>
-              </div>
-
-              <div class="memory-card">
-                <strong>Need for Speed</strong>
-                <p>
-                  The name says it all: speed, control, and the thrill of
-                  the road.
-                </p>
-              </div>
-
-              <div class="memory-card">
-                <strong>BGMI, Free Fire, Call of Duty &amp; LifeAfter</strong>
-                <p>
-                  Different ways to experience intense, out-of-the-ordinary
-                  action.
-                </p>
-              </div>
-
-              <div class="memory-card">
-                <strong>Idle simulators</strong>
-                <p>
-                  My go-to choice when I simply want to pass time.
-                </p>
-              </div>
-            </div>
-
-            <p>
-              These are only a few of the many games I have played, loved,
-              wanted to try, and continue to enjoy.
-            </p>
-            <p>
-              More will be added as I reflect on the games that left the
-              strongest impression.
-            </p>
+            <ul>
+              <li>
+                <strong>Subway Surfers &amp; Temple Run:</strong>
+                My first endless-runner experiences on a phone I bought
+                with my own money.
+              </li>
+              <li>
+                <strong>Candy Crush:</strong>
+                I wanted to reach the end—then discovered the levels never
+                really end.
+              </li>
+              <li>
+                <strong>SimCity &amp; Minecraft:</strong>
+                Building from a basic start while managing growing demands.
+              </li>
+              <li>
+                <strong>Dr. Driving:</strong>
+                A lesson in patience, control, and the reality of driving.
+              </li>
+              <li>
+                <strong>Need for Speed:</strong>
+                Speed, control, and the thrill of the road.
+              </li>
+              <li>
+                <strong>BGMI, Free Fire, Call of Duty &amp; LifeAfter:</strong>
+                Different ways to experience intense action.
+              </li>
+              <li>
+                <strong>Idle simulators:</strong>
+                My go-to choice when I simply want to pass time.
+              </li>
+            </ul>
           `
         },
         {
@@ -427,16 +534,6 @@ document.addEventListener("DOMContentLoaded", () => {
               <strong>Game of Thrones: Kings Road</strong><br>
               On an aggressive path to become a top player.
             </p>
-          `
-        },
-        {
-          heading: "Looking Forward To",
-          html: `
-            <ul>
-              <li>New strategy games</li>
-              <li>Open-world games</li>
-              <li>Story-rich games</li>
-            </ul>
           `
         },
         {
@@ -467,8 +564,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "Follow This Route",
-        href:
-          "mailto:revanthkm13@gmail.com?subject=Games%20%26%20Strategy%20Route"
+        href: `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(
+          "Games & Strategy Route"
+        )}`
       }
     },
 
@@ -477,6 +575,7 @@ document.addEventListener("DOMContentLoaded", () => {
       status: "Building",
       intro:
         "A route for creating, experimenting, and turning small ideas into useful experiences.",
+      theme: "design",
       blocks: [
         {
           heading: "What I Enjoy Creating",
@@ -535,8 +634,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "View Experiments",
-        href:
-          "mailto:revanthkm13@gmail.com?subject=Design%20%26%20Digital%20Products"
+        href: `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(
+          "Design & Digital Products"
+        )}`
       }
     },
 
@@ -545,13 +645,12 @@ document.addEventListener("DOMContentLoaded", () => {
       status: "Learning",
       intro:
         "A route for learning, exploring, and improving through practice.",
+      theme: "learning",
       blocks: [
         {
           heading: "Currently Learning",
           html: `
-            <p>
-              Data analysis and practical analytical skills.
-            </p>
+            <p>Data analysis and practical analytical skills.</p>
           `
         },
         {
@@ -592,8 +691,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "View Learning Notes",
-        href:
-          "mailto:revanthkm13@gmail.com?subject=Learning%20%26%20Exploration"
+        href: `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(
+          "Learning & Exploration"
+        )}`
       }
     },
 
@@ -602,6 +702,7 @@ document.addEventListener("DOMContentLoaded", () => {
       status: "Exploring",
       intro:
         "A vegetarian route through flavors, cuisines, and food experiences worth exploring.",
+      theme: "food",
       blocks: [
         {
           heading: "What I Enjoy",
@@ -640,30 +741,28 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "Follow This Route",
-        href:
-          "mailto:revanthkm13@gmail.com?subject=Food%20%26%20Curiosity%20Route"
+        href: `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(
+          "Food & Curiosity Route"
+        )}`
       }
     }
   };
 
-  /* -----------------------------------------
-     Open and close route spaces
-  ----------------------------------------- */
+  let activeRouteTrigger = null;
 
-  let activeRouteCard = null;
-
-  function openRoute(routeId, triggerCard) {
+  const openRoute = (routeId, trigger) => {
     const route = routeData[routeId];
 
     if (!route || !routeDialog || !routeContent) {
       return;
     }
 
-    activeRouteCard = triggerCard || null;
+    activeRouteTrigger = trigger || null;
 
-    routeSpace.className = "route-space " + routeId;
+    routeSpace.className = `route-space route-${route.theme}`;
+    routeSpace.setAttribute("data-route-theme", route.theme);
 
-    const blocksHtml = route.blocks
+    const blocks = route.blocks
       .map(
         (block) => `
           <section class="route-block">
@@ -678,7 +777,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <span class="route-status-badge">${route.status}</span>
       <h2 id="route-title">${route.title}</h2>
       <p class="route-intro">${route.intro}</p>
-      ${blocksHtml}
+      ${blocks}
       <div class="route-cta">
         <a class="btn btn-primary" href="${route.cta.href}">
           ${route.cta.label}
@@ -687,25 +786,25 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     routeDialog.showModal();
-    routeDialog.scrollTop = 0;
-  }
+    routeSpace.scrollTop = 0;
+  };
 
-  function closeRoute() {
-    if (!routeDialog.open) {
+  const closeRoute = () => {
+    if (!routeDialog || !routeDialog.open) {
       return;
     }
 
     routeDialog.close();
 
-    if (activeRouteCard) {
-      activeRouteCard.focus();
-      activeRouteCard = null;
+    if (activeRouteTrigger) {
+      activeRouteTrigger.focus();
+      activeRouteTrigger = null;
     }
-  }
+  };
 
-  routeCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      openRoute(card.dataset.route, card);
+  routeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      openRoute(button.dataset.route, button);
     });
   });
 
@@ -713,22 +812,26 @@ document.addEventListener("DOMContentLoaded", () => {
     routeClose.addEventListener("click", closeRoute);
   }
 
+  if (routeReturn) {
+    routeReturn.addEventListener("click", closeRoute);
+  }
+
   if (routeDialog) {
     routeDialog.addEventListener("close", () => {
-      if (activeRouteCard) {
-        activeRouteCard.focus();
-        activeRouteCard = null;
+      if (activeRouteTrigger) {
+        activeRouteTrigger.focus();
+        activeRouteTrigger = null;
       }
     });
 
     routeDialog.addEventListener("click", (event) => {
-      const dialogArea = routeDialog.getBoundingClientRect();
+      const area = routeDialog.getBoundingClientRect();
 
       const clickedOutside =
-        event.clientX < dialogArea.left ||
-        event.clientX > dialogArea.right ||
-        event.clientY < dialogArea.top ||
-        event.clientY > dialogArea.bottom;
+        event.clientX < area.left ||
+        event.clientX > area.right ||
+        event.clientY < area.top ||
+        event.clientY > area.bottom;
 
       if (clickedOutside) {
         closeRoute();
@@ -763,22 +866,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -----------------------------------------
-     Resume doorway animation
-  ----------------------------------------- */
-
-  if (resumeDoor) {
-    resumeDoor.addEventListener("click", () => {
-      resumeDoor.classList.add("is-opening");
-    });
-  }
-
-  if (resumeFooterLink) {
-    resumeFooterLink.addEventListener("click", () => {
-      resumeFooterLink.classList.add("is-opening");
-    });
-  }
-
-  /* -----------------------------------------
      Visitor counter
   ----------------------------------------- */
 
@@ -796,19 +883,19 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const duration = 1300;
+      const duration = 1200;
       const startTime = performance.now();
-      const startValue = Math.max(0, target - 28);
+      const startValue = Math.max(0, target - 20);
 
       const update = (currentTime) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        const currentValue = Math.round(
+        const value = Math.round(
           startValue + (target - startValue) * eased
         );
 
-        setCounter(currentValue);
+        setCounter(value);
 
         if (progress < 1) {
           requestAnimationFrame(update);
