@@ -1,12 +1,15 @@
 /* =========================================
    My Journey — Revanth Kumar Matta
-   Final Trial 1 interactions
+   Cinematic Journey interactions
 ========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.querySelector(".menu-toggle");
   const primaryNav = document.querySelector(".primary-nav");
-  const navLinks = document.querySelectorAll(".primary-nav a");
+  const navLinks = document.querySelectorAll(".journey-rail a");
+
+  const themeToggle = document.querySelector("[data-theme-toggle]");
+  const htmlElement = document.documentElement;
 
   const backToTop = document.querySelector(".back-to-top");
   const arrivalSection = document.querySelector("#arrival");
@@ -25,9 +28,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const visitorCount = document.querySelector("#visitor-count");
 
+  const sections = document.querySelectorAll("main section[id]");
+  const revealElements = document.querySelectorAll(".reveal");
+
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
+
+  /* -----------------------------------------
+     Theme
+  ----------------------------------------- */
+
+  const storedTheme = localStorage.getItem("my-journey-theme");
+
+  if (storedTheme === "light" || storedTheme === "dark") {
+    htmlElement.setAttribute("data-theme", storedTheme);
+  } else if (
+    window.matchMedia("(prefers-color-scheme: light)").matches
+  ) {
+    htmlElement.setAttribute("data-theme", "light");
+  }
+
+  const updateThemeToggle = () => {
+    const currentTheme = htmlElement.getAttribute("data-theme");
+    const isLight = currentTheme === "light";
+
+    themeToggle.setAttribute("aria-pressed", String(isLight));
+    themeToggle.setAttribute(
+      "aria-label",
+      isLight ? "Switch to dark theme" : "Switch to light theme"
+    );
+  };
+
+  if (themeToggle) {
+    updateThemeToggle();
+
+    themeToggle.addEventListener("click", () => {
+      const currentTheme = htmlElement.getAttribute("data-theme");
+      const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+      htmlElement.setAttribute("data-theme", nextTheme);
+      localStorage.setItem("my-journey-theme", nextTheme);
+      updateThemeToggle();
+    });
+  }
 
   /* -----------------------------------------
      Mobile navigation
@@ -59,10 +103,41 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -----------------------------------------
-     Scroll reveal animations
+     Active navigation
   ----------------------------------------- */
 
-  const revealElements = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && sections.length > 0) {
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const sectionId = entry.target.id;
+
+          navLinks.forEach((link) => {
+            const isActive =
+              link.getAttribute("data-section") === sectionId;
+
+            link.classList.toggle("is-active", isActive);
+          });
+        });
+      },
+      {
+        rootMargin: "-45% 0px -45% 0px",
+        threshold: 0
+      }
+    );
+
+    sections.forEach((section) => {
+      sectionObserver.observe(section);
+    });
+  }
+
+  /* -----------------------------------------
+     Scroll reveal animations
+  ----------------------------------------- */
 
   if (
     prefersReducedMotion ||
@@ -201,7 +276,10 @@ document.addEventListener("DOMContentLoaded", () => {
               <li><strong>Publishing:</strong> Planned</li>
               <li><strong>Platform:</strong> To be finalized</li>
               <li><strong>Pen name:</strong> Will be updated soon</li>
-              <li><strong>Resources:</strong> Free AI tools for drafting and organization</li>
+              <li>
+                <strong>Resources:</strong> Free AI tools for drafting
+                and organization
+              </li>
             </ul>
           `
         },
@@ -219,7 +297,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "Stay on This Route",
-        href: "mailto:revanthkm13@gmail.com?subject=Reading%20%26%20Writing%20Route"
+        href:
+          "mailto:revanthkm13@gmail.com?subject=Reading%20%26%20Writing%20Route"
       }
     },
 
@@ -388,7 +467,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "Follow This Route",
-        href: "mailto:revanthkm13@gmail.com?subject=Games%20%26%20Strategy%20Route"
+        href:
+          "mailto:revanthkm13@gmail.com?subject=Games%20%26%20Strategy%20Route"
       }
     },
 
@@ -455,7 +535,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "View Experiments",
-        href: "mailto:revanthkm13@gmail.com?subject=Design%20%26%20Digital%20Products"
+        href:
+          "mailto:revanthkm13@gmail.com?subject=Design%20%26%20Digital%20Products"
       }
     },
 
@@ -511,7 +592,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "View Learning Notes",
-        href: "mailto:revanthkm13@gmail.com?subject=Learning%20%26%20Exploration"
+        href:
+          "mailto:revanthkm13@gmail.com?subject=Learning%20%26%20Exploration"
       }
     },
 
@@ -558,7 +640,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       cta: {
         label: "Follow This Route",
-        href: "mailto:revanthkm13@gmail.com?subject=Food%20%26%20Curiosity%20Route"
+        href:
+          "mailto:revanthkm13@gmail.com?subject=Food%20%26%20Curiosity%20Route"
       }
     }
   };
@@ -654,7 +737,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -----------------------------------------
-     Back to top button
+     Back to top
   ----------------------------------------- */
 
   if (backToTop && arrivalSection) {
@@ -680,7 +763,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -----------------------------------------
-     Resume door animation
+     Resume doorway animation
   ----------------------------------------- */
 
   if (resumeDoor) {
@@ -713,9 +796,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const duration = 1200;
+      const duration = 1300;
       const startTime = performance.now();
-      const startValue = Math.max(0, target - 24);
+      const startValue = Math.max(0, target - 28);
 
       const update = (currentTime) => {
         const elapsed = currentTime - startTime;
