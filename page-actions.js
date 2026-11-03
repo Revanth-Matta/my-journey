@@ -119,3 +119,4 @@ function switchDomain(domainKey) {
         }
     });
 }
+
