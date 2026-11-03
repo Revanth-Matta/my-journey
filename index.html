@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revanth Kumar Matta | Professional Work Portfolio</title>
-    <!-- Simple, clean readable lettering styles -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="design-styles.css">
-    <!-- Visual symbols library -->
+    
+    <!-- Link to your stylesheet file -->
+    <link rel="stylesheet" href="./design-styles.css">
+    
+    <!-- Visual symbols library script -->
     <script src="https://unpkg.com"></script>
 </head>
 <body>
@@ -69,8 +71,31 @@
                     <button class="tab-btn" onclick="switchDomain('education')"><i data-lucide="graduation-cap"></i> School Background</button>
                 </div>
 
+                <!-- FIXED START VIEW CONTAINER TO PREVENT BLANK WINDOWS -->
                 <div id="runtime-workspace" class="runtime-content">
-                    <!-- Dynamic tabs fill this area automatically -->
+                    <div class="animate-fade">
+                        <h2 style="font-size: 17px; margin-bottom: 18px; color: var(--text-primary); font-weight: 600;">Everyday Projects & Operational Highlights</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="info-block">
+                                <h3><i data-lucide="activity"></i> Core Responsibilities</h3>
+                                <ul style="font-size: 13px; color: var(--text-secondary); list-style: none; line-height: 2; padding-left: 0;">
+                                    <li>• Finding and pulling complex medical record files</li>
+                                    <li>• Checking client eligibility and insurance scopes</li>
+                                    <li>• Strict handling of secure, private patient info</li>
+                                    <li>• Checking file errors and helping teammates</li>
+                                </ul>
+                            </div>
+                            <div class="info-block">
+                                <h3><i data-lucide="layers"></i> Systems & Everyday Tools</h3>
+                                <ul style="font-size: 13px; color: var(--text-secondary); list-style: none; line-height: 2; padding-left: 0;">
+                                    <li>• Detailed Microsoft Excel sheets & data grids</li>
+                                    <li>• Step-by-step company guidelines & checklists</li>
+                                    <li>• Internal data tools for health verification</li>
+                                    <li>• Custom tracker logs for checking group errors</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -86,8 +111,8 @@
         </footer>
     </div>
 
-    <!-- Mouse motion script assets -->
+    <!-- Mouse motion and page action script connections -->
     <script src="https://cloudflare.com"></script>
-    <script src="page-actions.js"></script>
+    <script src="./page-actions.js"></script>
 </body>
 </html>
