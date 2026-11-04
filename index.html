@@ -102,12 +102,11 @@
           <h2 id="atlas-title">Choose a territory to explore</h2>
           <p class="section-lede">
             Hover or focus a territory for a preview.
-            Select it to clear the fog and reveal its route.
+            Select it to clear the mist and reveal its route.
           </p>
         </div>
 
         <div class="atlas-world reveal">
-          <!-- Continuous SVG map -->
           <svg
             class="atlas-svg"
             viewBox="0 0 1200 760"
@@ -121,10 +120,51 @@
               food and curiosity, and a professional shore.
             </desc>
 
+            <defs>
+              <!-- Organic mist texture -->
+              <filter id="mistTexture" x="-30%" y="-30%" width="160%" height="160%">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="0.012 0.02"
+                  numOctaves="3"
+                  seed="18"
+                  result="noise"
+                />
+                <feDisplacementMap
+                  in="SourceGraphic"
+                  in2="noise"
+                  scale="38"
+                  xChannelSelector="R"
+                  yChannelSelector="G"
+                  result="displaced"
+                />
+                <feGaussianBlur in="displaced" stdDeviation="9"/>
+              </filter>
+
+              <!-- Softer distant mist -->
+              <filter id="softMist" x="-30%" y="-30%" width="160%" height="160%">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="0.008 0.014"
+                  numOctaves="2"
+                  seed="42"
+                  result="noise"
+                />
+                <feDisplacementMap
+                  in="SourceGraphic"
+                  in2="noise"
+                  scale="55"
+                  xChannelSelector="R"
+                  yChannelSelector="G"
+                  result="displaced"
+                />
+                <feGaussianBlur in="displaced" stdDeviation="16"/>
+              </filter>
+            </defs>
+
             <!-- Ocean -->
             <rect class="ocean" width="1200" height="760"/>
 
-            <!-- Subtle ocean texture -->
             <g class="ocean-texture" aria-hidden="true">
               <path d="M80 120q30-14 60 0t60 0"/>
               <path d="M920 180q30-14 60 0t60 0"/>
@@ -133,126 +173,130 @@
               <path d="M520 700q30-14 60 0t60 0"/>
             </g>
 
-            <!-- The Inklands -->
+            <!-- Landmasses -->
             <g class="landmass landmass-inklands">
               <path
                 class="land-shape"
-                d="M70 90
-                   C150 45, 260 55, 330 100
-                   C390 140, 400 210, 350 260
-                   C310 300, 230 315, 170 290
-                   C100 260, 45 200, 55 145
-                   C60 120, 60 105, 70 90 Z"
+                d="M70 90 C150 45, 260 55, 330 100 C390 140, 400 210, 350 260 C310 300, 230 315, 170 290 C100 260, 45 200, 55 145 C60 120, 60 105, 70 90 Z"
               />
               <path class="river" d="M150 140q40 30 30 80"/>
               <path class="coast-detail" d="M90 180q25 18 50 8"/>
             </g>
 
-            <!-- The Strategy Isles -->
             <g class="landmass landmass-strategy">
               <path
                 class="land-shape"
-                d="M830 75
-                   C890 55, 960 70, 985 115
-                   C1005 155, 975 195, 925 200
-                   C875 205, 825 180, 815 140
-                   C810 115, 810 90, 830 75 Z"
+                d="M830 75 C890 55, 960 70, 985 115 C1005 155, 975 195, 925 200 C875 205, 825 180, 815 140 C810 115, 810 90, 830 75 Z"
               />
               <path
                 class="land-shape islet"
-                d="M1035 135
-                   C1065 125, 1095 140, 1095 165
-                   C1095 190, 1065 205, 1040 195
-                   C1015 185, 1010 150, 1035 135 Z"
+                d="M1035 135 C1065 125, 1095 140, 1095 165 C1095 190, 1065 205, 1040 195 C1015 185, 1010 150, 1035 135 Z"
               />
               <path
                 class="land-shape islet"
-                d="M870 235
-                   C895 228, 920 240, 920 260
-                   C920 282, 895 292, 875 284
-                   C855 276, 852 245, 870 235 Z"
+                d="M870 235 C895 228, 920 240, 920 260 C920 282, 895 292, 875 284 C855 276, 852 245, 870 235 Z"
               />
             </g>
 
-            <!-- Arrival -->
             <g class="landmass landmass-arrival">
               <path
                 class="land-shape"
-                d="M545 330
-                   C590 305, 650 315, 670 355
-                   C690 395, 660 435, 610 440
-                   C560 445, 520 415, 520 380
-                   C520 360, 528 342, 545 330 Z"
+                d="M545 330 C590 305, 650 315, 670 355 C690 395, 660 435, 610 440 C560 445, 520 415, 520 380 C520 360, 528 342, 545 330 Z"
               />
               <circle class="harbour-marker" cx="595" cy="385" r="7"/>
             </g>
 
-            <!-- The Maker’s Coast -->
             <g class="landmass landmass-makers">
               <path
                 class="land-shape"
-                d="M760 330
-                   C850 300, 960 320, 1030 370
-                   C1090 415, 1090 480, 1030 515
-                   C960 555, 850 550, 790 505
-                   C735 465, 720 395, 760 330 Z"
+                d="M760 330 C850 300, 960 320, 1030 370 C1090 415, 1090 480, 1030 515 C960 555, 850 550, 790 505 C735 465, 720 395, 760 330 Z"
               />
               <path class="cliff" d="M810 375q25 30 5 65"/>
               <path class="bay" d="M950 470q35 18 70 0"/>
             </g>
 
-            <!-- The Curiosity Expanse -->
             <g class="landmass landmass-curiosity">
               <path
                 class="land-shape"
-                d="M90 430
-                   C190 390, 310 410, 370 470
-                   C420 520, 400 590, 330 625
-                   C250 665, 130 650, 80 590
-                   C35 535, 35 470, 90 430 Z"
+                d="M90 430 C190 390, 310 410, 370 470 C420 520, 400 590, 330 625 C250 665, 130 650, 80 590 C35 535, 35 470, 90 430 Z"
               />
               <path class="valley" d="M150 520q60 35 130 15"/>
               <path class="route-node" d="M180 560l0 0"/>
             </g>
 
-            <!-- The Saffron Shores -->
             <g class="landmass landmass-saffron">
               <path
                 class="land-shape"
-                d="M790 590
-                   C870 555, 980 570, 1040 620
-                   C1090 665, 1070 720, 1000 735
-                   C920 750, 820 730, 780 680
-                   C750 640, 755 610, 790 590 Z"
+                d="M790 590 C870 555, 980 570, 1040 620 C1090 665, 1070 720, 1000 735 C920 750, 820 730, 780 680 C750 640, 755 610, 790 590 Z"
               />
               <path class="beach" d="M830 690q45 25 100 10"/>
               <path class="cove" d="M950 640q30 20 60 5"/>
             </g>
 
-            <!-- The Professional Shore -->
             <g class="landmass landmass-professional">
               <path
                 class="land-shape"
-                d="M430 620
-                   C490 595, 560 610, 590 650
-                   C615 690, 590 725, 540 730
-                   C490 735, 440 715, 425 680
-                   C415 655, 418 635, 430 620 Z"
+                d="M430 620 C490 595, 560 610, 590 650 C615 690, 590 725, 540 730 C490 735, 440 715, 425 680 C415 655, 418 635, 430 620 Z"
               />
               <path class="bridge-route" d="M595 385q-20 130-105 245"/>
             </g>
 
             <!-- Water routes -->
             <g class="water-routes" aria-hidden="true">
-              <path class="route" d="M330 190q110 80 215 195"/>
-              <path class="route" d="M670 385q80-90 160-210"/>
-              <path class="route" d="M670 385q80 60 120 100"/>
-              <path class="route" d="M370 540q90-60 175-140"/>
-              <path class="route" d="M610 440q100 90 190 160"/>
-              <path class="route" d="M595 385q-20 130-105 245"/>
+              <path class="route" data-route="inklands" d="M330 190q110 80 215 195"/>
+              <path class="route" data-route="strategy-isles" d="M670 385q80-90 160-210"/>
+              <path class="route" data-route="makers-coast" d="M670 385q80 60 120 100"/>
+              <path class="route" data-route="curiosity-expanse" d="M370 540q90-60 175-140"/>
+              <path class="route" data-route="saffron-shores" d="M610 440q100 90 190 160"/>
+              <path class="route" data-route="professional-shore" d="M595 385q-20 130-105 245"/>
             </g>
 
-            <!-- Compass rose -->
+            <!-- Global drifting mist -->
+            <g class="mist-global" aria-hidden="true" filter="url(#softMist)">
+              <ellipse class="mist-cloud" cx="220" cy="180" rx="190" ry="80"/>
+              <ellipse class="mist-cloud" cx="900" cy="250" rx="210" ry="85"/>
+              <ellipse class="mist-cloud" cx="280" cy="580" rx="200" ry="85"/>
+              <ellipse class="mist-cloud" cx="880" cy="640" rx="220" ry="90"/>
+              <ellipse class="mist-cloud" cx="590" cy="420" rx="170" ry="70"/>
+            </g>
+
+            <!-- Territory mist -->
+            <g class="mist-territory" data-mist="inklands" aria-hidden="true" filter="url(#mistTexture)">
+              <ellipse class="mist-cloud" cx="200" cy="170" rx="180" ry="95"/>
+              <ellipse class="mist-cloud" cx="280" cy="230" rx="150" ry="75"/>
+              <ellipse class="mist-cloud" cx="140" cy="230" rx="130" ry="65"/>
+            </g>
+
+            <g class="mist-territory" data-mist="strategy-isles" aria-hidden="true" filter="url(#mistTexture)">
+              <ellipse class="mist-cloud" cx="910" cy="150" rx="170" ry="80"/>
+              <ellipse class="mist-cloud" cx="1030" cy="200" rx="130" ry="65"/>
+              <ellipse class="mist-cloud" cx="880" cy="260" rx="120" ry="60"/>
+            </g>
+
+            <g class="mist-territory" data-mist="makers-coast" aria-hidden="true" filter="url(#mistTexture)">
+              <ellipse class="mist-cloud" cx="900" cy="420" rx="200" ry="90"/>
+              <ellipse class="mist-cloud" cx="800" cy="480" rx="150" ry="70"/>
+              <ellipse class="mist-cloud" cx="1010" cy="480" rx="140" ry="65"/>
+            </g>
+
+            <g class="mist-territory" data-mist="curiosity-expanse" aria-hidden="true" filter="url(#mistTexture)">
+              <ellipse class="mist-cloud" cx="220" cy="530" rx="190" ry="90"/>
+              <ellipse class="mist-cloud" cx="310" cy="600" rx="150" ry="70"/>
+              <ellipse class="mist-cloud" cx="150" cy="600" rx="130" ry="60"/>
+            </g>
+
+            <g class="mist-territory" data-mist="saffron-shores" aria-hidden="true" filter="url(#mistTexture)">
+              <ellipse class="mist-cloud" cx="910" cy="660" rx="190" ry="80"/>
+              <ellipse class="mist-cloud" cx="1020" cy="700" rx="140" ry="60"/>
+              <ellipse class="mist-cloud" cx="820" cy="700" rx="130" ry="60"/>
+            </g>
+
+            <g class="mist-territory" data-mist="professional-shore" aria-hidden="true" filter="url(#mistTexture)">
+              <ellipse class="mist-cloud" cx="510" cy="680" rx="140" ry="65"/>
+              <ellipse class="mist-cloud" cx="580" cy="710" rx="110" ry="50"/>
+            </g>
+
+            <!-- Compass -->
             <g class="compass" aria-hidden="true">
               <circle cx="1120" cy="680" r="34"/>
               <path d="M1120 650v60M1090 680h60M1100 660l40 40M1140 660l-40 40"/>
@@ -452,16 +496,6 @@
               </div>
             </article>
           </div>
-
-          <!-- Fog layers -->
-          <div class="fog-layer global-fog" aria-hidden="true"></div>
-
-          <div class="fog-layer territory-fog" data-for="inklands" aria-hidden="true"></div>
-          <div class="fog-layer territory-fog" data-for="strategy-isles" aria-hidden="true"></div>
-          <div class="fog-layer territory-fog" data-for="makers-coast" aria-hidden="true"></div>
-          <div class="fog-layer territory-fog" data-for="curiosity-expanse" aria-hidden="true"></div>
-          <div class="fog-layer territory-fog" data-for="saffron-shores" aria-hidden="true"></div>
-          <div class="fog-layer territory-fog" data-for="professional-shore" aria-hidden="true"></div>
 
           <!-- Ship -->
           <svg class="atlas-ship" viewBox="0 0 64 40" role="img" aria-label="Ship travelling through the Atlas waters">
