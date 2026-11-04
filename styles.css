@@ -1,6 +1,6 @@
 /* =========================================
    Revanth’s Personal Atlas
-   Ink, Saffron & Moss — Work 2: World Cohesion
+   Ink, Saffron & Moss — Work 3: Territory Depth
 ========================================= */
 
 :root {
@@ -54,6 +54,11 @@ html[data-theme="dark"] {
   --route-active: #f0b45a;
   --route-glow: rgba(240, 180, 90, 0.55);
 
+  --landmark-idle: rgba(232, 163, 61, 0.22);
+  --landmark-preview: rgba(232, 163, 61, 0.6);
+  --landmark-active: #f0b45a;
+  --landmark-glow: rgba(240, 180, 90, 0.45);
+
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
   --header-bg: rgba(20, 18, 16, 0.85);
   --focus: #e8a33d;
@@ -93,6 +98,11 @@ html[data-theme="light"] {
   --route-idle: rgba(185, 122, 23, 0.3);
   --route-active: #a06610;
   --route-glow: rgba(185, 122, 23, 0.45);
+
+  --landmark-idle: rgba(185, 122, 23, 0.24);
+  --landmark-preview: rgba(185, 122, 23, 0.6);
+  --landmark-active: #a06610;
+  --landmark-glow: rgba(185, 122, 23, 0.4);
 
   --shadow: 0 18px 45px rgba(29, 26, 23, 0.10);
   --header-bg: rgba(245, 239, 228, 0.88);
@@ -426,7 +436,6 @@ p {
   pointer-events: none;
 }
 
-/* Arrival map grain: weathered parchment, not painted wall */
 .map-grain {
   position: absolute;
   inset: 0;
@@ -456,7 +465,7 @@ p {
   opacity: 0.45;
 }
 
-/* Arrival: map left, text right */
+/* Arrival */
 .arrival {
   position: relative;
   min-height: 100svh;
@@ -523,7 +532,6 @@ p {
   background: var(--line-strong);
 }
 
-/* Ship travels right → left */
 .ship {
   position: absolute;
   right: 8%;
@@ -687,7 +695,158 @@ p {
   stroke-linecap: round;
 }
 
-/* Routes */
+/* =========================================
+   Work 3: Landmarks & territory depth
+========================================= */
+
+.landmark {
+  pointer-events: none;
+  transition:
+    opacity var(--transition),
+    transform var(--transition),
+    filter var(--transition);
+}
+
+.landmark path,
+.landmark circle {
+  fill: none;
+  stroke: var(--landmark-idle);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.landmark circle {
+  fill: var(--landmark-idle);
+}
+
+/* Primary landmarks */
+.primary-landmark path,
+.primary-landmark circle {
+  stroke-width: 4;
+}
+
+/* Secondary landmarks */
+.secondary-landmark path,
+.secondary-landmark circle {
+  stroke-width: 2.5;
+  opacity: 0.75;
+}
+
+/* Inklands */
+.landmark-inkwell {
+  fill: var(--landmark-idle);
+}
+
+.landmark-quill {
+  stroke: var(--landmark-idle);
+}
+
+/* Strategy Isles */
+.landmark-flag {
+  fill: var(--landmark-idle);
+}
+
+/* Maker's Coast */
+.landmark-light {
+  fill: var(--landmark-idle);
+}
+
+.landmark-gear {
+  fill: none;
+}
+
+/* Curiosity Expanse */
+.landmark-scope-end,
+.landmark-node {
+  fill: var(--landmark-idle);
+}
+
+/* Saffron Shores */
+.landmark-bowl {
+  fill: none;
+}
+
+/* Professional Shore */
+.landmark-bridge {
+  fill: none;
+}
+
+/* Mist states */
+
+/* Covered: landmarks nearly hidden */
+.landmark {
+  opacity: 0.16;
+  transform: translateY(3px);
+}
+
+/* Preview: primary landmark emerges */
+.landmass.is-previewed .primary-landmark {
+  opacity: 0.75;
+  transform: translateY(0);
+}
+
+.landmass.is-previewed .primary-landmark path,
+.landmass.is-previewed .primary-landmark circle {
+  stroke: var(--landmark-preview);
+}
+
+.landmass.is-previewed .primary-landmark circle {
+  fill: var(--landmark-preview);
+}
+
+.landmass.is-previewed .secondary-landmark {
+  opacity: 0.4;
+}
+
+/* Revealed: landmarks fully visible */
+.landmass.is-revealed .primary-landmark {
+  opacity: 1;
+  transform: translateY(0);
+  filter: drop-shadow(0 0 10px var(--landmark-glow));
+}
+
+.landmass.is-revealed .primary-landmark path,
+.landmass.is-revealed .primary-landmark circle {
+  stroke: var(--landmark-active);
+}
+
+.landmass.is-revealed .primary-landmark circle {
+  fill: var(--landmark-active);
+}
+
+.landmass.is-revealed .secondary-landmark {
+  opacity: 0.85;
+}
+
+.landmass.is-revealed .secondary-landmark path,
+.landmass.is-revealed .secondary-landmark circle {
+  stroke: var(--landmark-preview);
+}
+
+/* Subtle landmark emergence */
+@media (prefers-reduced-motion: no-preference) {
+  .landmass.is-previewed .primary-landmark,
+  .landmass.is-revealed .primary-landmark {
+    animation: landmarkRise 0.65s var(--ease);
+  }
+}
+
+@keyframes landmarkRise {
+  from {
+    opacity: 0.1;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   Routes
+========================================= */
+
 .water-routes .route {
   fill: none;
   stroke: var(--route-idle);
@@ -717,7 +876,7 @@ p {
 }
 
 /* =========================================
-   Mist: dense Atlas-wide coverage
+   Mist
 ========================================= */
 
 .mist-cloud {
@@ -841,7 +1000,7 @@ p {
 }
 
 /* =========================================
-   Territory labels: no cards
+   Territory labels
 ========================================= */
 
 .territory-layer {
@@ -860,7 +1019,6 @@ p {
   transition: transform var(--transition), opacity var(--transition);
 }
 
-/* Idle: names mostly hidden beneath mist */
 .territory .territory-poetic {
   font-family: var(--font-display);
   font-size: 0.92rem;
@@ -904,7 +1062,6 @@ p {
   content: "→";
 }
 
-/* Preview: text emerges from mist */
 .territory:hover,
 .territory:focus-within {
   z-index: 8;
@@ -929,7 +1086,6 @@ p {
   transform: none;
 }
 
-/* Revealed: full clarity with a soft parchment wash */
 .territory.is-revealed {
   z-index: 8;
   transform: translateY(-2px);
@@ -952,7 +1108,6 @@ p {
   transform: none;
 }
 
-/* Territory positions */
 .territory-inklands {
   left: 4%;
   top: 6%;
@@ -1038,7 +1193,7 @@ p {
   margin-top: 0.7rem;
 }
 
-/* Ship: heavier exploratory drift */
+/* Ship */
 .atlas-ship {
   position: absolute;
   z-index: 6;
@@ -1089,7 +1244,7 @@ p {
 }
 
 /* =========================================
-   Field Notes: Atlas dispatches
+   Field Notes
 ========================================= */
 
 .field-notes {
@@ -1204,7 +1359,6 @@ p {
   color: var(--text-muted);
 }
 
-/* Staggered reveal */
 .dispatch-one.reveal { transition-delay: 0.05s; }
 .dispatch-two.reveal { transition-delay: 0.15s; }
 .dispatch-three.reveal { transition-delay: 0.25s; }
@@ -1322,7 +1476,7 @@ p {
   }
 }
 
-/* Mobile: vertical journey */
+/* Mobile */
 @media (max-width: 63.99rem) {
   .atlas-world {
     aspect-ratio: auto;
@@ -1374,6 +1528,11 @@ p {
     display: none;
   }
 
+  .landmark {
+    opacity: 0.85;
+    transform: none;
+  }
+
   .dispatch-one,
   .dispatch-two,
   .dispatch-three,
@@ -1382,7 +1541,7 @@ p {
   }
 }
 
-/* Reduced motion: static but immersive */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1418,10 +1577,21 @@ p {
     filter: url(#routeGlow);
   }
 
+  .landmark {
+    opacity: 0.16;
+    transform: none;
+  }
+
+  .landmass.is-previewed .primary-landmark,
+  .landmass.is-revealed .primary-landmark {
+    animation: none;
+  }
+
   .mist-territory,
   .territory-preview,
   .territory-action,
   .water-routes .route,
+  .landmark,
   .dispatch {
     transition: none;
   }
