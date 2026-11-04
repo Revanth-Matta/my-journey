@@ -94,7 +94,7 @@
       <a class="skip-intro" href="#atlas">Skip to Atlas</a>
     </section>
 
-    <!-- ATLAS MAP -->
+    <!-- ATLAS -->
     <section class="atlas" id="atlas" aria-labelledby="atlas-title">
       <div class="shell">
         <div class="section-head reveal">
@@ -106,224 +106,369 @@
           </p>
         </div>
 
-        <div class="atlas-map reveal" role="group" aria-label="Personal Atlas map">
-          <div class="map-surface" aria-hidden="true"></div>
-          <div class="map-contours" aria-hidden="true"></div>
-          <div class="map-routes" aria-hidden="true"></div>
-          <div class="compass-rose" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="atlas-world reveal">
+          <!-- Continuous SVG map -->
+          <svg
+            class="atlas-svg"
+            viewBox="0 0 1200 760"
+            role="img"
+            aria-labelledby="atlas-svg-title atlas-svg-description"
+          >
+            <title id="atlas-svg-title">Revanth’s Personal Atlas</title>
+            <desc id="atlas-svg-description">
+              A parchment map with separate landmasses for reading and writing,
+              games and strategy, making and building, learning and exploration,
+              food and curiosity, and a professional shore.
+            </desc>
+
+            <!-- Ocean -->
+            <rect class="ocean" width="1200" height="760"/>
+
+            <!-- Subtle ocean texture -->
+            <g class="ocean-texture" aria-hidden="true">
+              <path d="M80 120q30-14 60 0t60 0"/>
+              <path d="M920 180q30-14 60 0t60 0"/>
+              <path d="M180 600q30-14 60 0t60 0"/>
+              <path d="M820 640q30-14 60 0t60 0"/>
+              <path d="M520 700q30-14 60 0t60 0"/>
+            </g>
+
+            <!-- The Inklands -->
+            <g class="landmass landmass-inklands">
+              <path
+                class="land-shape"
+                d="M70 90
+                   C150 45, 260 55, 330 100
+                   C390 140, 400 210, 350 260
+                   C310 300, 230 315, 170 290
+                   C100 260, 45 200, 55 145
+                   C60 120, 60 105, 70 90 Z"
+              />
+              <path class="river" d="M150 140q40 30 30 80"/>
+              <path class="coast-detail" d="M90 180q25 18 50 8"/>
+            </g>
+
+            <!-- The Strategy Isles -->
+            <g class="landmass landmass-strategy">
+              <path
+                class="land-shape"
+                d="M830 75
+                   C890 55, 960 70, 985 115
+                   C1005 155, 975 195, 925 200
+                   C875 205, 825 180, 815 140
+                   C810 115, 810 90, 830 75 Z"
+              />
+              <path
+                class="land-shape islet"
+                d="M1035 135
+                   C1065 125, 1095 140, 1095 165
+                   C1095 190, 1065 205, 1040 195
+                   C1015 185, 1010 150, 1035 135 Z"
+              />
+              <path
+                class="land-shape islet"
+                d="M870 235
+                   C895 228, 920 240, 920 260
+                   C920 282, 895 292, 875 284
+                   C855 276, 852 245, 870 235 Z"
+              />
+            </g>
+
+            <!-- Arrival -->
+            <g class="landmass landmass-arrival">
+              <path
+                class="land-shape"
+                d="M545 330
+                   C590 305, 650 315, 670 355
+                   C690 395, 660 435, 610 440
+                   C560 445, 520 415, 520 380
+                   C520 360, 528 342, 545 330 Z"
+              />
+              <circle class="harbour-marker" cx="595" cy="385" r="7"/>
+            </g>
+
+            <!-- The Maker’s Coast -->
+            <g class="landmass landmass-makers">
+              <path
+                class="land-shape"
+                d="M760 330
+                   C850 300, 960 320, 1030 370
+                   C1090 415, 1090 480, 1030 515
+                   C960 555, 850 550, 790 505
+                   C735 465, 720 395, 760 330 Z"
+              />
+              <path class="cliff" d="M810 375q25 30 5 65"/>
+              <path class="bay" d="M950 470q35 18 70 0"/>
+            </g>
+
+            <!-- The Curiosity Expanse -->
+            <g class="landmass landmass-curiosity">
+              <path
+                class="land-shape"
+                d="M90 430
+                   C190 390, 310 410, 370 470
+                   C420 520, 400 590, 330 625
+                   C250 665, 130 650, 80 590
+                   C35 535, 35 470, 90 430 Z"
+              />
+              <path class="valley" d="M150 520q60 35 130 15"/>
+              <path class="route-node" d="M180 560l0 0"/>
+            </g>
+
+            <!-- The Saffron Shores -->
+            <g class="landmass landmass-saffron">
+              <path
+                class="land-shape"
+                d="M790 590
+                   C870 555, 980 570, 1040 620
+                   C1090 665, 1070 720, 1000 735
+                   C920 750, 820 730, 780 680
+                   C750 640, 755 610, 790 590 Z"
+              />
+              <path class="beach" d="M830 690q45 25 100 10"/>
+              <path class="cove" d="M950 640q30 20 60 5"/>
+            </g>
+
+            <!-- The Professional Shore -->
+            <g class="landmass landmass-professional">
+              <path
+                class="land-shape"
+                d="M430 620
+                   C490 595, 560 610, 590 650
+                   C615 690, 590 725, 540 730
+                   C490 735, 440 715, 425 680
+                   C415 655, 418 635, 430 620 Z"
+              />
+              <path class="bridge-route" d="M595 385q-20 130-105 245"/>
+            </g>
+
+            <!-- Water routes -->
+            <g class="water-routes" aria-hidden="true">
+              <path class="route" d="M330 190q110 80 215 195"/>
+              <path class="route" d="M670 385q80-90 160-210"/>
+              <path class="route" d="M670 385q80 60 120 100"/>
+              <path class="route" d="M370 540q90-60 175-140"/>
+              <path class="route" d="M610 440q100 90 190 160"/>
+              <path class="route" d="M595 385q-20 130-105 245"/>
+            </g>
+
+            <!-- Compass rose -->
+            <g class="compass" aria-hidden="true">
+              <circle cx="1120" cy="680" r="34"/>
+              <path d="M1120 650v60M1090 680h60M1100 660l40 40M1140 660l-40 40"/>
+              <text x="1120" y="638" text-anchor="middle">N</text>
+            </g>
+          </svg>
+
+          <!-- Territory controls -->
+          <div class="territory-layer">
+            <article class="territory territory-inklands" id="inklands" aria-labelledby="inklands-button">
+              <button
+                class="territory-control"
+                type="button"
+                id="inklands-button"
+                aria-expanded="false"
+                aria-controls="inklands-detail"
+              >
+                <span class="territory-poetic">The Inklands</span>
+                <span class="territory-name">Reading &amp; Writing</span>
+                <span class="territory-preview">
+                  Stories, imagination, and an original novel in progress.
+                </span>
+                <span class="territory-action">Open territory</span>
+              </button>
+
+              <div class="territory-detail" id="inklands-detail" hidden>
+                <p class="territory-intro">
+                  Stories let me explore possibilities, perspectives,
+                  and worlds beyond everyday life.
+                </p>
+
+                <ul class="territory-markers">
+                  <li>Fanfiction and alternate story directions</li>
+                  <li>Original novel in early development</li>
+                  <li>Future publishing intention</li>
+                </ul>
+
+                <p class="territory-future">
+                  Future route: continue developing the world,
+                  characters, and plot.
+                </p>
+              </div>
+            </article>
+
+            <article class="territory territory-strategy" id="strategy-isles" aria-labelledby="strategy-button">
+              <button
+                class="territory-control"
+                type="button"
+                id="strategy-button"
+                aria-expanded="false"
+                aria-controls="strategy-detail"
+              >
+                <span class="territory-poetic">The Strategy Isles</span>
+                <span class="territory-name">Games &amp; Strategy</span>
+                <span class="territory-preview">
+                  Tactical worlds, adaptation, and steady improvement.
+                </span>
+                <span class="territory-action">Open territory</span>
+              </button>
+
+              <div class="territory-detail" id="strategy-detail" hidden>
+                <p class="territory-intro">
+                  Games are where I enjoy planning, adapting,
+                  and finding a way forward.
+                </p>
+
+                <ul class="territory-markers">
+                  <li>Currently playing: Game of Thrones: Kings Road</li>
+                  <li>Memorable games: Clash of Clans, Minecraft, Need for Speed, Call of Duty, SimCity</li>
+                  <li>Strategy: plan, adapt, and keep moving forward</li>
+                </ul>
+
+                <p class="territory-future">
+                  Future route: keep exploring game development
+                  and esports curiosity.
+                </p>
+              </div>
+            </article>
+
+            <article class="territory territory-makers" id="makers-coast" aria-labelledby="makers-button">
+              <button
+                class="territory-control"
+                type="button"
+                id="makers-button"
+                aria-expanded="false"
+                aria-controls="makers-detail"
+              >
+                <span class="territory-poetic">The Maker’s Coast</span>
+                <span class="territory-name">Making &amp; Building</span>
+                <span class="territory-preview">
+                  Offline tools, visual ideas, and useful experiments.
+                </span>
+                <span class="territory-action">Open territory</span>
+              </button>
+
+              <div class="territory-detail" id="makers-detail" hidden>
+                <p class="territory-intro">
+                  I enjoy turning small, repetitive problems into simple tools
+                  that save time.
+                </p>
+
+                <ul class="territory-markers">
+                  <li>Resume Template Builder</li>
+                  <li>Job Fit Tracker</li>
+                  <li>Message Builder</li>
+                </ul>
+
+                <p class="territory-future">
+                  Future route: improve offline-first tools and
+                  share selected experiments when ready.
+                </p>
+              </div>
+            </article>
+
+            <article class="territory territory-curiosity" id="curiosity-expanse" aria-labelledby="curiosity-button">
+              <button
+                class="territory-control"
+                type="button"
+                id="curiosity-button"
+                aria-expanded="false"
+                aria-controls="curiosity-detail"
+              >
+                <span class="territory-poetic">The Curiosity Expanse</span>
+                <span class="territory-name">Learning &amp; Exploration</span>
+                <span class="territory-preview">
+                  Data, AI tools, and practical skills.
+                </span>
+                <span class="territory-action">Open territory</span>
+              </button>
+
+              <div class="territory-detail" id="curiosity-detail" hidden>
+                <p class="territory-intro">
+                  Learning is how I stay curious, adapt to change,
+                  and keep improving.
+                </p>
+
+                <ul class="territory-markers">
+                  <li>Data Analytics Certification</li>
+                  <li>AI tools: Claude, Perplexity, Google AI, Copilot, ChatGPT</li>
+                  <li>Learning by exploring, building, and practising</li>
+                </ul>
+
+                <p class="territory-future">
+                  Future route: apply analytical thinking to
+                  personal projects and useful technology.
+                </p>
+              </div>
+            </article>
+
+            <article class="territory territory-saffron" id="saffron-shores" aria-labelledby="saffron-button">
+              <button
+                class="territory-control"
+                type="button"
+                id="saffron-button"
+                aria-expanded="false"
+                aria-controls="saffron-detail"
+              >
+                <span class="territory-poetic">The Saffron Shores</span>
+                <span class="territory-name">Food &amp; Curiosity</span>
+                <span class="territory-preview">
+                  Vegetarian flavours, cuisines, and everyday discovery.
+                </span>
+                <span class="territory-action">Open territory</span>
+              </button>
+
+              <div class="territory-detail" id="saffron-detail" hidden>
+                <p class="territory-intro">
+                  Food is one of the simplest ways to explore culture,
+                  memory, and everyday curiosity.
+                </p>
+
+                <ul class="territory-markers">
+                  <li>Vegetarian flavours and cuisines</li>
+                  <li>Healthy salads, bowls, and combinations</li>
+                  <li>Personal food map: planned, not started yet</li>
+                </ul>
+
+                <p class="territory-future">
+                  Future route: explore continental vegetarian options
+                  and document dishes worth remembering.
+                </p>
+              </div>
+            </article>
+
+            <article class="territory territory-professional" id="professional-shore" aria-labelledby="professional-button">
+              <div class="territory-control professional-control">
+                <span class="territory-poetic">The Professional Shore</span>
+                <span class="territory-name">Experience, impact &amp; opportunities</span>
+                <span class="territory-preview">
+                  The bridge to my professional portfolio.
+                </span>
+
+                <a class="btn btn-primary" href="https://revanth-matta.github.io/" target="_blank" rel="noopener noreferrer">
+                  View Professional Portfolio
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
+              </div>
+            </article>
           </div>
 
-          <!-- INKLANDS -->
-          <article class="territory territory-inklands" id="inklands" aria-labelledby="inklands-button">
-            <button
-              class="territory-control"
-              type="button"
-              id="inklands-button"
-              aria-expanded="false"
-              aria-controls="inklands-detail"
-            >
-              <span class="territory-poetic">The Inklands</span>
-              <span class="territory-name">Reading &amp; Writing</span>
-              <span class="territory-preview">
-                Stories, imagination, and an original novel in progress.
-              </span>
-              <span class="territory-action">Open territory</span>
-            </button>
+          <!-- Fog layers -->
+          <div class="fog-layer global-fog" aria-hidden="true"></div>
 
-            <div class="territory-detail" id="inklands-detail" hidden>
-              <p class="territory-intro">
-                Stories let me explore possibilities, perspectives,
-                and worlds beyond everyday life.
-              </p>
+          <div class="fog-layer territory-fog" data-for="inklands" aria-hidden="true"></div>
+          <div class="fog-layer territory-fog" data-for="strategy-isles" aria-hidden="true"></div>
+          <div class="fog-layer territory-fog" data-for="makers-coast" aria-hidden="true"></div>
+          <div class="fog-layer territory-fog" data-for="curiosity-expanse" aria-hidden="true"></div>
+          <div class="fog-layer territory-fog" data-for="saffron-shores" aria-hidden="true"></div>
+          <div class="fog-layer territory-fog" data-for="professional-shore" aria-hidden="true"></div>
 
-              <ul class="territory-markers">
-                <li>Fanfiction and alternate story directions</li>
-                <li>Original novel in early development</li>
-                <li>Future publishing intention</li>
-              </ul>
-
-              <p class="territory-future">
-                Future route: continue developing the world,
-                characters, and plot.
-              </p>
-            </div>
-
-            <div class="territory-fog" aria-hidden="true"></div>
-          </article>
-
-          <!-- STRATEGY ISLES -->
-          <article class="territory territory-strategy" id="strategy-isles" aria-labelledby="strategy-button">
-            <button
-              class="territory-control"
-              type="button"
-              id="strategy-button"
-              aria-expanded="false"
-              aria-controls="strategy-detail"
-            >
-              <span class="territory-poetic">The Strategy Isles</span>
-              <span class="territory-name">Games &amp; Strategy</span>
-              <span class="territory-preview">
-                Tactical worlds, adaptation, and steady improvement.
-              </span>
-              <span class="territory-action">Open territory</span>
-            </button>
-
-            <div class="territory-detail" id="strategy-detail" hidden>
-              <p class="territory-intro">
-                Games are where I enjoy planning, adapting,
-                and finding a way forward.
-              </p>
-
-              <ul class="territory-markers">
-                <li>Currently playing: Game of Thrones: Kings Road</li>
-                <li>Memorable games: Clash of Clans, Minecraft, Need for Speed, Call of Duty, SimCity</li>
-                <li>Strategy: plan, adapt, and keep moving forward</li>
-              </ul>
-
-              <p class="territory-future">
-                Future route: keep exploring game development
-                and esports curiosity.
-              </p>
-            </div>
-
-            <div class="territory-fog" aria-hidden="true"></div>
-          </article>
-
-          <!-- MAKER'S COAST -->
-          <article class="territory territory-makers" id="makers-coast" aria-labelledby="makers-button">
-            <button
-              class="territory-control"
-              type="button"
-              id="makers-button"
-              aria-expanded="false"
-              aria-controls="makers-detail"
-            >
-              <span class="territory-poetic">The Maker’s Coast</span>
-              <span class="territory-name">Making &amp; Building</span>
-              <span class="territory-preview">
-                Offline tools, visual ideas, and useful experiments.
-              </span>
-              <span class="territory-action">Open territory</span>
-            </button>
-
-            <div class="territory-detail" id="makers-detail" hidden>
-              <p class="territory-intro">
-                I enjoy turning small, repetitive problems into simple tools
-                that save time.
-              </p>
-
-              <ul class="territory-markers">
-                <li>Resume Template Builder</li>
-                <li>Job Fit Tracker</li>
-                <li>Message Builder</li>
-              </ul>
-
-              <p class="territory-future">
-                Future route: improve offline-first tools and
-                share selected experiments when ready.
-              </p>
-            </div>
-
-            <div class="territory-fog" aria-hidden="true"></div>
-          </article>
-
-          <!-- CURIOSITY EXPANSE -->
-          <article class="territory territory-curiosity" id="curiosity-expanse" aria-labelledby="curiosity-button">
-            <button
-              class="territory-control"
-              type="button"
-              id="curiosity-button"
-              aria-expanded="false"
-              aria-controls="curiosity-detail"
-            >
-              <span class="territory-poetic">The Curiosity Expanse</span>
-              <span class="territory-name">Learning &amp; Exploration</span>
-              <span class="territory-preview">
-                Data, AI tools, and practical skills.
-              </span>
-              <span class="territory-action">Open territory</span>
-            </button>
-
-            <div class="territory-detail" id="curiosity-detail" hidden>
-              <p class="territory-intro">
-                Learning is how I stay curious, adapt to change,
-                and keep improving.
-              </p>
-
-              <ul class="territory-markers">
-                <li>Data Analytics Certification</li>
-                <li>AI tools: Claude, Perplexity, Google AI, Copilot, ChatGPT</li>
-                <li>Learning by exploring, building, and practising</li>
-              </ul>
-
-              <p class="territory-future">
-                Future route: apply analytical thinking to
-                personal projects and useful technology.
-              </p>
-            </div>
-
-            <div class="territory-fog" aria-hidden="true"></div>
-          </article>
-
-          <!-- SAFFRON SHORES -->
-          <article class="territory territory-saffron" id="saffron-shores" aria-labelledby="saffron-button">
-            <button
-              class="territory-control"
-              type="button"
-              id="saffron-button"
-              aria-expanded="false"
-              aria-controls="saffron-detail"
-            >
-              <span class="territory-poetic">The Saffron Shores</span>
-              <span class="territory-name">Food &amp; Curiosity</span>
-              <span class="territory-preview">
-                Vegetarian flavours, cuisines, and everyday discovery.
-              </span>
-              <span class="territory-action">Open territory</span>
-            </button>
-
-            <div class="territory-detail" id="saffron-detail" hidden>
-              <p class="territory-intro">
-                Food is one of the simplest ways to explore culture,
-                memory, and everyday curiosity.
-              </p>
-
-              <ul class="territory-markers">
-                <li>Vegetarian flavours and cuisines</li>
-                <li>Healthy salads, bowls, and combinations</li>
-                <li>Personal food map: planned, not started yet</li>
-              </ul>
-
-              <p class="territory-future">
-                Future route: explore continental vegetarian options
-                and document dishes worth remembering.
-              </p>
-            </div>
-
-            <div class="territory-fog" aria-hidden="true"></div>
-          </article>
-
-          <!-- PROFESSIONAL SHORE -->
-          <article class="territory territory-professional" id="professional-shore" aria-labelledby="professional-button">
-            <div class="territory-control professional-control">
-              <span class="territory-poetic">The Professional Shore</span>
-              <span class="territory-name">Experience, impact &amp; opportunities</span>
-              <span class="territory-preview">
-                The bridge to my professional portfolio.
-              </span>
-
-              <a class="btn btn-primary" href="https://revanth-matta.github.io/" target="_blank" rel="noopener noreferrer">
-                View Professional Portfolio
-                <span class="sr-only">(opens in a new tab)</span>
-              </a>
-            </div>
-
-            <div class="territory-fog" aria-hidden="true"></div>
-          </article>
+          <!-- Ship -->
+          <svg class="atlas-ship" viewBox="0 0 64 40" role="img" aria-label="Ship travelling through the Atlas waters">
+            <path class="ship-hull" d="M10 27h44l-7 9H17z"/>
+            <path class="ship-sail" d="M32 5v20"/>
+            <path class="ship-sail-shape" d="M32 7c9 3 13 9 13 18H32z"/>
+          </svg>
         </div>
       </div>
     </section>
