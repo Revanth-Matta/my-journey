@@ -1,6 +1,6 @@
 /* =========================================
    Revanth’s Personal Atlas
-   Ink, Saffron & Moss — Phase 2 Mist Edition
+   Ink, Saffron & Moss — Phase 2 Mist Revision
 ========================================= */
 
 :root {
@@ -44,10 +44,15 @@ html[data-theme="dark"] {
   --land-detail: rgba(232, 163, 61, 0.35);
 
   --mist: #d8d2c6;
-  --mist-strong: rgba(216, 210, 198, 0.82);
-  --mist-medium: rgba(216, 210, 198, 0.48);
-  --mist-soft: rgba(216, 210, 198, 0.20);
+  --mist-base: rgba(216, 210, 198, 0.72);
+  --mist-strong: rgba(216, 210, 198, 0.86);
+  --mist-medium: rgba(216, 210, 198, 0.55);
+  --mist-soft: rgba(216, 210, 198, 0.25);
   --mist-clear: rgba(216, 210, 198, 0);
+
+  --route-idle: rgba(232, 163, 61, 0.28);
+  --route-active: #f0b45a;
+  --route-glow: rgba(240, 180, 90, 0.55);
 
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
   --header-bg: rgba(20, 18, 16, 0.85);
@@ -79,10 +84,15 @@ html[data-theme="light"] {
   --land-detail: rgba(185, 122, 23, 0.4);
 
   --mist: #ffffff;
-  --mist-strong: rgba(255, 255, 255, 0.88);
-  --mist-medium: rgba(255, 255, 255, 0.55);
-  --mist-soft: rgba(255, 255, 255, 0.25);
+  --mist-base: rgba(255, 255, 255, 0.76);
+  --mist-strong: rgba(255, 255, 255, 0.9);
+  --mist-medium: rgba(255, 255, 255, 0.58);
+  --mist-soft: rgba(255, 255, 255, 0.28);
   --mist-clear: rgba(255, 255, 255, 0);
+
+  --route-idle: rgba(185, 122, 23, 0.3);
+  --route-active: #a06610;
+  --route-glow: rgba(185, 122, 23, 0.45);
 
   --shadow: 0 18px 45px rgba(29, 26, 23, 0.10);
   --header-bg: rgba(245, 239, 228, 0.88);
@@ -640,90 +650,86 @@ p {
   stroke-linecap: round;
 }
 
-/* Water routes */
+/* =========================================
+   Routes: exploration focus
+========================================= */
+
 .water-routes .route {
   fill: none;
-  stroke: var(--accent);
+  stroke: var(--route-idle);
   stroke-width: 2;
-  stroke-dasharray: 7 9;
-  opacity: 0.42;
-  transition: opacity var(--transition), stroke-width var(--transition);
+  stroke-dasharray: 6 10;
+  stroke-linecap: round;
+  opacity: 0.55;
+  transition:
+    opacity var(--transition),
+    stroke var(--transition),
+    stroke-width var(--transition),
+    filter var(--transition);
 }
 
+/* Active route: bold and focused */
 .water-routes .route.is-active {
-  opacity: 0.95;
-  stroke-width: 3;
+  stroke: var(--route-active);
+  stroke-width: 5;
+  stroke-dasharray: 12 8;
+  opacity: 1;
+  filter: url(#routeGlow);
+  animation: routeFlow 1.6s linear infinite;
 }
 
-/* Compass */
-.compass circle {
-  fill: none;
-  stroke: var(--line-strong);
-  stroke-width: 2;
-}
-
-.compass path {
-  fill: none;
-  stroke: var(--line-strong);
-  stroke-width: 2;
-}
-
-.compass text {
-  fill: var(--accent);
-  font-family: var(--font-display);
-  font-size: 18px;
+@keyframes routeFlow {
+  to {
+    stroke-dashoffset: -40;
+  }
 }
 
 /* =========================================
-   Phase 2: Mist system
+   Mist: Atlas-wide coverage
 ========================================= */
 
 .mist-cloud {
   fill: var(--mist);
 }
 
-/* Global atmospheric mist */
-.mist-global {
-  opacity: 0.32;
+/* Atlas-wide base mist */
+.mist-atlas {
   pointer-events: none;
 }
 
-.mist-global .mist-cloud {
-  opacity: 0.45;
+.mist-base {
+  fill: var(--mist-base);
+  opacity: 0.96;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .mist-global {
-    animation: globalMistDrift 48s linear infinite alternate;
-  }
-}
-
-@keyframes globalMistDrift {
-  from {
-    transform: translate3d(-18px, 6px, 0);
-  }
-  to {
-    transform: translate3d(18px, -8px, 0);
-  }
-}
-
-/* Territory mist */
+/* Territory mist clouds */
 .mist-territory {
-  opacity: 1;
   pointer-events: none;
   transition: opacity var(--transition);
 }
 
 .mist-territory .mist-cloud {
-  opacity: 0.88;
+  opacity: 0.92;
 }
 
 .mist-territory .mist-cloud:nth-child(2) {
-  opacity: 0.68;
+  opacity: 0.78;
 }
 
 .mist-territory .mist-cloud:nth-child(3) {
-  opacity: 0.52;
+  opacity: 0.66;
+}
+
+.mist-territory .mist-cloud:nth-child(4) {
+  opacity: 0.72;
+}
+
+.mist-territory .mist-cloud:nth-child(5) {
+  opacity: 0.6;
+}
+
+.mist-territory .mist-cloud:nth-child(6) {
+  opacity: 0.55;
 }
 
 /* Covered: dense mist */
@@ -733,53 +739,78 @@ p {
 
 /* Preview: local mist thinning */
 .mist-territory.is-previewed {
-  opacity: 0.42;
+  opacity: 0.34;
 }
 
-/* Revealed: mist fully cleared */
+/* Revealed: local mist fully cleared */
 .mist-territory.is-revealed {
   opacity: 0;
 }
 
-/* Subtle independent cloud drift */
+/* Exploratory mist drift */
 @media (prefers-reduced-motion: no-preference) {
+  .mist-atlas {
+    animation: atlasMistDrift 64s ease-in-out infinite alternate;
+  }
+
   .mist-territory .mist-cloud:nth-child(1) {
-    animation: mistDriftOne 36s ease-in-out infinite alternate;
+    animation: mistDriftOne 38s ease-in-out infinite alternate;
   }
 
   .mist-territory .mist-cloud:nth-child(2) {
-    animation: mistDriftTwo 44s ease-in-out infinite alternate;
+    animation: mistDriftTwo 46s ease-in-out infinite alternate;
   }
 
   .mist-territory .mist-cloud:nth-child(3) {
-    animation: mistDriftThree 52s ease-in-out infinite alternate;
+    animation: mistDriftThree 54s ease-in-out infinite alternate;
+  }
+
+  .mist-territory .mist-cloud:nth-child(4) {
+    animation: mistDriftTwo 50s ease-in-out infinite alternate-reverse;
+  }
+
+  .mist-territory .mist-cloud:nth-child(5) {
+    animation: mistDriftOne 58s ease-in-out infinite alternate-reverse;
+  }
+
+  .mist-territory .mist-cloud:nth-child(6) {
+    animation: mistDriftThree 62s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes atlasMistDrift {
+  from {
+    transform: translate3d(-22px, 8px, 0);
+  }
+  to {
+    transform: translate3d(22px, -10px, 0);
   }
 }
 
 @keyframes mistDriftOne {
   from {
-    transform: translate3d(-10px, 4px, 0);
+    transform: translate3d(-12px, 5px, 0);
   }
   to {
-    transform: translate3d(12px, -6px, 0);
+    transform: translate3d(14px, -7px, 0);
   }
 }
 
 @keyframes mistDriftTwo {
   from {
-    transform: translate3d(8px, -5px, 0);
+    transform: translate3d(10px, -6px, 0);
   }
   to {
-    transform: translate3d(-12px, 7px, 0);
+    transform: translate3d(-14px, 8px, 0);
   }
 }
 
 @keyframes mistDriftThree {
   from {
-    transform: translate3d(-6px, 8px, 0);
+    transform: translate3d(-8px, 9px, 0);
   }
   to {
-    transform: translate3d(10px, -5px, 0);
+    transform: translate3d(12px, -6px, 0);
   }
 }
 
@@ -953,7 +984,7 @@ p {
   margin-top: 0.7rem;
 }
 
-/* Ship */
+/* Ship: exploratory drift */
 .atlas-ship {
   position: absolute;
   z-index: 6;
@@ -961,7 +992,11 @@ p {
   top: 49%;
   width: 2.4rem;
   color: var(--text);
-  transition: transform 1.1s var(--ease), opacity var(--transition);
+  transition:
+    left 1.8s var(--ease),
+    top 1.8s var(--ease),
+    transform 1.8s var(--ease),
+    opacity var(--transition);
 }
 
 .atlas-ship .ship-hull {
@@ -976,6 +1011,27 @@ p {
 .atlas-ship .ship-sail-shape {
   fill: var(--accent);
   opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .atlas-ship {
+    animation: shipExplore 18s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes shipExplore {
+  0% {
+    transform: translate(0, 0) rotate(-2deg);
+  }
+  35% {
+    transform: translate(14px, -10px) rotate(2deg);
+  }
+  70% {
+    transform: translate(-8px, 10px) rotate(-3deg);
+  }
+  100% {
+    transform: translate(6px, -4px) rotate(1deg);
+  }
 }
 
 /* Field Notes */
@@ -1147,7 +1203,7 @@ p {
     max-width: none;
   }
 
-  .mist-global,
+  .mist-atlas,
   .mist-territory {
     display: none;
   }
@@ -1157,7 +1213,7 @@ p {
   }
 }
 
-/* Reduced motion */
+/* Reduced motion: static but immersive */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1177,11 +1233,19 @@ p {
     left: 48%;
     top: 49%;
     transform: none;
+    animation: none;
   }
 
-  .mist-global,
+  .mist-atlas,
   .mist-territory .mist-cloud {
     animation: none;
+  }
+
+  .water-routes .route.is-active {
+    animation: none;
+    stroke-width: 5;
+    opacity: 1;
+    filter: url(#routeGlow);
   }
 
   .mist-territory,
