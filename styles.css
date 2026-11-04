@@ -1,15 +1,15 @@
 /* =========================================
    Revanth’s Personal Atlas
-   Ink, Saffron & Moss — Map Edition
+   Ink, Saffron & Moss — Continuous Map Edition
 ========================================= */
 
 :root {
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
 
-  --shell-max: 1240px;
+  --shell-max: 1280px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --transition: 0.35s var(--ease);
+  --transition: 0.38s var(--ease);
 
   --radius-sm: 10px;
   --radius-md: 18px;
@@ -19,9 +19,10 @@
   color-scheme: dark light;
 }
 
+/* Dark theme */
 html[data-theme="dark"] {
   --atlas-bg: #141210;
-  --atlas-bg-alt: #1b1714;
+  --atlas-bg-alt: #1a1613;
   --surface: #221d19;
   --surface-raised: #2b241f;
   --text: #f3ede2;
@@ -35,13 +36,24 @@ html[data-theme="dark"] {
   --clay-soft: rgba(217, 122, 108, 0.18);
   --line: rgba(243, 237, 226, 0.12);
   --line-strong: rgba(243, 237, 226, 0.22);
-  --fog: rgba(20, 18, 16, 0.94);
-  --fog-preview: rgba(20, 18, 16, 0.55);
+
+  --ocean: #191f22;
+  --ocean-deep: #131719;
+  --land: #2a231c;
+  --land-edge: #3c3126;
+  --land-detail: rgba(232, 163, 61, 0.35);
+
+  --fog-outer: rgba(20, 18, 16, 0.55);
+  --fog-main: rgba(20, 18, 16, 0.92);
+  --fog-preview: rgba(20, 18, 16, 0.45);
+  --fog-clear: rgba(20, 18, 16, 0);
+
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
   --header-bg: rgba(20, 18, 16, 0.85);
   --focus: #e8a33d;
 }
 
+/* Light theme */
 html[data-theme="light"] {
   --atlas-bg: #f5efe4;
   --atlas-bg-alt: #efe7d8;
@@ -58,8 +70,18 @@ html[data-theme="light"] {
   --clay-soft: rgba(194, 91, 78, 0.14);
   --line: rgba(29, 26, 23, 0.12);
   --line-strong: rgba(29, 26, 23, 0.22);
-  --fog: rgba(245, 239, 228, 0.94);
-  --fog-preview: rgba(245, 239, 228, 0.55);
+
+  --ocean: #d9e2dd;
+  --ocean-deep: #c9d5cf;
+  --land: #f0e2c8;
+  --land-edge: #d8c3a0;
+  --land-detail: rgba(185, 122, 23, 0.4);
+
+  --fog-outer: rgba(245, 239, 228, 0.55);
+  --fog-main: rgba(245, 239, 228, 0.93);
+  --fog-preview: rgba(245, 239, 228, 0.45);
+  --fog-clear: rgba(245, 239, 228, 0);
+
   --shadow: 0 18px 45px rgba(29, 26, 23, 0.10);
   --header-bg: rgba(245, 239, 228, 0.88);
   --focus: #b97a17;
@@ -79,7 +101,6 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 400;
   line-height: 1.65;
   color: var(--text);
   background: var(--atlas-bg);
@@ -532,7 +553,7 @@ p {
   border-color: var(--accent);
 }
 
-/* Atlas map */
+/* Atlas section */
 .atlas {
   padding: 6rem 0;
   background: var(--atlas-bg-alt);
@@ -548,157 +569,189 @@ p {
   color: var(--text-muted);
 }
 
-.atlas-map {
+/* Continuous Atlas world */
+.atlas-world {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: minmax(11rem, auto);
-  gap: 1.1rem;
-  min-height: min(78vh, 46rem);
-}
-
-.map-surface,
-.map-contours,
-.map-routes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.map-surface {
-  background:
-    radial-gradient(circle at 20% 25%, var(--accent-soft), transparent 45%),
-    radial-gradient(circle at 80% 70%, var(--moss-soft), transparent 45%),
-    var(--atlas-bg);
-}
-
-.map-contours {
-  background-image:
-    radial-gradient(circle at 30% 40%, transparent 58%, var(--line) 59%, transparent 60%),
-    radial-gradient(circle at 70% 60%, transparent 55%, var(--line) 56%, transparent 57%),
-    radial-gradient(circle at 50% 80%, transparent 62%, var(--line) 63%, transparent 64%);
-  opacity: 0.3;
-}
-
-.map-routes {
-  background:
-    linear-gradient(115deg, transparent 42%, var(--line) 43%, transparent 44%),
-    linear-gradient(65deg, transparent 58%, var(--line) 59%, transparent 60%);
-  opacity: 0.55;
-}
-
-.compass-rose {
-  position: absolute;
-  right: 4%;
-  bottom: 6%;
-  width: 4.5rem;
-  height: 4.5rem;
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.compass-rose span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1px;
-  height: 100%;
-  background: var(--line-strong);
-  transform-origin: center;
-}
-
-.compass-rose span:nth-child(1) { transform: translate(-50%, -50%); }
-.compass-rose span:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg); }
-.compass-rose span:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg); }
-.compass-rose span:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg); }
-
-.compass-rose::after {
-  content: "N";
-  position: absolute;
-  top: -0.4rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  color: var(--accent);
-}
-
-/* Territory placement */
-.territory-inklands {
-  grid-column: 1 / span 4;
-  grid-row: 1 / span 2;
-}
-
-.territory-strategy {
-  grid-column: 8 / span 5;
-  grid-row: 1 / span 2;
-}
-
-.territory-makers {
-  grid-column: 6 / span 4;
-  grid-row: 2 / span 2;
-}
-
-.territory-curiosity {
-  grid-column: 1 / span 4;
-  grid-row: 3 / span 2;
-}
-
-.territory-saffron {
-  grid-column: 8 / span 5;
-  grid-row: 3 / span 2;
-}
-
-.territory-professional {
-  grid-column: 5 / span 3;
-  grid-row: 4 / span 1;
-}
-
-/* Territory */
-.territory {
-  position: relative;
-  display: grid;
-  align-content: start;
-  padding: 1.4rem;
+  width: 100%;
+  aspect-ratio: 1200 / 760;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  background: var(--surface);
-  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  background: var(--ocean);
+  box-shadow: var(--shadow);
+}
+
+.atlas-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ocean */
+.ocean {
+  fill: var(--ocean);
+}
+
+.ocean-texture path {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+  opacity: 0.5;
+}
+
+/* Landmasses */
+.land-shape {
+  fill: var(--land);
+  stroke: var(--land-edge);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.land-shape.islet {
+  stroke-width: 2.5;
+}
+
+.river,
+.valley,
+.bay,
+.cove,
+.cliff,
+.coast-detail {
+  fill: none;
+  stroke: var(--land-detail);
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0.8;
+}
+
+.harbour-marker {
+  fill: var(--accent);
+  stroke: var(--atlas-bg);
+  stroke-width: 3;
+}
+
+.route-node {
+  fill: var(--accent);
+  stroke: var(--accent);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+/* Water routes */
+.water-routes .route {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 7 9;
+  opacity: 0.42;
+  transition: opacity var(--transition), stroke-width var(--transition);
+}
+
+.water-routes .route.is-active {
+  opacity: 0.95;
+  stroke-width: 3;
+}
+
+/* Compass */
+.compass circle {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 2;
+}
+
+.compass path {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 2;
+}
+
+.compass text {
+  fill: var(--accent);
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+
+/* Territory controls */
+.territory-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+.territory {
+  position: absolute;
+  max-width: 19rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(6px);
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition), background var(--transition);
 }
 
 .territory:hover,
 .territory:focus-within,
 .territory.is-revealed {
+  z-index: 8;
   border-color: var(--accent);
   box-shadow: 0 18px 45px var(--accent-soft);
   transform: translateY(-3px);
-  z-index: 5;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+}
+
+.territory-inklands {
+  left: 4%;
+  top: 6%;
+}
+
+.territory-strategy {
+  right: 3%;
+  top: 5%;
+}
+
+.territory-makers {
+  right: 5%;
+  top: 43%;
+}
+
+.territory-curiosity {
+  left: 4%;
+  top: 55%;
+}
+
+.territory-saffron {
+  right: 4%;
+  bottom: 4%;
+}
+
+.territory-professional {
+  left: 35%;
+  bottom: 3%;
 }
 
 .territory-control {
-  position: relative;
-  z-index: 3;
   display: grid;
-  gap: 0.35rem;
-  text-align: left;
+  gap: 0.3rem;
   width: 100%;
   padding: 0;
+  text-align: left;
 }
 
 .territory-poetic {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--accent);
 }
 
 .territory-name {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--text);
 }
 
 .territory-preview {
-  max-width: 24rem;
+  max-width: 22rem;
   color: var(--text-muted);
   opacity: 0;
   transform: translateY(4px);
@@ -716,9 +769,9 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  margin-top: 0.7rem;
+  margin-top: 0.55rem;
   color: var(--accent);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   opacity: 0;
   transition: opacity var(--transition);
@@ -734,94 +787,169 @@ p {
   content: "→";
 }
 
-/* Fog */
-.territory-fog {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at 35% 30%, var(--accent-soft), transparent 55%),
-    var(--fog);
-  pointer-events: none;
-  transition: opacity var(--transition);
-}
-
-.territory:hover .territory-fog,
-.territory:focus-within .territory-fog {
-  background:
-    radial-gradient(circle at 35% 30%, var(--accent-soft), transparent 55%),
-    var(--fog-preview);
-}
-
-.territory.is-revealed .territory-fog {
-  opacity: 0;
-}
-
 /* Territory detail */
 .territory-detail {
-  position: relative;
-  z-index: 3;
-  margin-top: 1.1rem;
-  padding-top: 1rem;
+  margin-top: 0.9rem;
+  padding-top: 0.85rem;
   border-top: 1px solid var(--line);
 }
 
 .territory-intro {
   color: var(--text-muted);
+  font-size: 0.92rem;
 }
 
 .territory-markers {
   display: grid;
-  gap: 0.4rem;
-  margin-top: 0.9rem;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
 }
 
 .territory-markers li {
   position: relative;
-  padding-left: 1.1rem;
+  padding-left: 1rem;
   color: var(--text-muted);
-  font-size: 0.92rem;
+  font-size: 0.86rem;
 }
 
 .territory-markers li::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.55rem;
-  width: 0.38rem;
-  height: 0.38rem;
+  top: 0.5rem;
+  width: 0.32rem;
+  height: 0.32rem;
   border-radius: 50%;
   background: var(--accent);
 }
 
 .territory-future {
-  margin-top: 0.9rem;
-  padding-top: 0.8rem;
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
   border-top: 1px solid var(--line);
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.84rem;
 }
 
-/* Professional shore */
+/* Professional Shore */
 .professional-control {
   display: grid;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
 .professional-control .btn {
   justify-self: start;
-  margin-top: 0.8rem;
+  margin-top: 0.7rem;
 }
 
-/* Field notes */
+/* Fog system */
+.fog-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.global-fog {
+  z-index: 3;
+  background:
+    radial-gradient(circle at 20% 25%, var(--fog-outer), transparent 45%),
+    radial-gradient(circle at 78% 68%, var(--fog-outer), transparent 48%),
+    radial-gradient(circle at 50% 50%, var(--fog-outer), transparent 65%);
+}
+
+.territory-fog {
+  z-index: 4;
+  opacity: 1;
+  transition: opacity var(--transition);
+  background: var(--fog-main);
+  mix-blend-mode: normal;
+}
+
+/* Fog shapes positioned over each landmass */
+.territory-fog[data-for="inklands"] {
+  clip-path: polygon(
+    3% 5%, 29% 2%, 34% 20%, 30% 38%, 18% 42%, 6% 35%, 2% 18%
+  );
+}
+
+.territory-fog[data-for="strategy-isles"] {
+  clip-path: polygon(
+    66% 5%, 93% 7%, 94% 30%, 82% 41%, 68% 35%, 65% 18%
+  );
+}
+
+.territory-fog[data-for="makers-coast"] {
+  clip-path: polygon(
+    60% 38%, 93% 40%, 94% 70%, 70% 74%, 60% 58%
+  );
+}
+
+.territory-fog[data-for="curiosity-expanse"] {
+  clip-path: polygon(
+    3% 52%, 33% 50%, 34% 85%, 15% 89%, 4% 75%
+  );
+}
+
+.territory-fog[data-for="saffron-shores"] {
+  clip-path: polygon(
+    62% 74%, 92% 73%, 93% 98%, 65% 99%
+  );
+}
+
+.territory-fog[data-for="professional-shore"] {
+  clip-path: polygon(
+    34% 79%, 51% 77%, 52% 98%, 35% 99%
+  );
+}
+
+/* Fog states */
+.territory.is-previewed ~ .territory-fog[data-for="inklands"],
+.territory.is-previewed ~ .territory-fog[data-for="strategy-isles"],
+.territory.is-previewed ~ .territory-fog[data-for="makers-coast"],
+.territory.is-previewed ~ .territory-fog[data-for="curiosity-expanse"],
+.territory.is-previewed ~ .territory-fog[data-for="saffron-shores"],
+.territory.is-previewed ~ .territory-fog[data-for="professional-shore"] {
+  opacity: 0.45;
+}
+
+.territory.is-revealed ~ .territory-fog[data-for="inklands"],
+.territory.is-revealed ~ .territory-fog[data-for="strategy-isles"],
+.territory.is-revealed ~ .territory-fog[data-for="makers-coast"],
+.territory.is-revealed ~ .territory-fog[data-for="curiosity-expanse"],
+.territory.is-revealed ~ .territory-fog[data-for="saffron-shores"],
+.territory.is-revealed ~ .territory-fog[data-for="professional-shore"] {
+  opacity: 0;
+}
+
+/* Ship */
+.atlas-ship {
+  position: absolute;
+  z-index: 6;
+  left: 48%;
+  top: 49%;
+  width: 2.4rem;
+  color: var(--text);
+  transition: transform 1.1s var(--ease), opacity var(--transition);
+}
+
+.atlas-ship .ship-hull {
+  fill: currentColor;
+}
+
+.atlas-ship .ship-sail {
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.atlas-ship .ship-sail-shape {
+  fill: var(--accent);
+  opacity: 0.85;
+}
+
+/* Field Notes */
 .field-notes {
   padding: 5.5rem 0;
   background: var(--atlas-bg-alt);
-}
-
-.section-head {
-  margin-bottom: 2.5rem;
 }
 
 .notes-grid {
@@ -959,24 +1087,43 @@ p {
   }
 }
 
+/* Mobile: vertical journey */
 @media (max-width: 63.99rem) {
-  .atlas-map {
-    display: grid;
-    grid-template-columns: 1fr;
+  .atlas-world {
+    aspect-ratio: auto;
     min-height: 0;
+    overflow: visible;
+    background: var(--atlas-bg);
   }
 
-  .territory-inklands,
-  .territory-strategy,
-  .territory-makers,
-  .territory-curiosity,
-  .territory-saffron,
-  .territory-professional {
-    grid-column: 1;
-    grid-row: auto;
+  .atlas-svg {
+    position: relative;
+    height: auto;
+    margin-bottom: 1.5rem;
   }
 
-  .compass-rose {
+  .territory-layer {
+    position: relative;
+    inset: auto;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .territory {
+    position: relative;
+    inset: auto;
+    max-width: none;
+  }
+
+  .territory-fog {
+    display: none;
+  }
+
+  .global-fog {
+    display: none;
+  }
+
+  .atlas-ship {
     display: none;
   }
 }
@@ -997,9 +1144,16 @@ p {
     opacity: 0.9;
   }
 
+  .atlas-ship {
+    left: 48%;
+    top: 49%;
+    transform: none;
+  }
+
   .territory-fog,
   .territory-preview,
-  .territory-action {
+  .territory-action,
+  .water-routes .route {
     transition: none;
   }
 }
