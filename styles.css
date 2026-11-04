@@ -1,6 +1,6 @@
 /* =========================================
    Revanth’s Personal Atlas
-   Ink, Saffron & Moss — Continuous Map Edition
+   Ink, Saffron & Moss — Phase 2 Mist Edition
 ========================================= */
 
 :root {
@@ -9,7 +9,7 @@
 
   --shell-max: 1280px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --transition: 0.38s var(--ease);
+  --transition: 0.45s var(--ease);
 
   --radius-sm: 10px;
   --radius-md: 18px;
@@ -43,10 +43,11 @@ html[data-theme="dark"] {
   --land-edge: #3c3126;
   --land-detail: rgba(232, 163, 61, 0.35);
 
-  --fog-outer: rgba(20, 18, 16, 0.55);
-  --fog-main: rgba(20, 18, 16, 0.92);
-  --fog-preview: rgba(20, 18, 16, 0.45);
-  --fog-clear: rgba(20, 18, 16, 0);
+  --mist: #d8d2c6;
+  --mist-strong: rgba(216, 210, 198, 0.82);
+  --mist-medium: rgba(216, 210, 198, 0.48);
+  --mist-soft: rgba(216, 210, 198, 0.20);
+  --mist-clear: rgba(216, 210, 198, 0);
 
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
   --header-bg: rgba(20, 18, 16, 0.85);
@@ -77,10 +78,11 @@ html[data-theme="light"] {
   --land-edge: #d8c3a0;
   --land-detail: rgba(185, 122, 23, 0.4);
 
-  --fog-outer: rgba(245, 239, 228, 0.55);
-  --fog-main: rgba(245, 239, 228, 0.93);
-  --fog-preview: rgba(245, 239, 228, 0.45);
-  --fog-clear: rgba(245, 239, 228, 0);
+  --mist: #ffffff;
+  --mist-strong: rgba(255, 255, 255, 0.88);
+  --mist-medium: rgba(255, 255, 255, 0.55);
+  --mist-soft: rgba(255, 255, 255, 0.25);
+  --mist-clear: rgba(255, 255, 255, 0);
 
   --shadow: 0 18px 45px rgba(29, 26, 23, 0.10);
   --header-bg: rgba(245, 239, 228, 0.88);
@@ -672,6 +674,115 @@ p {
   font-size: 18px;
 }
 
+/* =========================================
+   Phase 2: Mist system
+========================================= */
+
+.mist-cloud {
+  fill: var(--mist);
+}
+
+/* Global atmospheric mist */
+.mist-global {
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.mist-global .mist-cloud {
+  opacity: 0.45;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mist-global {
+    animation: globalMistDrift 48s linear infinite alternate;
+  }
+}
+
+@keyframes globalMistDrift {
+  from {
+    transform: translate3d(-18px, 6px, 0);
+  }
+  to {
+    transform: translate3d(18px, -8px, 0);
+  }
+}
+
+/* Territory mist */
+.mist-territory {
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.mist-territory .mist-cloud {
+  opacity: 0.88;
+}
+
+.mist-territory .mist-cloud:nth-child(2) {
+  opacity: 0.68;
+}
+
+.mist-territory .mist-cloud:nth-child(3) {
+  opacity: 0.52;
+}
+
+/* Covered: dense mist */
+.mist-territory.is-covered {
+  opacity: 1;
+}
+
+/* Preview: local mist thinning */
+.mist-territory.is-previewed {
+  opacity: 0.42;
+}
+
+/* Revealed: mist fully cleared */
+.mist-territory.is-revealed {
+  opacity: 0;
+}
+
+/* Subtle independent cloud drift */
+@media (prefers-reduced-motion: no-preference) {
+  .mist-territory .mist-cloud:nth-child(1) {
+    animation: mistDriftOne 36s ease-in-out infinite alternate;
+  }
+
+  .mist-territory .mist-cloud:nth-child(2) {
+    animation: mistDriftTwo 44s ease-in-out infinite alternate;
+  }
+
+  .mist-territory .mist-cloud:nth-child(3) {
+    animation: mistDriftThree 52s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes mistDriftOne {
+  from {
+    transform: translate3d(-10px, 4px, 0);
+  }
+  to {
+    transform: translate3d(12px, -6px, 0);
+  }
+}
+
+@keyframes mistDriftTwo {
+  from {
+    transform: translate3d(8px, -5px, 0);
+  }
+  to {
+    transform: translate3d(-12px, 7px, 0);
+  }
+}
+
+@keyframes mistDriftThree {
+  from {
+    transform: translate3d(-6px, 8px, 0);
+  }
+  to {
+    transform: translate3d(10px, -5px, 0);
+  }
+}
+
 /* Territory controls */
 .territory-layer {
   position: absolute;
@@ -840,85 +951,6 @@ p {
 .professional-control .btn {
   justify-self: start;
   margin-top: 0.7rem;
-}
-
-/* Fog system */
-.fog-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.global-fog {
-  z-index: 3;
-  background:
-    radial-gradient(circle at 20% 25%, var(--fog-outer), transparent 45%),
-    radial-gradient(circle at 78% 68%, var(--fog-outer), transparent 48%),
-    radial-gradient(circle at 50% 50%, var(--fog-outer), transparent 65%);
-}
-
-.territory-fog {
-  z-index: 4;
-  opacity: 1;
-  transition: opacity var(--transition);
-  background: var(--fog-main);
-  mix-blend-mode: normal;
-}
-
-/* Fog shapes positioned over each landmass */
-.territory-fog[data-for="inklands"] {
-  clip-path: polygon(
-    3% 5%, 29% 2%, 34% 20%, 30% 38%, 18% 42%, 6% 35%, 2% 18%
-  );
-}
-
-.territory-fog[data-for="strategy-isles"] {
-  clip-path: polygon(
-    66% 5%, 93% 7%, 94% 30%, 82% 41%, 68% 35%, 65% 18%
-  );
-}
-
-.territory-fog[data-for="makers-coast"] {
-  clip-path: polygon(
-    60% 38%, 93% 40%, 94% 70%, 70% 74%, 60% 58%
-  );
-}
-
-.territory-fog[data-for="curiosity-expanse"] {
-  clip-path: polygon(
-    3% 52%, 33% 50%, 34% 85%, 15% 89%, 4% 75%
-  );
-}
-
-.territory-fog[data-for="saffron-shores"] {
-  clip-path: polygon(
-    62% 74%, 92% 73%, 93% 98%, 65% 99%
-  );
-}
-
-.territory-fog[data-for="professional-shore"] {
-  clip-path: polygon(
-    34% 79%, 51% 77%, 52% 98%, 35% 99%
-  );
-}
-
-/* Fog states */
-.territory.is-previewed ~ .territory-fog[data-for="inklands"],
-.territory.is-previewed ~ .territory-fog[data-for="strategy-isles"],
-.territory.is-previewed ~ .territory-fog[data-for="makers-coast"],
-.territory.is-previewed ~ .territory-fog[data-for="curiosity-expanse"],
-.territory.is-previewed ~ .territory-fog[data-for="saffron-shores"],
-.territory.is-previewed ~ .territory-fog[data-for="professional-shore"] {
-  opacity: 0.45;
-}
-
-.territory.is-revealed ~ .territory-fog[data-for="inklands"],
-.territory.is-revealed ~ .territory-fog[data-for="strategy-isles"],
-.territory.is-revealed ~ .territory-fog[data-for="makers-coast"],
-.territory.is-revealed ~ .territory-fog[data-for="curiosity-expanse"],
-.territory.is-revealed ~ .territory-fog[data-for="saffron-shores"],
-.territory.is-revealed ~ .territory-fog[data-for="professional-shore"] {
-  opacity: 0;
 }
 
 /* Ship */
@@ -1115,11 +1147,8 @@ p {
     max-width: none;
   }
 
-  .territory-fog {
-    display: none;
-  }
-
-  .global-fog {
+  .mist-global,
+  .mist-territory {
     display: none;
   }
 
@@ -1150,7 +1179,12 @@ p {
     transform: none;
   }
 
-  .territory-fog,
+  .mist-global,
+  .mist-territory .mist-cloud {
+    animation: none;
+  }
+
+  .mist-territory,
   .territory-preview,
   .territory-action,
   .water-routes .route {
