@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const revealItems = document.querySelectorAll(".reveal");
   const territories = document.querySelectorAll(".territory");
-  const mistLayers = document.querySelectorAll(".mist-territory");
   const routes = document.querySelectorAll(".water-routes .route");
   const atlasShip = document.querySelector(".atlas-ship");
 
@@ -152,32 +151,32 @@ document.addEventListener("DOMContentLoaded", () => {
     "inklands": {
       mist: "[data-mist='inklands']",
       route: "[data-route='inklands']",
-      ship: { x: "25%", y: "24%", rotate: "-8deg" }
+      ship: { x: "24%", y: "23%", rotate: "-9deg" }
     },
     "strategy-isles": {
       mist: "[data-mist='strategy-isles']",
       route: "[data-route='strategy-isles']",
-      ship: { x: "76%", y: "20%", rotate: "10deg" }
+      ship: { x: "77%", y: "19%", rotate: "11deg" }
     },
     "makers-coast": {
       mist: "[data-mist='makers-coast']",
       route: "[data-route='makers-coast']",
-      ship: { x: "73%", y: "56%", rotate: "6deg" }
+      ship: { x: "74%", y: "57%", rotate: "7deg" }
     },
     "curiosity-expanse": {
       mist: "[data-mist='curiosity-expanse']",
       route: "[data-route='curiosity-expanse']",
-      ship: { x: "33%", y: "64%", rotate: "-10deg" }
+      ship: { x: "32%", y: "65%", rotate: "-11deg" }
     },
     "saffron-shores": {
       mist: "[data-mist='saffron-shores']",
       route: "[data-route='saffron-shores']",
-      ship: { x: "74%", y: "80%", rotate: "8deg" }
+      ship: { x: "75%", y: "81%", rotate: "9deg" }
     },
     "professional-shore": {
       mist: "[data-mist='professional-shore']",
       route: "[data-route='professional-shore']",
-      ship: { x: "43%", y: "86%", rotate: "-6deg" }
+      ship: { x: "42%", y: "87%", rotate: "-7deg" }
     }
   };
 
@@ -398,6 +397,39 @@ document.addEventListener("DOMContentLoaded", () => {
       coverAllTerritories();
     }
   });
+
+  /* ---------------------------------------------
+     Arrival: leftward ship journey
+  --------------------------------------------- */
+  const arrivalShip = document.querySelector(".arrival .ship");
+
+  if (arrivalShip && !reducedMotion) {
+    const restartArrivalJourney = () => {
+      arrivalShip.style.animation = "none";
+
+      // Force a style recalculation before restarting.
+      void arrivalShip.offsetWidth;
+
+      arrivalShip.style.animation = "";
+    };
+
+    // Restart once when the Arrival section enters view.
+    if ("IntersectionObserver" in window) {
+      const arrivalObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              restartArrivalJourney();
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+
+      arrivalObserver.observe(arrival);
+    }
+  }
 
   /* ---------------------------------------------
      Back to top
