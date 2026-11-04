@@ -143,48 +143,57 @@ document.addEventListener("DOMContentLoaded", () => {
      Atlas: mist, landmarks, discoveries, routes, ship
   --------------------------------------------- */
 
+  /*
+    Expanded Atlas: 1200 × 920
+    Each territory has:
+    - mist layer
+    - water route
+    - primary landmark
+    - discovery
+    - exploration destination for the ship
+  */
   const territoryMeta = {
     "inklands": {
       mist: "[data-mist='inklands']",
       route: "[data-route='inklands']",
       landmark: "[data-landmark='inklands']",
       discovery: "[data-discovery='inklands']",
-      ship: { x: "24%", y: "23%", rotate: "-9deg" }
+      ship: { x: "25%", y: "22%", rotate: "-9deg" }
     },
     "strategy-isles": {
       mist: "[data-mist='strategy-isles']",
       route: "[data-route='strategy-isles']",
       landmark: "[data-landmark='strategy-isles']",
       discovery: "[data-discovery='strategy-isles']",
-      ship: { x: "77%", y: "19%", rotate: "11deg" }
+      ship: { x: "78%", y: "18%", rotate: "11deg" }
     },
     "makers-coast": {
       mist: "[data-mist='makers-coast']",
       route: "[data-route='makers-coast']",
       landmark: "[data-landmark='makers-coast']",
       discovery: "[data-discovery='makers-coast']",
-      ship: { x: "74%", y: "57%", rotate: "7deg" }
+      ship: { x: "75%", y: "56%", rotate: "7deg" }
     },
     "curiosity-expanse": {
       mist: "[data-mist='curiosity-expanse']",
       route: "[data-route='curiosity-expanse']",
       landmark: "[data-landmark='curiosity-expanse']",
       discovery: "[data-discovery='curiosity-expanse']",
-      ship: { x: "32%", y: "65%", rotate: "-11deg" }
+      ship: { x: "31%", y: "66%", rotate: "-11deg" }
     },
     "saffron-shores": {
       mist: "[data-mist='saffron-shores']",
       route: "[data-route='saffron-shores']",
       landmark: "[data-landmark='saffron-shores']",
       discovery: "[data-discovery='saffron-shores']",
-      ship: { x: "75%", y: "81%", rotate: "9deg" }
+      ship: { x: "76%", y: "82%", rotate: "9deg" }
     },
     "professional-shore": {
       mist: "[data-mist='professional-shore']",
       route: "[data-route='professional-shore']",
       landmark: "[data-landmark='professional-shore']",
       discovery: "[data-discovery='professional-shore']",
-      ship: { x: "42%", y: "87%", rotate: "-7deg" }
+      ship: { x: "41%", y: "88%", rotate: "-7deg" }
     }
   };
 
