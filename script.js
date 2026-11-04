@@ -1,545 +1,396 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const html = document.documentElement;
-  const reducedMotion = window.matchMedia(
+/* ==========================================================================
+   Revanth’s Journey — script.js
+   Vanilla JavaScript: navigation, map route, route spaces, reveals,
+   visitor counter, and accessibility behavior.
+   ========================================================================== */
+
+(() => {
+  "use strict";
+
+  const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-  const menuToggle = document.querySelector(".menu-toggle");
-  const mobileNav = document.querySelector(".mobile-navigation");
+  const header = document.querySelector(".site-header");
+  const pageThread = document.querySelector(".page-thread span");
+  const mapBoard = document.getElementById("map-board");
+  const mapSection = document.getElementById("journey-map");
+  const routeStage = document.querySelector(".route-stage");
+  const routePanels = Array.from(document.querySelectorAll(".route-panel"));
+  const signpostButtons = Array.from(document.querySelectorAll(".signpost"));
+  const routeCardLinks = Array.from(document.querySelectorAll("[data-route].route-card"));
+  const threadSvg = document.querySelector(".thread");
+  const threadDrawn = document.querySelector(".thread__drawn");
+  const threadTrail = document.querySelector(".thread__trail");
+  const threadHalo = document.querySelector(".thread__halo");
 
-  const desktopLinks = document.querySelectorAll(".atlas-rail a");
-  const mobileLinks = document.querySelectorAll(".mobile-navigation a");
-  const sections = document.querySelectorAll("main section[id]");
+  const routeOrder = [
+    "inklands",
+    "strategy-isles",
+    "curiosity-expanse",
+    "makers-coast",
+    "saffron-shores"
+  ];
 
-  const revealItems = document.querySelectorAll(".reveal");
-  const territories = document.querySelectorAll(".territory");
-  const landmasses = document.querySelectorAll(".landmass[data-territory]");
-  const mistLayers = document.querySelectorAll(".mist-territory");
-  const routes = document.querySelectorAll(".water-routes .route");
-  const atlasShip = document.querySelector(".atlas-ship");
+  let activeRoute = null;
 
-  const backToTop = document.querySelector(".back-to-top");
-  const arrival = document.querySelector("#arrival");
-  const year = document.querySelector("#year");
+  /* ------------------------------------------------------------------------
+     Utilities
+     ------------------------------------------------------------------------ */
 
-  if (year) {
-    year.textContent = new Date().getFullYear();
-  }
+  const getRoutePanel = (route) =>
+    document.getElementById(`route-${route}`);
 
-  /* ---------------------------------------------
-     Theme
-  --------------------------------------------- */
-  const applyTheme = (theme) => {
-    html.setAttribute("data-theme", theme);
+  const getSignpostButton = (route) =>
+    document.querySelector(`.signpost[data-route="${route}"]`);
 
-    if (!themeToggle) return;
+  const smoothScrollTo = (target, offset = 0) => {
+    if (!target) return;
 
-    const isLight = theme === "light";
-    themeToggle.setAttribute("aria-pressed", String(isLight));
-    themeToggle.setAttribute(
-      "aria-label",
-      isLight ? "Switch to dark theme" : "Switch to light theme"
-    );
-  };
+    const top =
+      target.getBoundingClientRect().top +
+      window.pageYOffset -
+      (header ? header.offsetHeight : 0) -
+      offset;
 
-  applyTheme(
-    window.matchMedia("(prefers-color-scheme: light)").matches
-      ? "light"
-      : "dark"
-  );
-
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const current = html.getAttribute("data-theme");
-      applyTheme(current === "light" ? "dark" : "light");
-    });
-  }
-
-  /* ---------------------------------------------
-     Mobile navigation
-  --------------------------------------------- */
-  const closeMenu = (focusToggle = false) => {
-    if (!mobileNav || !menuToggle) return;
-
-    mobileNav.classList.remove("is-open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open navigation menu");
-
-    if (focusToggle) menuToggle.focus();
-  };
-
-  if (menuToggle && mobileNav) {
-    menuToggle.addEventListener("click", () => {
-      const open = mobileNav.classList.toggle("is-open");
-      menuToggle.setAttribute("aria-expanded", String(open));
-      menuToggle.setAttribute(
-        "aria-label",
-        open ? "Close navigation menu" : "Open navigation menu"
-      );
-    });
-
-    mobileLinks.forEach((link) => {
-      link.addEventListener("click", () => closeMenu());
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Escape" &&
-        mobileNav.classList.contains("is-open")
-      ) {
-        closeMenu(true);
-      }
-    });
-  }
-
-  /* ---------------------------------------------
-     Active Atlas Rail
-  --------------------------------------------- */
-  const setActive = (id) => {
-    [...desktopLinks, ...mobileLinks].forEach((link) => {
-      link.classList.toggle(
-        "is-active",
-        link.getAttribute("href") === `#${id}`
-      );
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: prefersReducedMotion ? "auto" : "smooth"
     });
   };
 
-  if ("IntersectionObserver" in window) {
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
-      { rootMargin: "-45% 0px -45% 0px" }
-    );
+  /* ------------------------------------------------------------------------
+     Scroll progress thread
+     ------------------------------------------------------------------------ */
 
-    sections.forEach((section) => sectionObserver.observe(section));
-  }
+  const updateScrollThread = () => {
+    if (!pageThread) return;
 
-  /* ---------------------------------------------
+    const scrollable =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    const progress = scrollable > 0
+      ? Math.min(Math.max(window.pageYOffset / scrollable, 0), 1)
+      : 0;
+
+    pageThread.style.width = `${progress * 100}%`;
+  };
+
+  /* ------------------------------------------------------------------------
      Reveal animations
-  --------------------------------------------- */
-  if (reducedMotion || !("IntersectionObserver" in window)) {
-    revealItems.forEach((item) => item.classList.add("is-visible"));
-  } else {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
-    );
+     ------------------------------------------------------------------------ */
 
-    revealItems.forEach((item) => revealObserver.observe(item));
-  }
+  const initReveals = () => {
+    const revealTargets = document.querySelectorAll(".reveal, [data-reveal-group]");
 
-  /* ---------------------------------------------
-     Atlas: mist, landmarks, discoveries, routes, ship
-  --------------------------------------------- */
-
-  /*
-    Expanded Atlas: 1200 × 920
-    Each territory has:
-    - mist layer
-    - water route
-    - primary landmark
-    - discovery
-    - exploration destination for the ship
-  */
-  const territoryMeta = {
-    "inklands": {
-      mist: "[data-mist='inklands']",
-      route: "[data-route='inklands']",
-      landmark: "[data-landmark='inklands']",
-      discovery: "[data-discovery='inklands']",
-      ship: { x: "25%", y: "22%", rotate: "-9deg" }
-    },
-    "strategy-isles": {
-      mist: "[data-mist='strategy-isles']",
-      route: "[data-route='strategy-isles']",
-      landmark: "[data-landmark='strategy-isles']",
-      discovery: "[data-discovery='strategy-isles']",
-      ship: { x: "78%", y: "18%", rotate: "11deg" }
-    },
-    "makers-coast": {
-      mist: "[data-mist='makers-coast']",
-      route: "[data-route='makers-coast']",
-      landmark: "[data-landmark='makers-coast']",
-      discovery: "[data-discovery='makers-coast']",
-      ship: { x: "75%", y: "56%", rotate: "7deg" }
-    },
-    "curiosity-expanse": {
-      mist: "[data-mist='curiosity-expanse']",
-      route: "[data-route='curiosity-expanse']",
-      landmark: "[data-landmark='curiosity-expanse']",
-      discovery: "[data-discovery='curiosity-expanse']",
-      ship: { x: "31%", y: "66%", rotate: "-11deg" }
-    },
-    "saffron-shores": {
-      mist: "[data-mist='saffron-shores']",
-      route: "[data-route='saffron-shores']",
-      landmark: "[data-landmark='saffron-shores']",
-      discovery: "[data-discovery='saffron-shores']",
-      ship: { x: "76%", y: "82%", rotate: "9deg" }
-    },
-    "professional-shore": {
-      mist: "[data-mist='professional-shore']",
-      route: "[data-route='professional-shore']",
-      landmark: "[data-landmark='professional-shore']",
-      discovery: "[data-discovery='professional-shore']",
-      ship: { x: "41%", y: "88%", rotate: "-7deg" }
-    }
-  };
-
-  const arrivalPosition = {
-    x: "48%",
-    y: "49%",
-    rotate: "0deg"
-  };
-
-  const getMeta = (territoryId) => territoryMeta[territoryId] || null;
-
-  const getMistLayer = (territoryId) => {
-    const meta = getMeta(territoryId);
-    return meta ? document.querySelector(meta.mist) : null;
-  };
-
-  const getRoute = (territoryId) => {
-    const meta = getMeta(territoryId);
-    return meta ? document.querySelector(meta.route) : null;
-  };
-
-  const getLandmass = (territoryId) => {
-    return document.querySelector(
-      `.landmass[data-territory="${territoryId}"]`
-    );
-  };
-
-  const getLandmark = (territoryId) => {
-    const meta = getMeta(territoryId);
-    return meta ? document.querySelector(meta.landmark) : null;
-  };
-
-  const getDiscovery = (territoryId) => {
-    const meta = getMeta(territoryId);
-    return meta ? document.querySelector(meta.discovery) : null;
-  };
-
-  const setMistState = (territoryId, state) => {
-    const mist = getMistLayer(territoryId);
-
-    if (!mist) return;
-
-    mist.classList.remove("is-covered", "is-previewed", "is-revealed");
-
-    if (state === "covered") {
-      mist.classList.add("is-covered");
-    } else if (state === "previewed") {
-      mist.classList.add("is-previewed");
-    } else if (state === "revealed") {
-      mist.classList.add("is-revealed");
-    }
-  };
-
-  const setLandmarkState = (territoryId, state) => {
-    const landmass = getLandmass(territoryId);
-    const landmark = getLandmark(territoryId);
-
-    if (landmass) {
-      landmass.classList.remove("is-covered", "is-previewed", "is-revealed");
-
-      if (state === "covered") {
-        landmass.classList.add("is-covered");
-      } else if (state === "previewed") {
-        landmass.classList.add("is-previewed");
-      } else if (state === "revealed") {
-        landmass.classList.add("is-revealed");
-      }
-    }
-
-    if (landmark) {
-      landmark.classList.remove("is-covered", "is-previewed", "is-revealed");
-
-      if (state === "covered") {
-        landmark.classList.add("is-covered");
-      } else if (state === "previewed") {
-        landmark.classList.add("is-previewed");
-      } else if (state === "revealed") {
-        landmark.classList.add("is-revealed");
-      }
-    }
-  };
-
-  const setDiscoveryState = (territoryId, state) => {
-    const discovery = getDiscovery(territoryId);
-
-    if (!discovery) return;
-
-    discovery.classList.remove("is-covered", "is-previewed", "is-revealed");
-
-    if (state === "covered") {
-      discovery.classList.add("is-covered");
-    } else if (state === "previewed") {
-      discovery.classList.add("is-previewed");
-    } else if (state === "revealed") {
-      discovery.classList.add("is-revealed");
-    }
-  };
-
-  const clearAllRoutes = () => {
-    routes.forEach((route) => route.classList.remove("is-active"));
-  };
-
-  const highlightRoute = (territoryId) => {
-    clearAllRoutes();
-
-    const route = getRoute(territoryId);
-
-    if (route) {
-      route.classList.add("is-active");
-    }
-  };
-
-  const moveShip = (territoryId) => {
-    if (!atlasShip) return;
-
-    const meta = getMeta(territoryId);
-
-    if (!meta) return;
-
-    if (reducedMotion) {
-      atlasShip.style.left = arrivalPosition.x;
-      atlasShip.style.top = arrivalPosition.y;
-      atlasShip.style.transform = `rotate(${arrivalPosition.rotate})`;
+    if (!("IntersectionObserver" in window) || prefersReducedMotion) {
+      revealTargets.forEach((item) => item.classList.add("is-visible"));
       return;
     }
 
-    atlasShip.style.left = meta.ship.x;
-    atlasShip.style.top = meta.ship.y;
-    atlasShip.style.transform = `rotate(${meta.ship.rotate})`;
-  };
-
-  const returnShipToArrival = () => {
-    if (!atlasShip) return;
-
-    atlasShip.style.left = arrivalPosition.x;
-    atlasShip.style.top = arrivalPosition.y;
-    atlasShip.style.transform = `rotate(${arrivalPosition.rotate})`;
-  };
-
-  const coverTerritory = (territory, focusControl = false) => {
-    const territoryId = territory.id;
-    const control = territory.querySelector(".territory-control");
-    const detail = territory.querySelector(".territory-detail");
-
-    territory.classList.remove("is-revealed");
-    territory.classList.remove("is-previewed");
-
-    setMistState(territoryId, "covered");
-    setLandmarkState(territoryId, "covered");
-    setDiscoveryState(territoryId, "covered");
-
-    if (control) {
-      control.setAttribute("aria-expanded", "false");
-    }
-
-    if (detail) {
-      detail.hidden = true;
-    }
-
-    if (focusControl && control) {
-      control.focus();
-    }
-  };
-
-  const coverAllTerritories = () => {
-    territories.forEach((territory) => coverTerritory(territory));
-    clearAllRoutes();
-    returnShipToArrival();
-  };
-
-  const previewTerritory = (territory) => {
-    if (territory.classList.contains("is-revealed")) return;
-
-    const territoryId = territory.id;
-
-    territory.classList.add("is-previewed");
-    setMistState(territoryId, "previewed");
-    setLandmarkState(territoryId, "previewed");
-    setDiscoveryState(territoryId, "previewed");
-  };
-
-  const clearPreview = (territory) => {
-    if (territory.classList.contains("is-revealed")) return;
-
-    const territoryId = territory.id;
-
-    territory.classList.remove("is-previewed");
-    setMistState(territoryId, "covered");
-    setLandmarkState(territoryId, "covered");
-    setDiscoveryState(territoryId, "covered");
-  };
-
-  const revealTerritory = (territory) => {
-    const territoryId = territory.id;
-
-    territories.forEach((other) => {
-      if (other !== territory) {
-        coverTerritory(other);
-      }
-    });
-
-    const control = territory.querySelector(".territory-control");
-    const detail = territory.querySelector(".territory-detail");
-
-    territory.classList.add("is-revealed");
-    territory.classList.remove("is-previewed");
-
-    setMistState(territoryId, "revealed");
-    setLandmarkState(territoryId, "revealed");
-    setDiscoveryState(territoryId, "revealed");
-
-    if (control) {
-      control.setAttribute("aria-expanded", "true");
-    }
-
-    if (detail) {
-      detail.hidden = false;
-    }
-
-    highlightRoute(territoryId);
-    moveShip(territoryId);
-  };
-
-  /* Initialise: entire Atlas begins under mist */
-  territories.forEach((territory) => {
-    const territoryId = territory.id;
-    const control = territory.querySelector(".territory-control");
-    const detail = territory.querySelector(".territory-detail");
-
-    setMistState(territoryId, "covered");
-    setLandmarkState(territoryId, "covered");
-    setDiscoveryState(territoryId, "covered");
-
-    if (control) {
-      control.setAttribute("aria-expanded", "false");
-    }
-
-    if (detail) {
-      detail.hidden = true;
-    }
-
-    /* Hover preview */
-    territory.addEventListener("mouseenter", () => {
-      previewTerritory(territory);
-    });
-
-    territory.addEventListener("mouseleave", () => {
-      clearPreview(territory);
-    });
-
-    /* Keyboard focus preview */
-    if (control) {
-      control.addEventListener("focus", () => {
-        previewTerritory(territory);
-      });
-
-      control.addEventListener("blur", () => {
-        clearPreview(territory);
-      });
-
-      /* Click / Enter / Space */
-      control.addEventListener("click", () => {
-        if (territory.classList.contains("is-revealed")) {
-          coverTerritory(territory);
-          clearAllRoutes();
-          returnShipToArrival();
-        } else {
-          revealTerritory(territory);
-        }
-      });
-    }
-
-    /* Escape covers active territory */
-    territory.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Escape" &&
-        territory.classList.contains("is-revealed")
-      ) {
-        coverTerritory(territory, true);
-        clearAllRoutes();
-        returnShipToArrival();
-      }
-    });
-  });
-
-  /* Clicking outside the Atlas covers all territories */
-  document.addEventListener("click", (event) => {
-    const clickedInsideAtlas = event.target.closest(".atlas-world");
-
-    if (!clickedInsideAtlas) {
-      coverAllTerritories();
-    }
-  });
-
-  /* ---------------------------------------------
-     Arrival: leftward ship journey
-  --------------------------------------------- */
-  const arrivalShip = document.querySelector(".arrival .ship");
-
-  if (arrivalShip && !reducedMotion) {
-    const restartArrivalJourney = () => {
-      arrivalShip.style.animation = "none";
-
-      // Force style recalculation before restarting.
-      void arrivalShip.offsetWidth;
-
-      arrivalShip.style.animation = "";
-    };
-
-    if ("IntersectionObserver" in window) {
-      const arrivalObserver = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              restartArrivalJourney();
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.35 }
-      );
-
-      arrivalObserver.observe(arrival);
-    }
-  }
-
-  /* ---------------------------------------------
-     Back to top
-  --------------------------------------------- */
-  if (backToTop && arrival) {
-    const topObserver = new IntersectionObserver(
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          backToTop.classList.toggle("is-visible", !entry.isIntersecting);
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
         });
       },
-      { threshold: 0.2 }
+      {
+        threshold: 0.16,
+        rootMargin: "0px 0px -8% 0px"
+      }
     );
 
-    topObserver.observe(arrival);
+    revealTargets.forEach((item) => revealObserver.observe(item));
+  };
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: reducedMotion ? "auto" : "smooth"
+  /* ------------------------------------------------------------------------
+     Journey-map route thread
+     ------------------------------------------------------------------------ */
+
+  const buildRouteThread = () => {
+    if (!mapBoard || !threadSvg || !threadDrawn) return;
+    if (window.getComputedStyle(threadSvg).display === "none") return;
+
+    const boardRect = mapBoard.getBoundingClientRect();
+    const width = boardRect.width;
+    const height = boardRect.height;
+
+    if (width <= 0 || height <= 0) return;
+
+    threadSvg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    threadSvg.setAttribute("preserveAspectRatio", "none");
+
+    const points = routeOrder
+      .map((route) => {
+        const button = getSignpostButton(route);
+        if (!button) return null;
+
+        const buttonRect = button.getBoundingClientRect();
+
+        return {
+          x: buttonRect.left - boardRect.left + buttonRect.width / 2,
+          y: buttonRect.top - boardRect.top + buttonRect.height / 2
+        };
+      })
+      .filter(Boolean);
+
+    if (points.length < 2) return;
+
+    let path = `M ${points[0].x} ${points[0].y}`;
+
+    for (let i = 1; i < points.length; i += 1) {
+      const previous = points[i - 1];
+      const current = points[i];
+      const midX = (previous.x + current.x) / 2;
+
+      path += ` C ${midX} ${previous.y}, ${midX} ${current.y}, ${current.x} ${current.y}`;
+    }
+
+    [threadDrawn, threadTrail, threadHalo].forEach((pathElement) => {
+      if (pathElement) pathElement.setAttribute("d", path);
+    });
+
+    const length = threadDrawn.getTotalLength();
+
+    threadDrawn.style.setProperty("--thread-length", length);
+    threadDrawn.style.strokeDasharray = `${length}`;
+    threadDrawn.style.strokeDashoffset = prefersReducedMotion ? "0" : `${length}`;
+  };
+
+  const drawThreadProgress = (route) => {
+    if (!threadDrawn || !threadSvg) return;
+    if (window.getComputedStyle(threadSvg).display === "none") return;
+
+    const routeIndex = routeOrder.indexOf(route);
+    const totalLength = threadDrawn.getTotalLength();
+
+    if (routeIndex < 0) {
+      threadSvg.classList.remove("is-drawn");
+      threadDrawn.style.strokeDashoffset = prefersReducedMotion
+        ? "0"
+        : `${totalLength}`;
+      return;
+    }
+
+    const targetProgress = (routeIndex + 1) / routeOrder.length;
+    const targetLength = totalLength * targetProgress;
+
+    threadSvg.classList.add("is-drawn");
+    threadDrawn.style.strokeDashoffset = `${totalLength - targetLength}`;
+  };
+
+  const initThreadOnScroll = () => {
+    if (!mapSection || !threadDrawn) return;
+
+    if (!("IntersectionObserver" in window) || prefersReducedMotion) {
+      threadSvg?.classList.add("is-drawn");
+      threadDrawn.style.strokeDashoffset = "0";
+      return;
+    }
+
+    const threadObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          buildRouteThread();
+          threadSvg?.classList.add("is-drawn");
+          threadDrawn.style.strokeDashoffset = "0";
+          threadObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    threadObserver.observe(mapSection);
+  };
+
+  /* ------------------------------------------------------------------------
+     Route spaces
+     ------------------------------------------------------------------------ */
+
+  const closeAllPanels = () => {
+    routePanels.forEach((panel) => {
+      panel.hidden = true;
+      panel.classList.remove("is-open");
+    });
+
+    signpostButtons.forEach((button) => {
+      button.setAttribute("aria-expanded", "false");
+    });
+
+    activeRoute = null;
+    routeStage?.classList.remove("has-active");
+    mapBoard?.classList.remove("is-lit");
+    drawThreadProgress(null);
+  };
+
+  const openRoute = (route, options = {}) => {
+    const panel = getRoutePanel(route);
+    const button = getSignpostButton(route);
+
+    if (!panel) return;
+
+    const shouldToggleOff =
+      activeRoute === route && options.toggle !== false;
+
+    if (shouldToggleOff) {
+      closeAllPanels();
+      return;
+    }
+
+    closeAllPanels();
+
+    panel.hidden = false;
+
+    if (!prefersReducedMotion) {
+      panel.classList.add("is-open");
+    }
+
+    button?.setAttribute("aria-expanded", "true");
+
+    activeRoute = route;
+    routeStage?.classList.add("has-active");
+    mapBoard?.classList.add("is-lit");
+    drawThreadProgress(route);
+
+    if (options.focusTitle !== false) {
+      const title = panel.querySelector("h3");
+      window.requestAnimationFrame(() => {
+        title?.focus({ preventScroll: true });
+      });
+    }
+
+    if (options.scroll !== false) {
+      window.requestAnimationFrame(() => {
+        smoothScrollTo(panel, 18);
+      });
+    }
+  };
+
+  const initRouteControls = () => {
+    signpostButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        openRoute(button.dataset.route, {
+          toggle: true,
+          scroll: false
+        });
       });
     });
+
+    routeCardLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        openRoute(link.dataset.route, {
+          toggle: false,
+          scroll: true
+        });
+      });
+    });
+
+    document.querySelectorAll("[data-close]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const panel = button.closest(".route-panel");
+        const route = panel?.dataset.route;
+        const signpost = route ? getSignpostButton(route) : null;
+
+        closeAllPanels();
+
+        if (signpost) {
+          signpost.focus({ preventScroll: true });
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-next]").forEach((button) => {
+      button.addEventListener("click", () => {
+        openRoute(button.dataset.next, {
+          toggle: false,
+          scroll: true
+        });
+      });
+    });
+
+    const viewExperimentsButton = document.querySelector("[data-open-projects]");
+    const experiments = document.getElementById("makers-experiments");
+
+    viewExperimentsButton?.addEventListener("click", () => {
+      experiments?.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start"
+      });
+
+      window.requestAnimationFrame(() => {
+        experiments?.focus({ preventScroll: true });
+      });
+    });
+  };
+
+  /* ------------------------------------------------------------------------
+     Visitor counter
+     ------------------------------------------------------------------------ */
+
+  const initVisitorCounter = () => {
+    const counter = document.getElementById("visitor-count");
+    if (!counter) return;
+
+    const storageKey = "revanths-journey-visits";
+    let visits = 1;
+
+    try {
+      const stored = window.localStorage.getItem(storageKey);
+      visits = stored ? Number.parseInt(stored, 10) || 0 : 0;
+      visits += 1;
+      window.localStorage.setItem(storageKey, String(visits));
+    } catch (error) {
+      visits = 1;
+    }
+
+    counter.textContent = visits.toLocaleString();
+  };
+
+  /* ------------------------------------------------------------------------
+     Resize handling
+     ------------------------------------------------------------------------ */
+
+  let resizeTimer = null;
+
+  const handleResize = () => {
+    if (resizeTimer) window.clearTimeout(resizeTimer);
+
+    resizeTimer = window.setTimeout(() => {
+      buildRouteThread();
+
+      if (activeRoute) {
+        drawThreadProgress(activeRoute);
+      } else if (prefersReducedMotion) {
+        threadDrawn.style.strokeDashoffset = "0";
+      }
+    }, 160);
+  };
+
+  /* ------------------------------------------------------------------------
+     Initialize
+     ------------------------------------------------------------------------ */
+
+  const init = () => {
+    updateScrollThread();
+    buildRouteThread();
+    initReveals();
+    initThreadOnScroll();
+    initRouteControls();
+    initVisitorCounter();
+
+    window.addEventListener("scroll", updateScrollThread, { passive: true });
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
-});
+})();

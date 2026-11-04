@@ -1,740 +1,409 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="no-js">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Revanth’s Personal Atlas</title>
-  <meta name="description" content="A living personal atlas of Revanth Kumar Matta—curiosity, stories, strategy, learning, making, and steady progress.">
-
-  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="images/favicon.ico">
-  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Revanth’s Personal Atlas">
-  <meta property="og:description" content="A living map of curiosity, stories, strategy, learning, making, and steady progress.">
-  <meta property="og:url" content="https://revanth-matta.github.io/my-journey/">
-  <meta property="og:image" content="https://revanth-matta.github.io/my-journey/images/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Parchment Atlas map with mist, a ship, and the title Revanth’s Personal Atlas.">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Revanth’s Personal Atlas">
-  <meta name="twitter:description" content="A living map of curiosity, stories, strategy, learning, making, and steady progress.">
-  <meta name="twitter:image" content="https://revanth-matta.github.io/my-journey/images/og-image.png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revanth’s Journey</title>
+  <meta name="description" content="A living map of curiosity, stories, strategy, making, and everyday discovery.">
+  <meta name="theme-color" content="#F1E6CC">
+  <script>document.documentElement.className = 'js';</script>
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-  <a class="skip-link" href="#main">Skip to Atlas</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="atlas-header">
-    <div class="shell header-inner">
-      <a class="brand" href="#arrival">
-        <span class="brand-mark" aria-hidden="true"></span>
-        Revanth
-      </a>
-
-      <nav class="atlas-rail" aria-label="Atlas navigation">
-        <ul>
-          <li><a href="#arrival" data-section="arrival">Arrival</a></li>
-          <li><a href="#atlas" data-section="atlas">Atlas</a></li>
-          <li><a href="#field-notes" data-section="field-notes">Field Notes</a></li>
-          <li><a href="#onward" data-section="onward">Onward</a></li>
-        </ul>
-      </nav>
-
-      <div class="header-actions">
-        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to light theme">
-          <span class="theme-icon" aria-hidden="true"></span>
-        </button>
-
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open navigation menu">
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </div>
-
-    <nav class="mobile-navigation" id="mobile-navigation" aria-label="Mobile navigation">
+  <header class="site-header">
+    <a class="brand" href="#arrival-gate">Revanth’s Journey</a>
+    <nav class="site-nav" aria-label="Primary">
       <ul>
-        <li><a href="#arrival">Arrival</a></li>
-        <li><a href="#atlas">Atlas</a></li>
-        <li><a href="#field-notes">Field Notes</a></li>
-        <li><a href="#onward">Onward</a></li>
+        <li><a href="#journey-map">Journey Map</a></li>
+        <li><a href="#life-in-progress">Life in Progress</a></li>
+        <li><a href="#route-spaces">Route Spaces</a></li>
+        <li><a href="#current-coordinates">Current Coordinates</a></li>
+        <li><a href="#professional-snapshot">Professional Snapshot</a></li>
+        <li><a href="#signal-room">Signal Room</a></li>
       </ul>
     </nav>
   </header>
 
+  <div class="page-thread" aria-hidden="true"><span></span></div>
+
   <main id="main">
-    <!-- ARRIVAL -->
-    <section class="arrival" id="arrival" aria-labelledby="arrival-title">
-      <div class="parchment-layer" aria-hidden="true"></div>
-      <div class="map-grain" aria-hidden="true"></div>
-      <div class="arrival-routes" aria-hidden="true"></div>
 
-      <div class="shell arrival-inner">
-        <div class="arrival-map reveal" aria-hidden="true">
-          <div class="map-terrain"></div>
-          <div class="map-coastline"></div>
-          <div class="map-route"></div>
-
-          <svg class="ship" viewBox="0 0 64 40" role="img" aria-label="Ship travelling across open water toward Arrival">
-            <path class="ship-hull" d="M10 27h44l-7 9H17z"/>
-            <path class="ship-sail" d="M32 5v20"/>
-            <path class="ship-sail-shape" d="M32 7c9 3 13 9 13 18H32z"/>
-          </svg>
-
-          <div class="arrival-marker">
-            <span class="marker-dot"></span>
-            <span class="marker-label">Arrival</span>
-          </div>
-        </div>
-
-        <div class="arrival-copy reveal">
-          <figure class="portrait-medallion">
-            <img
-              src="images/portrait.png"
-              alt="Portrait of Revanth Kumar Matta"
-              width="320"
-              height="320"
-              decoding="async"
-            >
-          </figure>
-
-          <p class="eyebrow">Personal Atlas</p>
-          <h1 id="arrival-title">You’ve arrived<br>at Revanth’s Atlas.</h1>
-          <p class="arrival-lede">
-            A living map of curiosity, stories, strategy,
-            learning, and steady progress.
-          </p>
-
-          <div class="arrival-actions">
-            <a class="btn btn-primary" href="#atlas">Explore the Atlas</a>
-          </div>
-        </div>
+    <!-- 1. Arrival Gate -->
+    <section id="arrival-gate" class="hero" aria-labelledby="hero-title">
+      <img class="hero__img" src="assets/hero-camp.jpg" alt="Expedition camp gate at dusk, with lanterns, distant mountains and drifting mist" fetchpriority="high" decoding="async">
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="hero__mist" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="hero__content">
+        <p class="eyebrow">A Personal Expedition</p>
+        <h1 id="hero-title">Revanth’s Journey</h1>
+        <p class="hero__sub">A living map of curiosity, stories, strategy, making, and everyday discovery.</p>
+        <p class="hero__intro">This is not a resume. It is a map of what I am exploring, learning, making, and enjoying right now.</p>
+        <a class="btn btn--light" href="#journey-map">Begin the Journey</a>
       </div>
-
-      <a class="skip-intro" href="#atlas">Skip to Atlas</a>
     </section>
 
-    <!-- ATLAS -->
-    <section class="atlas" id="atlas" aria-labelledby="atlas-title">
-      <div class="shell">
-        <div class="section-head reveal">
-          <p class="eyebrow">The Atlas</p>
-          <h2 id="atlas-title">A world beneath the mist</h2>
-          <p class="section-lede">
-            Hover or focus to glimpse a territory.
-            Select it to clear the mist, reveal its route,
-            and uncover a discovery.
-          </p>
-        </div>
+    <!-- 2. The Journey Map -->
+    <section id="journey-map" class="section map-section" aria-labelledby="map-title">
+      <div class="section__head reveal">
+        <h2 id="map-title">The Journey Map</h2>
+        <p>Five territories, one route. Choose a signpost to clear the mist and follow the path.</p>
+      </div>
 
-        <div class="atlas-world reveal">
-          <svg
-            class="atlas-svg"
-            viewBox="0 0 1200 920"
-            role="img"
-            aria-labelledby="atlas-svg-title atlas-svg-description"
-          >
-            <title id="atlas-svg-title">Revanth’s Personal Atlas</title>
-            <desc id="atlas-svg-description">
-              A parchment map covered in mist. Hovering or selecting a territory
-              clears the mist locally, reveals its route, landmark, and discovery.
-            </desc>
-
-            <defs>
-              <filter id="mistTexture" x="-40%" y="-40%" width="180%" height="180%">
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency="0.011 0.018"
-                  numOctaves="3"
-                  seed="18"
-                  result="noise"
-                />
-                <feDisplacementMap
-                  in="SourceGraphic"
-                  in2="noise"
-                  scale="45"
-                  xChannelSelector="R"
-                  yChannelSelector="G"
-                  result="displaced"
-                />
-                <feGaussianBlur in="displaced" stdDeviation="10"/>
-              </filter>
-
-              <filter id="softMist" x="-40%" y="-40%" width="180%" height="180%">
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency="0.007 0.013"
-                  numOctaves="2"
-                  seed="42"
-                  result="noise"
-                />
-                <feDisplacementMap
-                  in="SourceGraphic"
-                  in2="noise"
-                  scale="65"
-                  xChannelSelector="R"
-                  yChannelSelector="G"
-                  result="displaced"
-                />
-                <feGaussianBlur in="displaced" stdDeviation="18"/>
-              </filter>
-
-              <filter id="routeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="7" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-
-            <!-- Ocean -->
-            <rect class="ocean" width="1200" height="920"/>
-
-            <g class="ocean-texture" aria-hidden="true">
-              <path d="M80 140q30-14 60 0t60 0"/>
-              <path d="M920 220q30-14 60 0t60 0"/>
-              <path d="M180 720q30-14 60 0t60 0"/>
-              <path d="M820 780q30-14 60 0t60 0"/>
-              <path d="M520 840q30-14 60 0t60 0"/>
-            </g>
-
-            <!-- THE INKLANDS -->
-            <g class="landmass landmass-inklands" data-territory="inklands">
-              <path
-                class="land-shape"
-                d="M80 110 C170 60, 290 70, 365 120 C430 165, 440 245, 385 300 C340 345, 250 360, 180 330 C100 295, 40 225, 52 160 C58 132, 62 122, 80 110 Z"
-              />
-              <path class="river" d="M170 165q45 35 35 90"/>
-              <path class="coast-detail" d="M105 210q28 20 55 9"/>
-
-              <g class="landmark primary-landmark" data-landmark="inklands">
-                <path class="landmark-ink" d="M205 200q28-20 50-9"/>
-                <circle class="landmark-inkwell" cx="268" cy="205" r="10"/>
-                <path class="landmark-quill" d="M222 216q20-31 47-20"/>
-              </g>
-
-              <g class="landmark secondary-landmark">
-                <path class="landmark-book" d="M145 265q34-16 62 0q28-16 62 0"/>
-              </g>
-            </g>
-
-            <!-- THE STRATEGY ISLES -->
-            <g class="landmass landmass-strategy" data-territory="strategy-isles">
-              <path
-                class="land-shape"
-                d="M830 95 C895 72, 972 88, 999 138 C1021 182, 989 226, 935 232 C880 238, 825 210, 814 165 C808 138, 808 111, 830 95 Z"
-              />
-              <path
-                class="land-shape islet"
-                d="M1050 160 C1083 149, 1116 165, 1116 193 C1116 221, 1083 237, 1055 226 C1027 215, 1022 176, 1050 160 Z"
-              />
-              <path
-                class="land-shape islet"
-                d="M875 275 C903 267, 931 280, 931 302 C931 326, 903 337, 880 328 C858 319, 855 285, 875 275 Z"
-              />
-
-              <g class="landmark primary-landmark" data-landmark="strategy-isles">
-                <path class="landmark-flagpole" d="M905 140v52"/>
-                <path class="landmark-flag" d="M905 142q28 9 50 0l-9 20q-22 7-41-2z"/>
-              </g>
-
-              <path class="landmark secondary-landmark landmark-ridge" d="M840 190q28-22 56-6"/>
-            </g>
-
-            <!-- ARRIVAL -->
-            <g class="landmass landmass-arrival" data-territory="arrival">
-              <path
-                class="land-shape"
-                d="M545 410 C595 382, 660 393, 682 436 C704 480, 671 524, 617 530 C563 536, 519 503, 519 464 C519 442, 527 423, 545 410 Z"
-              />
-              <circle class="harbour-marker" cx="600" cy="470" r="8"/>
-            </g>
-
-            <!-- THE MAKER'S COAST -->
-            <g class="landmass landmass-makers" data-territory="makers-coast">
-              <path
-                class="land-shape"
-                d="M760 400 C858 368, 978 390, 1054 445 C1120 494, 1120 565, 1054 604 C978 648, 850 643, 785 594 C725 549, 708 470, 760 400 Z"
-              />
-              <path class="cliff" d="M815 450q28 34 6 74"/>
-              <path class="bay" d="M965 555q40 20 80 0"/>
-
-              <g class="landmark primary-landmark" data-landmark="makers-coast">
-                <path class="landmark-tower" d="M885 475l11 52h23l11-52z"/>
-                <circle class="landmark-light" cx="905" cy="469" r="7"/>
-              </g>
-
-              <g class="landmark secondary-landmark">
-                <circle class="landmark-gear" cx="995" cy="510" r="11"/>
-                <path class="landmark-gear-teeth" d="M995 495v-7M995 532v-7M980 510h-7M1017 510h-7"/>
-              </g>
-            </g>
-
-            <!-- THE CURIOSITY EXPANSE -->
-            <g class="landmass landmass-curiosity" data-territory="curiosity-expanse">
-              <path
-                class="land-shape"
-                d="M90 500 C200 456, 332 478, 398 543 C452 598, 430 674, 354 712 C266 756, 134 740, 80 674 C30 613, 30 542, 90 500 Z"
-              />
-              <path class="valley" d="M160 600q70 40 150 17"/>
-              <path class="route-node" d="M195 645l0 0"/>
-
-              <g class="landmark primary-landmark" data-landmark="curiosity-expanse">
-                <path class="landmark-scope" d="M205 600l52-25"/>
-                <circle class="landmark-scope-end" cx="263" cy="572" r="8"/>
-                <path class="landmark-scope-leg" d="M222 611l17 25"/>
-              </g>
-
-              <g class="landmark secondary-landmark">
-                <circle class="landmark-node" cx="315" cy="645" r="6"/>
-                <circle class="landmark-node" cx="348" cy="678" r="5"/>
-                <path class="landmark-node-link" d="M321 648q17 14 25 27"/>
-              </g>
-            </g>
-
-            <!-- THE SAFFRON SHORES -->
-            <g class="landmass landmass-saffron" data-territory="saffron-shores">
-              <path
-                class="land-shape"
-                d="M790 690 C878 651, 998 667, 1063 722 C1118 772, 1096 832, 1020 848 C932 864, 822 842, 778 787 C745 743, 750 710, 790 690 Z"
-              />
-              <path class="beach" d="M835 795q52 29 115 12"/>
-              <path class="cove" d="M965 740q34 23 68 6"/>
-
-              <g class="landmark primary-landmark" data-landmark="saffron-shores">
-                <path class="landmark-bowl" d="M895 765q34 29 68 0"/>
-                <path class="landmark-steam" d="M912 748q6-12 0-21M934 748q6-12 0-21"/>
-              </g>
-
-              <path class="landmark secondary-landmark landmark-leaf" d="M995 800q28-20 51-6q-23 23-51 6z"/>
-            </g>
-
-            <!-- THE PROFESSIONAL SHORE -->
-            <g class="landmass landmass-professional" data-territory="professional-shore">
-              <path
-                class="land-shape"
-                d="M430 720 C495 693, 572 709, 604 753 C631 796, 604 834, 549 840 C494 846, 439 824, 423 785 C412 758, 416 736, 430 720 Z"
-              />
-              <path class="bridge-route" d="M600 470q-23 150-115 285"/>
-
-              <g class="landmark primary-landmark" data-landmark="professional-shore">
-                <path class="landmark-bridge" d="M462 770q58-32 116 0"/>
-                <path class="landmark-bridge-post" d="M484 770v-25M549 770v-25"/>
-              </g>
-            </g>
-
-            <!-- Water routes -->
-            <g class="water-routes" aria-hidden="true">
-              <path class="route" data-route="inklands" d="M370 230q120 90 230 240"/>
-              <path class="route" data-route="strategy-isles" d="M682 470q88-105 175-245"/>
-              <path class="route" data-route="makers-coast" d="M682 470q90 70 135 115"/>
-              <path class="route" data-route="curiosity-expanse" d="M398 620q100-70 190-160"/>
-              <path class="route" data-route="saffron-shores" d="M617 530q115 105 215 185"/>
-              <path class="route" data-route="professional-shore" d="M600 470q-23 150-115 285"/>
-            </g>
-
-            <!-- Atlas-wide base mist -->
-            <g class="mist-atlas" aria-hidden="true">
-              <rect
-                class="mist-base"
-                x="-80"
-                y="-80"
-                width="1360"
-                height="1080"
-                filter="url(#softMist)"
-              />
-            </g>
-
-            <!-- Territory mist clouds -->
-            <g class="mist-territory" data-mist="inklands" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="210" cy="190" rx="220" ry="125"/>
-              <ellipse class="mist-cloud" cx="330" cy="245" rx="195" ry="105"/>
-              <ellipse class="mist-cloud" cx="155" cy="285" rx="185" ry="100"/>
-              <ellipse class="mist-cloud" cx="275" cy="125" rx="175" ry="95"/>
-              <ellipse class="mist-cloud" cx="90" cy="185" rx="155" ry="95"/>
-              <ellipse class="mist-cloud" cx="375" cy="195" rx="155" ry="90"/>
-            </g>
-
-            <g class="mist-territory" data-mist="strategy-isles" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="935" cy="175" rx="220" ry="110"/>
-              <ellipse class="mist-cloud" cx="1065" cy="230" rx="185" ry="95"/>
-              <ellipse class="mist-cloud" cx="860" cy="255" rx="175" ry="90"/>
-              <ellipse class="mist-cloud" cx="995" cy="105" rx="175" ry="90"/>
-              <ellipse class="mist-cloud" cx="880" cy="325" rx="155" ry="80"/>
-              <ellipse class="mist-cloud" cx="1095" cy="175" rx="145" ry="80"/>
-            </g>
-
-            <g class="mist-territory" data-mist="makers-coast" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="910" cy="490" rx="235" ry="115"/>
-              <ellipse class="mist-cloud" cx="795" cy="545" rx="195" ry="100"/>
-              <ellipse class="mist-cloud" cx="1040" cy="555" rx="195" ry="95"/>
-              <ellipse class="mist-cloud" cx="910" cy="385" rx="195" ry="95"/>
-              <ellipse class="mist-cloud" cx="765" cy="450" rx="155" ry="85"/>
-              <ellipse class="mist-cloud" cx="1075" cy="480" rx="155" ry="85"/>
-            </g>
-
-            <g class="mist-territory" data-mist="curiosity-expanse" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="235" cy="610" rx="230" ry="115"/>
-              <ellipse class="mist-cloud" cx="355" cy="675" rx="195" ry="100"/>
-              <ellipse class="mist-cloud" cx="150" cy="685" rx="185" ry="95"/>
-              <ellipse class="mist-cloud" cx="255" cy="505" rx="185" ry="95"/>
-              <ellipse class="mist-cloud" cx="85" cy="595" rx="155" ry="90"/>
-              <ellipse class="mist-cloud" cx="395" cy="595" rx="155" ry="85"/>
-            </g>
-
-            <g class="mist-territory" data-mist="saffron-shores" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="925" cy="760" rx="230" ry="110"/>
-              <ellipse class="mist-cloud" cx="1050" cy="805" rx="185" ry="90"/>
-              <ellipse class="mist-cloud" cx="820" cy="805" rx="185" ry="90"/>
-              <ellipse class="mist-cloud" cx="945" cy="685" rx="185" ry="90"/>
-              <ellipse class="mist-cloud" cx="790" cy="740" rx="155" ry="80"/>
-              <ellipse class="mist-cloud" cx="1075" cy="750" rx="155" ry="80"/>
-            </g>
-
-            <g class="mist-territory" data-mist="professional-shore" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="515" cy="785" rx="195" ry="100"/>
-              <ellipse class="mist-cloud" cx="610" cy="820" rx="160" ry="80"/>
-              <ellipse class="mist-cloud" cx="445" cy="805" rx="150" ry="80"/>
-              <ellipse class="mist-cloud" cx="535" cy="715" rx="150" ry="80"/>
-            </g>
-
-            <!-- Compass -->
-            <g class="compass" aria-hidden="true">
-              <circle cx="1120" cy="820" r="36"/>
-              <path d="M1120 788v64M1088 820h64M1099 799l42 42M1141 799l-42 42"/>
-              <text x="1120" y="776" text-anchor="middle">N</text>
-            </g>
+      <div class="map-scroller">
+        <div class="map-board" id="map-board">
+          <img class="map-art" src="assets/journey-map.jpg" alt="Aged parchment map with five territory icons, a winding route and a compass rose" loading="lazy" decoding="async">
+          <div class="map-mist" aria-hidden="true"></div>
+          <svg class="thread" aria-hidden="true" focusable="false">
+            <path class="thread__trail" d=""></path>
+            <path class="thread__halo" d=""></path>
+            <path class="thread__drawn" d=""></path>
           </svg>
 
-          <!-- Territory labels -->
-          <div class="territory-layer">
-            <article class="territory territory-inklands" id="inklands" aria-labelledby="inklands-button">
-              <button
-                class="territory-control"
-                type="button"
-                id="inklands-button"
-                aria-expanded="false"
-                aria-controls="inklands-detail"
-              >
-                <span class="territory-poetic">The Inklands</span>
-                <span class="territory-name">Reading &amp; Writing</span>
-                <span class="territory-preview">
-                  Stories, imagination, and an original novel in progress.
-                </span>
-                <span class="territory-action">Open territory</span>
-              </button>
+          <div class="map-overlay">
+            <div class="camp" aria-hidden="true">
+              <span class="camp__pin"></span>
+              <span class="camp__label">Arrival Camp</span>
+            </div>
 
-              <div class="territory-detail" id="inklands-detail" hidden>
-                <p class="territory-intro">
-                  Stories let me explore possibilities, perspectives,
-                  and worlds beyond everyday life.
-                </p>
+            <ol class="signposts">
+              <li class="signpost-item t-teal">
+                <button class="signpost" type="button" data-route="inklands" aria-controls="route-inklands" aria-expanded="false">
+                  <span class="signpost__pin" aria-hidden="true">01</span>
+                  <span class="signpost__label">
+                    <span class="signpost__name">The Inklands</span>
+                    <span class="signpost__theme">Reading &amp; Stories</span>
+                    <span class="signpost__glimpse">A misty forest of unfinished stories, borrowed worlds, and characters that stay with you.</span>
+                  </span>
+                </button>
+              </li>
 
-                <ul class="territory-markers">
-                  <li>Fanfiction and alternate story directions</li>
-                  <li>Original novel in early development</li>
-                  <li>Future publishing intention</li>
-                </ul>
+              <li class="signpost-item t-indigo">
+                <button class="signpost" type="button" data-route="strategy-isles" aria-controls="route-strategy-isles" aria-expanded="false">
+                  <span class="signpost__pin" aria-hidden="true">02</span>
+                  <span class="signpost__label">
+                    <span class="signpost__name">The Strategy Isles</span>
+                    <span class="signpost__theme">Games &amp; Thinking</span>
+                    <span class="signpost__glimpse">Islands of strategy, decisions, and small worlds with big consequences.</span>
+                  </span>
+                </button>
+              </li>
 
-                <p class="territory-future">
-                  Future route: continue developing the world,
-                  characters, and plot.
-                </p>
+              <li class="signpost-item t-amber">
+                <button class="signpost" type="button" data-route="curiosity-expanse" aria-controls="route-curiosity-expanse" aria-expanded="false">
+                  <span class="signpost__pin" aria-hidden="true">03</span>
+                  <span class="signpost__label">
+                    <span class="signpost__name">The Curiosity Expanse</span>
+                    <span class="signpost__theme">Learning &amp; Data</span>
+                    <span class="signpost__glimpse">An open expanse for questions, patterns, data, and new skills.</span>
+                  </span>
+                </button>
+              </li>
 
-                <p class="territory-discovery" data-discovery="inklands">
-                  <span class="discovery-marker" aria-hidden="true"></span>
-                  A story begins with a question
-                  I cannot yet answer.
-                </p>
-              </div>
-            </article>
+              <li class="signpost-item t-terracotta">
+                <button class="signpost" type="button" data-route="makers-coast" aria-controls="route-makers-coast" aria-expanded="false">
+                  <span class="signpost__pin" aria-hidden="true">04</span>
+                  <span class="signpost__label">
+                    <span class="signpost__name">The Maker’s Coast</span>
+                    <span class="signpost__theme">Making &amp; Building</span>
+                    <span class="signpost__glimpse">A route for creating, experimenting, and turning small ideas into useful experiences.</span>
+                  </span>
+                </button>
+              </li>
 
-            <article class="territory territory-strategy" id="strategy-isles" aria-labelledby="strategy-button">
-              <button
-                class="territory-control"
-                type="button"
-                id="strategy-button"
-                aria-expanded="false"
-                aria-controls="strategy-detail"
-              >
-                <span class="territory-poetic">The Strategy Isles</span>
-                <span class="territory-name">Games &amp; Strategy</span>
-                <span class="territory-preview">
-                  Tactical worlds, adaptation, and steady improvement.
-                </span>
-                <span class="territory-action">Open territory</span>
-              </button>
-
-              <div class="territory-detail" id="strategy-detail" hidden>
-                <p class="territory-intro">
-                  Games are where I enjoy planning, adapting,
-                  and finding a way forward.
-                </p>
-
-                <ul class="territory-markers">
-                  <li>Currently playing: Game of Thrones: Kings Road</li>
-                  <li>Memorable games: Clash of Clans, Minecraft, Need for Speed, Call of Duty, SimCity</li>
-                  <li>Strategy: plan, adapt, and keep moving forward</li>
-                </ul>
-
-                <p class="territory-future">
-                  Future route: keep exploring game development
-                  and esports curiosity.
-                </p>
-
-                <p class="territory-discovery" data-discovery="strategy-isles">
-                  <span class="discovery-marker" aria-hidden="true"></span>
-                  Every strategy begins
-                  with adaptation.
-                </p>
-              </div>
-            </article>
-
-            <article class="territory territory-makers" id="makers-coast" aria-labelledby="makers-button">
-              <button
-                class="territory-control"
-                type="button"
-                id="makers-button"
-                aria-expanded="false"
-                aria-controls="makers-detail"
-              >
-                <span class="territory-poetic">The Maker’s Coast</span>
-                <span class="territory-name">Making &amp; Building</span>
-                <span class="territory-preview">
-                  Offline tools, visual ideas, and useful experiments.
-                </span>
-                <span class="territory-action">Open territory</span>
-              </button>
-
-              <div class="territory-detail" id="makers-detail" hidden>
-                <p class="territory-intro">
-                  I enjoy turning small, repetitive problems into simple tools
-                  that save time.
-                </p>
-
-                <ul class="territory-markers">
-                  <li>Resume Template Builder</li>
-                  <li>Job Fit Tracker</li>
-                  <li>Message Builder</li>
-                </ul>
-
-                <p class="territory-future">
-                  Future route: improve offline-first tools and
-                  share selected experiments when ready.
-                </p>
-
-                <p class="territory-discovery" data-discovery="makers-coast">
-                  <span class="discovery-marker" aria-hidden="true"></span>
-                  More offline tools may appear
-                  when they are useful.
-                </p>
-              </div>
-            </article>
-
-            <article class="territory territory-curiosity" id="curiosity-expanse" aria-labelledby="curiosity-button">
-              <button
-                class="territory-control"
-                type="button"
-                id="curiosity-button"
-                aria-expanded="false"
-                aria-controls="curiosity-detail"
-              >
-                <span class="territory-poetic">The Curiosity Expanse</span>
-                <span class="territory-name">Learning &amp; Exploration</span>
-                <span class="territory-preview">
-                  Data, AI tools, and practical skills.
-                </span>
-                <span class="territory-action">Open territory</span>
-              </button>
-
-              <div class="territory-detail" id="curiosity-detail" hidden>
-                <p class="territory-intro">
-                  Learning is how I stay curious, adapt to change,
-                  and keep improving.
-                </p>
-
-                <ul class="territory-markers">
-                  <li>Data Analytics Certification</li>
-                  <li>AI tools: Claude, Perplexity, Google AI, Copilot, ChatGPT</li>
-                  <li>Learning by exploring, building, and practising</li>
-                </ul>
-
-                <p class="territory-future">
-                  Future route: apply analytical thinking to
-                  personal projects and useful technology.
-                </p>
-
-                <p class="territory-discovery" data-discovery="curiosity-expanse">
-                  <span class="discovery-marker" aria-hidden="true"></span>
-                  Learning is exploration
-                  with a destination.
-                </p>
-              </div>
-            </article>
-
-            <article class="territory territory-saffron" id="saffron-shores" aria-labelledby="saffron-button">
-              <button
-                class="territory-control"
-                type="button"
-                id="saffron-button"
-                aria-expanded="false"
-                aria-controls="saffron-detail"
-              >
-                <span class="territory-poetic">The Saffron Shores</span>
-                <span class="territory-name">Food &amp; Curiosity</span>
-                <span class="territory-preview">
-                  Vegetarian flavours, cuisines, and everyday discovery.
-                </span>
-                <span class="territory-action">Open territory</span>
-              </button>
-
-              <div class="territory-detail" id="saffron-detail" hidden>
-                <p class="territory-intro">
-                  Food is one of the simplest ways to explore culture,
-                  memory, and everyday curiosity.
-                </p>
-
-                <ul class="territory-markers">
-                  <li>Vegetarian flavours and cuisines</li>
-                  <li>Healthy salads, bowls, and combinations</li>
-                  <li>Personal food map: planned, not started yet</li>
-                </ul>
-
-                <p class="territory-future">
-                  Future route: explore continental vegetarian options
-                  and document dishes worth remembering.
-                </p>
-
-                <p class="territory-discovery" data-discovery="saffron-shores">
-                  <span class="discovery-marker" aria-hidden="true"></span>
-                  A personal food map is planned,
-                  not started.
-                </p>
-              </div>
-            </article>
-
-            <article class="territory territory-professional" id="professional-shore" aria-labelledby="professional-button">
-              <div class="territory-control professional-control">
-                <span class="territory-poetic">The Professional Shore</span>
-                <span class="territory-name">Experience, impact &amp; opportunities</span>
-                <span class="territory-preview">
-                  The bridge to my professional portfolio.
-                </span>
-
-                <a class="btn btn-primary" href="https://revanth-matta.github.io/" target="_blank" rel="noopener noreferrer">
-                  View Professional Portfolio
-                  <span class="sr-only">(opens in a new tab)</span>
-                </a>
-              </div>
-
-              <p class="territory-discovery" data-discovery="professional-shore">
-                <span class="discovery-marker" aria-hidden="true"></span>
-                The route continues
-                beyond the Atlas.
-              </p>
-            </article>
+              <li class="signpost-item t-saffron">
+                <button class="signpost" type="button" data-route="saffron-shores" aria-controls="route-saffron-shores" aria-expanded="false">
+                  <span class="signpost__pin" aria-hidden="true">05</span>
+                  <span class="signpost__label">
+                    <span class="signpost__name">The Saffron Shores</span>
+                    <span class="signpost__theme">Food &amp; Well-being</span>
+                    <span class="signpost__glimpse">Warm shores of everyday meals, better choices, and small experiments in feeling good.</span>
+                  </span>
+                </button>
+              </li>
+            </ol>
           </div>
-
-          <!-- Ship -->
-          <svg class="atlas-ship" viewBox="0 0 64 40" role="img" aria-label="Ship exploring the Atlas waters">
-            <path class="ship-hull" d="M10 27h44l-7 9H17z"/>
-            <path class="ship-sail" d="M32 5v20"/>
-            <path class="ship-sail-shape" d="M32 7c9 3 13 9 13 18H32z"/>
-          </svg>
         </div>
       </div>
     </section>
 
-    <!-- FIELD NOTES -->
-    <section class="field-notes" id="field-notes" aria-labelledby="field-notes-title">
-      <div class="section-route" aria-hidden="true"></div>
-
-      <div class="shell">
-        <div class="section-head reveal">
-          <p class="eyebrow">Field Notes</p>
-          <h2 id="field-notes-title">Dispatches from the Atlas</h2>
-          <p class="section-lede">
-            Current notes from the territories—learning, making,
-            playing, and exploring.
-          </p>
-        </div>
-
-        <div class="dispatch-grid">
-          <article class="dispatch dispatch-one reveal">
-            <p class="dispatch-region">From the Curiosity Expanse</p>
-            <h3>Currently learning</h3>
-            <p class="dispatch-title">Data Analytics Certification</p>
-            <p>SQL, Tableau, Power BI, and Advanced Excel.</p>
-          </article>
-
-          <article class="dispatch dispatch-two reveal">
-            <p class="dispatch-region">From the Maker’s Coast</p>
-            <h3>Currently making</h3>
-            <p class="dispatch-title">Personal &amp; professional portfolios</p>
-            <p>Refining my GitHub-based portfolio experiments.</p>
-          </article>
-
-          <article class="dispatch dispatch-three reveal">
-            <p class="dispatch-region">From the Strategy Isles</p>
-            <h3>Currently playing</h3>
-            <p class="dispatch-title">Game of Thrones: Kings Road</p>
-            <p>Working toward completing the game and becoming a stronger player.</p>
-          </article>
-
-          <article class="dispatch dispatch-four reveal">
-            <p class="dispatch-region">From the Saffron Shores</p>
-            <h3>Currently exploring</h3>
-            <p class="dispatch-title">AI tools &amp; healthy food combinations</p>
-            <p>Finding practical ways to learn, create, and enjoy.</p>
-          </article>
-        </div>
+    <!-- 3. Life in Progress -->
+    <section id="life-in-progress" class="section section--alt" aria-labelledby="life-title">
+      <div class="section__head reveal">
+        <h2 id="life-title">Life in Progress</h2>
+        <p>Five routes I am currently following.</p>
       </div>
-    </section>
 
-    <!-- ONWARD -->
-    <section class="onward" id="onward" aria-labelledby="onward-title">
-      <div class="parchment-layer" aria-hidden="true"></div>
-      <div class="onward-route" aria-hidden="true"></div>
-
-      <div class="shell onward-inner reveal">
-        <p class="eyebrow">Onward</p>
-        <h2 id="onward-title">The route continues<br>beyond the Atlas.</h2>
-        <p class="onward-lede">Opportunities, collaborations, and conversations ahead.</p>
-
-        <div class="onward-actions">
-          <a class="btn btn-primary" href="mailto:revanthkm13@gmail.com">Email Revanth</a>
-          <a class="btn btn-ghost" href="https://www.linkedin.com/in/revanthkumarmatta" target="_blank" rel="noopener noreferrer">
-            @revanthkumarmatta
-            <span class="sr-only">(opens in a new tab)</span>
+      <ul class="route-cards" data-reveal-group>
+        <li class="t-teal">
+          <a class="route-card" href="#route-inklands" data-route="inklands">
+            <span class="route-card__label">Reading</span>
+            <span class="route-card__text">Fantasy, progression, adventure, fiction, fanfiction, character-driven stories.</span>
+            <span class="route-card__to">The Inklands</span>
           </a>
-        </div>
+        </li>
+        <li class="t-indigo">
+          <a class="route-card" href="#route-strategy-isles" data-route="strategy-isles">
+            <span class="route-card__label">Playing</span>
+            <span class="route-card__text">Game of Thrones: Kings Road.</span>
+            <span class="route-card__to">The Strategy Isles</span>
+          </a>
+        </li>
+        <li class="t-amber">
+          <a class="route-card" href="#route-curiosity-expanse" data-route="curiosity-expanse">
+            <span class="route-card__label">Learning</span>
+            <span class="route-card__text">Data Analytics Certification: SQL, Tableau, Power BI, Advanced Excel.</span>
+            <span class="route-card__to">The Curiosity Expanse</span>
+          </a>
+        </li>
+        <li class="t-terracotta">
+          <a class="route-card" href="#route-makers-coast" data-route="makers-coast">
+            <span class="route-card__label">Making</span>
+            <span class="route-card__text">Personal and professional portfolios.</span>
+            <span class="route-card__to">The Maker’s Coast</span>
+          </a>
+        </li>
+        <li class="t-saffron">
+          <a class="route-card" href="#route-saffron-shores" data-route="saffron-shores">
+            <span class="route-card__label">Exploring</span>
+            <span class="route-card__text">AI tools and healthy food combinations.</span>
+            <span class="route-card__to">The Saffron Shores</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 4. Route Spaces -->
+    <section id="route-spaces" class="section" aria-labelledby="routes-title">
+      <div class="section__head reveal">
+        <h2 id="routes-title">Route Spaces</h2>
+      </div>
+
+      <div class="route-stage">
+        <p class="route-empty">Choose a signpost on the Journey Map, or a route in Life in Progress, to open its route space.</p>
+
+        <!-- 01 The Inklands -->
+        <article class="route-panel t-teal" id="route-inklands" data-route="inklands" aria-labelledby="route-inklands-title" hidden>
+          <div class="route-panel__banner">
+            <img src="assets/inklands.jpg" alt="Misty forest with open books and glowing fireflies" loading="lazy" decoding="async">
+          </div>
+          <div class="route-panel__body">
+            <p class="route-panel__kicker"><span class="route-panel__num">01</span> Reading &amp; Stories</p>
+            <h3 id="route-inklands-title" tabindex="-1">The Inklands</h3>
+            <p class="route-panel__lead">A misty forest of unfinished stories, borrowed worlds, and characters that stay with you.</p>
+            <dl class="route-facts">
+              <div><dt>What you’ll find</dt><dd>Web novels across fantasy, progression, adventure, fiction, fanfiction, and character-driven stories.</dd></div>
+              <div><dt>Current status</dt><dd>Reading across genres; collecting stories and characters worth remembering.</dd></div>
+              <div><dt>Future route</dt><dd>Share favorite reads, reading notes, and story recommendations.</dd></div>
+            </dl>
+            <div class="route-panel__actions">
+              <button class="btn btn--primary" type="button" data-next="strategy-isles">Next: The Strategy Isles</button>
+              <button class="btn btn--ghost" type="button" data-close>Close route space</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 The Strategy Isles -->
+        <article class="route-panel t-indigo" id="route-strategy-isles" data-route="strategy-isles" aria-labelledby="route-strategy-isles-title" hidden>
+          <div class="route-panel__banner">
+            <img src="assets/strategy-isles.jpg" alt="Island archipelago with chess-like terrain and game pieces" loading="lazy" decoding="async">
+          </div>
+          <div class="route-panel__body">
+            <p class="route-panel__kicker"><span class="route-panel__num">02</span> Games &amp; Thinking</p>
+            <h3 id="route-strategy-isles-title" tabindex="-1">The Strategy Isles</h3>
+            <p class="route-panel__lead">Islands of strategy, decisions, and small worlds with big consequences.</p>
+            <dl class="route-facts">
+              <div><dt>What you’ll find</dt><dd>Game of Thrones: Kings Road and other strategy-driven games.</dd></div>
+              <div><dt>Current status</dt><dd>Playing Game of Thrones: Kings Road.</dd></div>
+              <div><dt>Future route</dt><dd>Share game notes, strategies, and favorite moments.</dd></div>
+            </dl>
+            <div class="route-panel__actions">
+              <button class="btn btn--primary" type="button" data-next="curiosity-expanse">Next: The Curiosity Expanse</button>
+              <button class="btn btn--ghost" type="button" data-close>Close route space</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 The Curiosity Expanse -->
+        <article class="route-panel t-amber" id="route-curiosity-expanse" data-route="curiosity-expanse" aria-labelledby="route-curiosity-expanse-title" hidden>
+          <div class="route-panel__banner">
+            <img src="assets/curiosity-expanse.jpg" alt="Open plains with constellations, charts and floating data points" loading="lazy" decoding="async">
+          </div>
+          <div class="route-panel__body">
+            <p class="route-panel__kicker"><span class="route-panel__num">03</span> Learning &amp; Data</p>
+            <h3 id="route-curiosity-expanse-title" tabindex="-1">The Curiosity Expanse</h3>
+            <p class="route-panel__lead">An open expanse for questions, patterns, data, and new skills.</p>
+            <dl class="route-facts">
+              <div><dt>What you’ll find</dt><dd>Data Analytics Certification journey; SQL, Tableau, Power BI, and Advanced Excel.</dd></div>
+              <div><dt>Current status</dt><dd>Learning and practicing data skills.</dd></div>
+              <div><dt>Future route</dt><dd>Share learning progress, mini-projects, and data explorations.</dd></div>
+            </dl>
+            <div class="route-panel__actions">
+              <button class="btn btn--primary" type="button" data-next="makers-coast">Next: The Maker’s Coast</button>
+              <button class="btn btn--ghost" type="button" data-close>Close route space</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 The Maker's Coast -->
+        <article class="route-panel t-terracotta" id="route-makers-coast" data-route="makers-coast" aria-labelledby="route-makers-coast-title" hidden>
+          <div class="route-panel__banner">
+            <img src="assets/makers-coast.jpg" alt="Coastal workshop with tools, blueprints and small inventions" loading="lazy" decoding="async">
+          </div>
+          <div class="route-panel__body">
+            <p class="route-panel__kicker"><span class="route-panel__num">04</span> Making &amp; Building</p>
+            <h3 id="route-makers-coast-title" tabindex="-1">The Maker’s Coast</h3>
+            <p class="route-panel__lead">A route for creating, experimenting, and turning small ideas into useful experiences.</p>
+
+            <div class="projects" id="makers-experiments" tabindex="-1">
+              <article class="project" aria-labelledby="project-resume-title">
+                <header class="project__head">
+                  <h4 id="project-resume-title">Resume Template Builder</h4>
+                  <p class="project__status">Built</p>
+                </header>
+                <p class="project__type">Browser-based resume creation and PDF export tool.</p>
+                <details>
+                  <summary>Learn more</summary>
+                  <dl class="project__facts">
+                    <div><dt>Status</dt><dd>Built / single offline HTML file</dd></div>
+                    <div><dt>Problem</dt><dd>Helps users create a clean, customized resume without design software or coding knowledge.</dd></div>
+                    <div><dt>Built</dt><dd>Full HTML/CSS/JS interface; live preview; Classic, Modern, Compact layouts; font/color/heading/size customization; section show/hide and reorder; custom sections; photo and QR-code support; Japanese formats; JSON backup; local-storage autosave; print/PDF-ready styling.</dd></div>
+                    <div><dt>Tools</dt><dd>HTML, CSS, JavaScript, local storage, Canvas API, FileReader API, Google Fonts, browser print.</dd></div>
+                  </dl>
+                </details>
+              </article>
+
+              <article class="project" aria-labelledby="project-jobfit-title">
+                <header class="project__head">
+                  <h4 id="project-jobfit-title">Job Fit Smart Analyzer with Message Generator</h4>
+                  <p class="project__status">Built</p>
+                </header>
+                <p class="project__type">Browser-based job-search decision and outreach tool.</p>
+                <details>
+                  <summary>Learn more</summary>
+                  <dl class="project__facts">
+                    <div><dt>Status</dt><dd>Built / single offline HTML file</dd></div>
+                    <div><dt>Problem</dt><dd>Combines JD review, scam-risk checks, resume–JD matching, salary research, recruiter messages, and application tracking.</dd></div>
+                    <div><dt>Sections</dt><dd>JD Analyzer; Resume–JD Match; Salary Research; Message Builder; Application Tracker.</dd></div>
+                    <div><dt>Built</dt><dd>Complete front-end logic and UI; skill matching and synonyms; scoring; quick-screen and final decision; scam detection; OCR workflow; PDF extraction; salary rules; message templates and generator; Shorten/Focus/Polish; history, drafts, JSON export, copy/download; local-storage tracker.</dd></div>
+                    <div><dt>Tools</dt><dd>HTML, CSS, JavaScript, Tesseract.js, PDF.js, browser local storage, CDN libraries.</dd></div>
+                    <div><dt>Note</dt><dd>Message Builder is a built-in feature, not a separate tool.</dd></div>
+                  </dl>
+                </details>
+              </article>
+            </div>
+
+            <p class="ai-note"><strong>Note:</strong> These tools were created with AI assistance. As a non-technical person, I used AI tools to help build and refine the interface, logic, and features. I regularly check the tools and explore ways to improve them further based on real usage and results.</p>
+
+            <dl class="route-facts">
+              <div><dt>Future route</dt><dd>Improve offline-first tools; share selected experiments when ready; explore useful digital products that help people organize, plan, and create.</dd></div>
+            </dl>
+
+            <div class="route-panel__actions">
+              <button class="btn btn--primary" type="button" data-open-projects>View Experiments</button>
+              <button class="btn btn--quiet" type="button" data-next="saffron-shores">Next: The Saffron Shores</button>
+              <button class="btn btn--ghost" type="button" data-close>Close route space</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 The Saffron Shores -->
+        <article class="route-panel t-saffron" id="route-saffron-shores" data-route="saffron-shores" aria-labelledby="route-saffron-shores-title" hidden>
+          <div class="route-panel__banner">
+            <img src="assets/saffron-shores.jpg" alt="Warm shoreline with spices, herbs and simple meals" loading="lazy" decoding="async">
+          </div>
+          <div class="route-panel__body">
+            <p class="route-panel__kicker"><span class="route-panel__num">05</span> Food &amp; Well-being</p>
+            <h3 id="route-saffron-shores-title" tabindex="-1">The Saffron Shores</h3>
+            <p class="route-panel__lead">Warm shores of everyday meals, better choices, and small experiments in feeling good.</p>
+            <dl class="route-facts">
+              <div><dt>What you’ll find</dt><dd>Exploring healthy food combinations and simple well-being habits.</dd></div>
+              <div><dt>Current status</dt><dd>Exploring food combinations and healthier routines.</dd></div>
+              <div><dt>Future route</dt><dd>Share food experiments, simple recipes, and well-being notes.</dd></div>
+            </dl>
+            <div class="route-panel__actions">
+              <button class="btn btn--ghost" type="button" data-close>Close route space</button>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
+
+    <!-- 5. Current Coordinates -->
+    <section id="current-coordinates" class="section section--alt" aria-labelledby="coords-title">
+      <div class="section__head reveal">
+        <h2 id="coords-title">Current Coordinates</h2>
+        <p>Where the journey stands today.</p>
+      </div>
+
+      <dl class="coords" data-reveal-group>
+        <div class="coords__row t-teal">
+          <dt>Reading</dt>
+          <dd>Web novels across fantasy, progression, adventure, fiction, fanfiction, and character-driven stories.</dd>
+        </div>
+        <div class="coords__row t-indigo">
+          <dt>Playing</dt>
+          <dd>Game of Thrones: Kings Road.</dd>
+        </div>
+        <div class="coords__row t-amber">
+          <dt>Learning</dt>
+          <dd>Data Analytics Certification — SQL, Tableau, Power BI, Advanced Excel.</dd>
+        </div>
+        <div class="coords__row t-terracotta">
+          <dt>Making</dt>
+          <dd>Personal and professional portfolios.</dd>
+        </div>
+        <div class="coords__row t-saffron">
+          <dt>Exploring</dt>
+          <dd>AI tools and healthy food combinations.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 6. Professional Snapshot -->
+    <section id="professional-snapshot" class="section snapshot" aria-labelledby="snapshot-title">
+      <div class="snapshot__inner reveal">
+        <h2 id="snapshot-title">Professional Snapshot</h2>
+        <p>For my professional experience, capabilities, recognition, and career journey, visit my professional portfolio.</p>
+        <a class="btn btn--primary" href="https://revanth-matta.github.io/" target="_blank" rel="noopener">View Professional Journey<span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </section>
+
+    <!-- 7. Signal Room -->
+    <section id="signal-room" class="section signal" aria-labelledby="signal-title">
+      <img class="signal__img" src="assets/signal-room.jpg" alt="Lighthouse signal tower glowing with warm light" loading="lazy" decoding="async">
+      <div class="signal__inner reveal">
+        <h2 id="signal-title">Signal Room</h2>
+        <p class="signal__sub">Let’s Connect</p>
+        <p class="signal__body">If something here resonates, or you would like to say hello, send a signal.</p>
+        <ul class="signal__links">
+          <li>
+            <a class="signal-link" href="mailto:revanthkm13@gmail.com">
+              <span class="signal-link__label">Email</span>
+              <span class="signal-link__value">revanthkm13@gmail.com</span>
+            </a>
+          </li>
+          <li>
+            <a class="signal-link" href="https://www.linkedin.com/in/revanthkumarmatta" target="_blank" rel="noopener noreferrer">
+              <span class="signal-link__label">LinkedIn</span>
+              <span class="signal-link__value">@revanthkumarmatta<span class="visually-hidden"> (opens in a new tab)</span></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="atlas-footer">
-    <div class="shell footer-inner">
-      <p>© <span id="year">2026</span> Revanth Kumar Matta</p>
-      <p>Hyderabad, Telangana — India</p>
-      <p class="updated">Atlas updated: November 2026</p>
-    </div>
+  <!-- 8. Footer -->
+  <footer class="site-footer">
+    <p class="site-footer__copy">© 2026 Revanth Kumar Matta. All rights reserved.</p>
+    <p class="site-footer__visits" title="Counted in this browser only">Visitor counter: <span id="visitor-count">—</span></p>
+    <ul class="site-footer__actions">
+      <li><a href="#arrival-gate">Back to top</a></li>
+    </ul>
   </footer>
-
-  <button class="back-to-top" type="button" aria-label="Back to Arrival">
-    <span aria-hidden="true">↑</span>
-  </button>
-
-  <script src="script.js"></script>
 </body>
 </html>
