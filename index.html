@@ -101,8 +101,9 @@
           <p class="eyebrow">The Atlas</p>
           <h2 id="atlas-title">Choose a territory to explore</h2>
           <p class="section-lede">
-            Hover or focus a territory for a preview.
-            Select it to clear the mist and reveal its route.
+            The Atlas begins beneath mist.
+            Hover or focus to glimpse a territory;
+            select it to clear the mist and reveal its route.
           </p>
         </div>
 
@@ -115,17 +116,15 @@
           >
             <title id="atlas-svg-title">Revanth’s Personal Atlas</title>
             <desc id="atlas-svg-description">
-              A parchment map with separate landmasses for reading and writing,
-              games and strategy, making and building, learning and exploration,
-              food and curiosity, and a professional shore.
+              A parchment map covered in mist. Hovering or selecting a territory
+              clears the mist locally and reveals its route.
             </desc>
 
             <defs>
-              <!-- Organic mist texture -->
-              <filter id="mistTexture" x="-30%" y="-30%" width="160%" height="160%">
+              <filter id="mistTexture" x="-40%" y="-40%" width="180%" height="180%">
                 <feTurbulence
                   type="fractalNoise"
-                  baseFrequency="0.012 0.02"
+                  baseFrequency="0.011 0.018"
                   numOctaves="3"
                   seed="18"
                   result="noise"
@@ -133,19 +132,18 @@
                 <feDisplacementMap
                   in="SourceGraphic"
                   in2="noise"
-                  scale="38"
+                  scale="45"
                   xChannelSelector="R"
                   yChannelSelector="G"
                   result="displaced"
                 />
-                <feGaussianBlur in="displaced" stdDeviation="9"/>
+                <feGaussianBlur in="displaced" stdDeviation="10"/>
               </filter>
 
-              <!-- Softer distant mist -->
-              <filter id="softMist" x="-30%" y="-30%" width="160%" height="160%">
+              <filter id="softMist" x="-40%" y="-40%" width="180%" height="180%">
                 <feTurbulence
                   type="fractalNoise"
-                  baseFrequency="0.008 0.014"
+                  baseFrequency="0.007 0.013"
                   numOctaves="2"
                   seed="42"
                   result="noise"
@@ -153,12 +151,20 @@
                 <feDisplacementMap
                   in="SourceGraphic"
                   in2="noise"
-                  scale="55"
+                  scale="65"
                   xChannelSelector="R"
                   yChannelSelector="G"
                   result="displaced"
                 />
-                <feGaussianBlur in="displaced" stdDeviation="16"/>
+                <feGaussianBlur in="displaced" stdDeviation="18"/>
+              </filter>
+
+              <filter id="routeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
               </filter>
             </defs>
 
@@ -251,49 +257,69 @@
               <path class="route" data-route="professional-shore" d="M595 385q-20 130-105 245"/>
             </g>
 
-            <!-- Global drifting mist -->
-            <g class="mist-global" aria-hidden="true" filter="url(#softMist)">
-              <ellipse class="mist-cloud" cx="220" cy="180" rx="190" ry="80"/>
-              <ellipse class="mist-cloud" cx="900" cy="250" rx="210" ry="85"/>
-              <ellipse class="mist-cloud" cx="280" cy="580" rx="200" ry="85"/>
-              <ellipse class="mist-cloud" cx="880" cy="640" rx="220" ry="90"/>
-              <ellipse class="mist-cloud" cx="590" cy="420" rx="170" ry="70"/>
+            <!-- Atlas-wide base mist -->
+            <g class="mist-atlas" aria-hidden="true">
+              <rect
+                class="mist-base"
+                x="-60"
+                y="-60"
+                width="1320"
+                height="880"
+                filter="url(#softMist)"
+              />
             </g>
 
-            <!-- Territory mist -->
+            <!-- Territory mist clouds -->
             <g class="mist-territory" data-mist="inklands" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="200" cy="170" rx="180" ry="95"/>
-              <ellipse class="mist-cloud" cx="280" cy="230" rx="150" ry="75"/>
-              <ellipse class="mist-cloud" cx="140" cy="230" rx="130" ry="65"/>
+              <ellipse class="mist-cloud" cx="190" cy="160" rx="190" ry="105"/>
+              <ellipse class="mist-cloud" cx="290" cy="210" rx="170" ry="90"/>
+              <ellipse class="mist-cloud" cx="150" cy="240" rx="160" ry="85"/>
+              <ellipse class="mist-cloud" cx="250" cy="120" rx="150" ry="80"/>
+              <ellipse class="mist-cloud" cx="90" cy="160" rx="130" ry="80"/>
+              <ellipse class="mist-cloud" cx="330" cy="170" rx="130" ry="75"/>
             </g>
 
             <g class="mist-territory" data-mist="strategy-isles" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="910" cy="150" rx="170" ry="80"/>
-              <ellipse class="mist-cloud" cx="1030" cy="200" rx="130" ry="65"/>
-              <ellipse class="mist-cloud" cx="880" cy="260" rx="120" ry="60"/>
+              <ellipse class="mist-cloud" cx="920" cy="150" rx="190" ry="95"/>
+              <ellipse class="mist-cloud" cx="1030" cy="200" rx="160" ry="80"/>
+              <ellipse class="mist-cloud" cx="860" cy="220" rx="150" ry="75"/>
+              <ellipse class="mist-cloud" cx="980" cy="100" rx="150" ry="75"/>
+              <ellipse class="mist-cloud" cx="880" cy="280" rx="130" ry="65"/>
+              <ellipse class="mist-cloud" cx="1070" cy="150" rx="120" ry="65"/>
             </g>
 
             <g class="mist-territory" data-mist="makers-coast" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="900" cy="420" rx="200" ry="90"/>
-              <ellipse class="mist-cloud" cx="800" cy="480" rx="150" ry="70"/>
-              <ellipse class="mist-cloud" cx="1010" cy="480" rx="140" ry="65"/>
+              <ellipse class="mist-cloud" cx="900" cy="420" rx="210" ry="100"/>
+              <ellipse class="mist-cloud" cx="800" cy="470" rx="170" ry="85"/>
+              <ellipse class="mist-cloud" cx="1010" cy="480" rx="170" ry="80"/>
+              <ellipse class="mist-cloud" cx="900" cy="340" rx="170" ry="80"/>
+              <ellipse class="mist-cloud" cx="770" cy="390" rx="130" ry="70"/>
+              <ellipse class="mist-cloud" cx="1050" cy="420" rx="130" ry="70"/>
             </g>
 
             <g class="mist-territory" data-mist="curiosity-expanse" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="220" cy="530" rx="190" ry="90"/>
-              <ellipse class="mist-cloud" cx="310" cy="600" rx="150" ry="70"/>
-              <ellipse class="mist-cloud" cx="150" cy="600" rx="130" ry="60"/>
+              <ellipse class="mist-cloud" cx="220" cy="530" rx="200" ry="100"/>
+              <ellipse class="mist-cloud" cx="320" cy="590" rx="170" ry="85"/>
+              <ellipse class="mist-cloud" cx="150" cy="600" rx="160" ry="80"/>
+              <ellipse class="mist-cloud" cx="240" cy="450" rx="160" ry="80"/>
+              <ellipse class="mist-cloud" cx="90" cy="520" rx="130" ry="75"/>
+              <ellipse class="mist-cloud" cx="360" cy="520" rx="130" ry="70"/>
             </g>
 
             <g class="mist-territory" data-mist="saffron-shores" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="910" cy="660" rx="190" ry="80"/>
-              <ellipse class="mist-cloud" cx="1020" cy="700" rx="140" ry="60"/>
-              <ellipse class="mist-cloud" cx="820" cy="700" rx="130" ry="60"/>
+              <ellipse class="mist-cloud" cx="910" cy="660" rx="200" ry="95"/>
+              <ellipse class="mist-cloud" cx="1020" cy="700" rx="160" ry="75"/>
+              <ellipse class="mist-cloud" cx="820" cy="700" rx="160" ry="75"/>
+              <ellipse class="mist-cloud" cx="930" cy="600" rx="160" ry="75"/>
+              <ellipse class="mist-cloud" cx="790" cy="640" rx="130" ry="65"/>
+              <ellipse class="mist-cloud" cx="1050" cy="650" rx="130" ry="65"/>
             </g>
 
             <g class="mist-territory" data-mist="professional-shore" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="510" cy="680" rx="140" ry="65"/>
-              <ellipse class="mist-cloud" cx="580" cy="710" rx="110" ry="50"/>
+              <ellipse class="mist-cloud" cx="510" cy="680" rx="170" ry="85"/>
+              <ellipse class="mist-cloud" cx="590" cy="710" rx="140" ry="65"/>
+              <ellipse class="mist-cloud" cx="450" cy="700" rx="130" ry="65"/>
+              <ellipse class="mist-cloud" cx="530" cy="630" rx="130" ry="65"/>
             </g>
 
             <!-- Compass -->
@@ -498,7 +524,7 @@
           </div>
 
           <!-- Ship -->
-          <svg class="atlas-ship" viewBox="0 0 64 40" role="img" aria-label="Ship travelling through the Atlas waters">
+          <svg class="atlas-ship" viewBox="0 0 64 40" role="img" aria-label="Ship exploring the Atlas waters">
             <path class="ship-hull" d="M10 27h44l-7 9H17z"/>
             <path class="ship-sail" d="M32 5v20"/>
             <path class="ship-sail-shape" d="M32 7c9 3 13 9 13 18H32z"/>
