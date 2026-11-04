@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const revealItems = document.querySelectorAll(".reveal");
   const territories = document.querySelectorAll(".territory");
+  const landmasses = document.querySelectorAll(".landmass[data-territory]");
+  const mistLayers = document.querySelectorAll(".mist-territory");
   const routes = document.querySelectorAll(".water-routes .route");
   const atlasShip = document.querySelector(".atlas-ship");
 
@@ -138,44 +140,44 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------
-     Atlas: mist, preview, reveal, routes, ship
+     Atlas: mist, landmarks, routes, ship
   --------------------------------------------- */
 
-  /*
-    Each territory has:
-    - a matching SVG mist layer
-    - a water route
-    - an exploration destination for the ship
-  */
   const territoryMeta = {
     "inklands": {
       mist: "[data-mist='inklands']",
       route: "[data-route='inklands']",
+      landmark: "[data-landmark='inklands']",
       ship: { x: "24%", y: "23%", rotate: "-9deg" }
     },
     "strategy-isles": {
       mist: "[data-mist='strategy-isles']",
       route: "[data-route='strategy-isles']",
+      landmark: "[data-landmark='strategy-isles']",
       ship: { x: "77%", y: "19%", rotate: "11deg" }
     },
     "makers-coast": {
       mist: "[data-mist='makers-coast']",
       route: "[data-route='makers-coast']",
+      landmark: "[data-landmark='makers-coast']",
       ship: { x: "74%", y: "57%", rotate: "7deg" }
     },
     "curiosity-expanse": {
       mist: "[data-mist='curiosity-expanse']",
       route: "[data-route='curiosity-expanse']",
+      landmark: "[data-landmark='curiosity-expanse']",
       ship: { x: "32%", y: "65%", rotate: "-11deg" }
     },
     "saffron-shores": {
       mist: "[data-mist='saffron-shores']",
       route: "[data-route='saffron-shores']",
+      landmark: "[data-landmark='saffron-shores']",
       ship: { x: "75%", y: "81%", rotate: "9deg" }
     },
     "professional-shore": {
       mist: "[data-mist='professional-shore']",
       route: "[data-route='professional-shore']",
+      landmark: "[data-landmark='professional-shore']",
       ship: { x: "42%", y: "87%", rotate: "-7deg" }
     }
   };
@@ -186,14 +188,25 @@ document.addEventListener("DOMContentLoaded", () => {
     rotate: "0deg"
   };
 
+  const getMeta = (territoryId) => territoryMeta[territoryId] || null;
+
   const getMistLayer = (territoryId) => {
-    const meta = territoryMeta[territoryId];
+    const meta = getMeta(territoryId);
     return meta ? document.querySelector(meta.mist) : null;
   };
 
   const getRoute = (territoryId) => {
-    const meta = territoryMeta[territoryId];
+    const meta = getMeta(territoryId);
     return meta ? document.querySelector(meta.route) : null;
+  };
+
+  const getLandmass = (territoryId) => {
+    return document.querySelector(`.landmass[data-territory="${territoryId}"]`);
+  };
+
+  const getLandmark = (territoryId) => {
+    const meta = getMeta(territoryId);
+    return meta ? document.querySelector(meta.landmark) : null;
   };
 
   const setMistState = (territoryId, state) => {
@@ -209,6 +222,35 @@ document.addEventListener("DOMContentLoaded", () => {
       mist.classList.add("is-previewed");
     } else if (state === "revealed") {
       mist.classList.add("is-revealed");
+    }
+  };
+
+  const setLandmarkState = (territoryId, state) => {
+    const landmass = getLandmass(territoryId);
+    const landmark = getLandmark(territoryId);
+
+    if (landmass) {
+      landmass.classList.remove("is-covered", "is-previewed", "is-revealed");
+
+      if (state === "covered") {
+        landmass.classList.add("is-covered");
+      } else if (state === "previewed") {
+        landmass.classList.add("is-previewed");
+      } else if (state === "revealed") {
+        landmass.classList.add("is-revealed");
+      }
+    }
+
+    if (landmark) {
+      landmark.classList.remove("is-covered", "is-previewed", "is-revealed");
+
+      if (state === "covered") {
+        landmark.classList.add("is-covered");
+      } else if (state === "previewed") {
+        landmark.classList.add("is-previewed");
+      } else if (state === "revealed") {
+        landmark.classList.add("is-revealed");
+      }
     }
   };
 
@@ -229,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const moveShip = (territoryId) => {
     if (!atlasShip) return;
 
-    const meta = territoryMeta[territoryId];
+    const meta = getMeta(territoryId);
 
     if (!meta) return;
 
@@ -262,6 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
     territory.classList.remove("is-previewed");
 
     setMistState(territoryId, "covered");
+    setLandmarkState(territoryId, "covered");
 
     if (control) {
       control.setAttribute("aria-expanded", "false");
@@ -289,6 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     territory.classList.add("is-previewed");
     setMistState(territoryId, "previewed");
+    setLandmarkState(territoryId, "previewed");
   };
 
   const clearPreview = (territory) => {
@@ -298,6 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     territory.classList.remove("is-previewed");
     setMistState(territoryId, "covered");
+    setLandmarkState(territoryId, "covered");
   };
 
   const revealTerritory = (territory) => {
@@ -316,6 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
     territory.classList.remove("is-previewed");
 
     setMistState(territoryId, "revealed");
+    setLandmarkState(territoryId, "revealed");
 
     if (control) {
       control.setAttribute("aria-expanded", "true");
@@ -336,6 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const detail = territory.querySelector(".territory-detail");
 
     setMistState(territoryId, "covered");
+    setLandmarkState(territoryId, "covered");
 
     if (control) {
       control.setAttribute("aria-expanded", "false");
@@ -407,13 +454,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const restartArrivalJourney = () => {
       arrivalShip.style.animation = "none";
 
-      // Force a style recalculation before restarting.
+      // Force style recalculation before restarting.
       void arrivalShip.offsetWidth;
 
       arrivalShip.style.animation = "";
     };
 
-    // Restart once when the Arrival section enters view.
     if ("IntersectionObserver" in window) {
       const arrivalObserver = new IntersectionObserver(
         (entries, observer) => {
