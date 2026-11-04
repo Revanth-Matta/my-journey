@@ -104,7 +104,8 @@
           <h2 id="atlas-title">A world beneath the mist</h2>
           <p class="section-lede">
             Hover or focus to glimpse a territory.
-            Select it to clear the mist and reveal its route.
+            Select it to clear the mist, reveal its route,
+            and uncover a discovery.
           </p>
         </div>
 
@@ -118,7 +119,7 @@
             <title id="atlas-svg-title">Revanth’s Personal Atlas</title>
             <desc id="atlas-svg-description">
               A parchment map covered in mist. Hovering or selecting a territory
-              clears the mist locally, reveals its route, and shows its landmark.
+              clears the mist locally, reveals its route, landmark, and discovery.
             </desc>
 
             <defs>
@@ -189,14 +190,12 @@
               <path class="river" d="M150 140q40 30 30 80"/>
               <path class="coast-detail" d="M90 180q25 18 50 8"/>
 
-              <!-- Primary landmark: quill & inkwell -->
               <g class="landmark primary-landmark" data-landmark="inklands">
                 <path class="landmark-ink" d="M185 175q25-18 45-8"/>
                 <circle class="landmark-inkwell" cx="240" cy="180" r="9"/>
                 <path class="landmark-quill" d="M200 190q18-28 42-18"/>
               </g>
 
-              <!-- Secondary: open book -->
               <g class="landmark secondary-landmark">
                 <path class="landmark-book" d="M130 230q30-14 55 0q25-14 55 0"/>
               </g>
@@ -217,13 +216,11 @@
                 d="M870 235 C895 228, 920 240, 920 260 C920 282, 895 292, 875 284 C855 276, 852 245, 870 235 Z"
               />
 
-              <!-- Primary landmark: flag -->
               <g class="landmark primary-landmark" data-landmark="strategy-isles">
                 <path class="landmark-flagpole" d="M900 120v45"/>
                 <path class="landmark-flag" d="M900 122q25 8 45 0l-8 18q-20 6-37-2z"/>
               </g>
 
-              <!-- Secondary: ridge -->
               <path class="landmark secondary-landmark landmark-ridge" d="M840 165q25-20 50-5"/>
             </g>
 
@@ -245,13 +242,11 @@
               <path class="cliff" d="M810 375q25 30 5 65"/>
               <path class="bay" d="M950 470q35 18 70 0"/>
 
-              <!-- Primary landmark: lighthouse -->
               <g class="landmark primary-landmark" data-landmark="makers-coast">
                 <path class="landmark-tower" d="M880 400l10 45h20l10-45z"/>
                 <circle class="landmark-light" cx="900" cy="395" r="6"/>
               </g>
 
-              <!-- Secondary: gear -->
               <g class="landmark secondary-landmark">
                 <circle class="landmark-gear" cx="970" cy="430" r="10"/>
                 <path class="landmark-gear-teeth" d="M970 416v-6M970 450v-6M956 430h-6M990 430h-6"/>
@@ -267,14 +262,12 @@
               <path class="valley" d="M150 520q60 35 130 15"/>
               <path class="route-node" d="M180 560l0 0"/>
 
-              <!-- Primary landmark: telescope -->
               <g class="landmark primary-landmark" data-landmark="curiosity-expanse">
                 <path class="landmark-scope" d="M190 520l45-22"/>
                 <circle class="landmark-scope-end" cx="240" cy="495" r="7"/>
                 <path class="landmark-scope-leg" d="M205 530l15 22"/>
               </g>
 
-              <!-- Secondary: data nodes -->
               <g class="landmark secondary-landmark">
                 <circle class="landmark-node" cx="280" cy="560" r="5"/>
                 <circle class="landmark-node" cx="310" cy="590" r="4"/>
@@ -291,13 +284,11 @@
               <path class="beach" d="M830 690q45 25 100 10"/>
               <path class="cove" d="M950 640q30 20 60 5"/>
 
-              <!-- Primary landmark: bowl -->
               <g class="landmark primary-landmark" data-landmark="saffron-shores">
                 <path class="landmark-bowl" d="M890 660q30 25 60 0"/>
                 <path class="landmark-steam" d="M905 645q5-10 0-18M925 645q5-10 0-18"/>
               </g>
 
-              <!-- Secondary: leaf -->
               <path class="landmark secondary-landmark landmark-leaf" d="M980 690q25-18 45-5q-20 20-45 5z"/>
             </g>
 
@@ -309,7 +300,6 @@
               />
               <path class="bridge-route" d="M595 385q-20 130-105 245"/>
 
-              <!-- Primary landmark: bridge -->
               <g class="landmark primary-landmark" data-landmark="professional-shore">
                 <path class="landmark-bridge" d="M460 665q50-28 100 0"/>
                 <path class="landmark-bridge-post" d="M480 665v-22M540 665v-22"/>
@@ -433,6 +423,12 @@
                   Future route: continue developing the world,
                   characters, and plot.
                 </p>
+
+                <p class="territory-discovery" data-discovery="inklands">
+                  <span class="discovery-marker" aria-hidden="true"></span>
+                  A story begins with a question
+                  I cannot yet answer.
+                </p>
               </div>
             </article>
 
@@ -467,6 +463,12 @@
                 <p class="territory-future">
                   Future route: keep exploring game development
                   and esports curiosity.
+                </p>
+
+                <p class="territory-discovery" data-discovery="strategy-isles">
+                  <span class="discovery-marker" aria-hidden="true"></span>
+                  Every strategy begins
+                  with adaptation.
                 </p>
               </div>
             </article>
@@ -503,6 +505,12 @@
                   Future route: improve offline-first tools and
                   share selected experiments when ready.
                 </p>
+
+                <p class="territory-discovery" data-discovery="makers-coast">
+                  <span class="discovery-marker" aria-hidden="true"></span>
+                  More offline tools may appear
+                  when they are useful.
+                </p>
               </div>
             </article>
 
@@ -537,6 +545,12 @@
                 <p class="territory-future">
                   Future route: apply analytical thinking to
                   personal projects and useful technology.
+                </p>
+
+                <p class="territory-discovery" data-discovery="curiosity-expanse">
+                  <span class="discovery-marker" aria-hidden="true"></span>
+                  Learning is exploration
+                  with a destination.
                 </p>
               </div>
             </article>
@@ -573,6 +587,12 @@
                   Future route: explore continental vegetarian options
                   and document dishes worth remembering.
                 </p>
+
+                <p class="territory-discovery" data-discovery="saffron-shores">
+                  <span class="discovery-marker" aria-hidden="true"></span>
+                  A personal food map is planned,
+                  not started.
+                </p>
               </div>
             </article>
 
@@ -589,6 +609,12 @@
                   <span class="sr-only">(opens in a new tab)</span>
                 </a>
               </div>
+
+              <p class="territory-discovery" data-discovery="professional-shore">
+                <span class="discovery-marker" aria-hidden="true"></span>
+                The route continues
+                beyond the Atlas.
+              </p>
             </article>
           </div>
 
