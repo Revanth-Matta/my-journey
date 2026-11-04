@@ -123,45 +123,64 @@ document.addEventListener("DOMContentLoaded", () => {
     revealItems.forEach((item) => revealObserver.observe(item));
   }
 
-  /* Territory disclosure */
-  territories.forEach((territory) => {
-    const revealButton = territory.querySelector(".reveal-control");
-    const coverButton = territory.querySelector(".cover-control");
+  /* Atlas territories: one revealed at a time */
+  const coverTerritory = (territory) => {
+    const control = territory.querySelector(".territory-control");
     const detail = territory.querySelector(".territory-detail");
 
-    if (!revealButton || !detail) return;
+    territory.classList.remove("is-revealed");
 
-    const reveal = () => {
-      territory.classList.add("is-revealed");
-      detail.hidden = false;
-      revealButton.setAttribute("aria-expanded", "true");
-
-      if (coverButton) {
-        coverButton.setAttribute("aria-expanded", "true");
-      }
-    };
-
-    const cover = () => {
-      territory.classList.remove("is-revealed");
-      detail.hidden = true;
-      revealButton.setAttribute("aria-expanded", "false");
-
-      if (coverButton) {
-        coverButton.setAttribute("aria-expanded", "false");
-      }
-
-      revealButton.focus();
-    };
-
-    revealButton.addEventListener("click", reveal);
-
-    if (coverButton) {
-      coverButton.addEventListener("click", cover);
+    if (control) {
+      control.setAttribute("aria-expanded", "false");
     }
 
+    if (detail) {
+      detail.hidden = true;
+    }
+  };
+
+  const revealTerritory = (territory) => {
+    territories.forEach((other) => {
+      if (other !== territory) {
+        coverTerritory(other);
+      }
+    });
+
+    const control = territory.querySelector(".territory-control");
+    const detail = territory.querySelector(".territory-detail");
+
+    territory.classList.add("is-revealed");
+
+    if (control) {
+      control.setAttribute("aria-expanded", "true");
+    }
+
+    if (detail) {
+      detail.hidden = false;
+    }
+  };
+
+  territories.forEach((territory) => {
+    const control = territory.querySelector(".territory-control");
+    const detail = territory.querySelector(".territory-detail");
+
+    if (!control || !detail) return;
+
+    control.addEventListener("click", () => {
+      if (territory.classList.contains("is-revealed")) {
+        coverTerritory(territory);
+      } else {
+        revealTerritory(territory);
+      }
+    });
+
     territory.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && territory.classList.contains("is-revealed")) {
-        cover();
+      if (
+        event.key === "Escape" &&
+        territory.classList.contains("is-revealed")
+      ) {
+        coverTerritory(territory);
+        control.focus();
       }
     });
   });
