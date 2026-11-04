@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -89,13 +89,13 @@
         </div>
 
         <div class="arrival-map reveal" aria-hidden="true">
-          <div class="map-terrain terrain-arrival"></div>
-          <div class="map-route arrival-route"></div>
+          <div class="map-terrain"></div>
+          <div class="map-route"></div>
 
           <svg class="ship" viewBox="0 0 64 40" role="img" aria-label="Small ship travelling to Arrival">
-            <path class="ship-hull" d="M8 26h48l-8 10H16z"/>
-            <path class="ship-sail" d="M32 4v20"/>
-            <path class="ship-sail-shape" d="M32 6c10 3 14 9 14 18H32z"/>
+            <path class="ship-hull" d="M10 27h44l-7 9H17z"/>
+            <path class="ship-sail" d="M32 5v20"/>
+            <path class="ship-sail-shape" d="M32 7c9 3 13 9 13 18H32z"/>
           </svg>
 
           <div class="arrival-marker">
@@ -110,54 +110,53 @@
 
     <!-- THE INKLANDS -->
     <section class="territory territory-inklands" id="inklands" aria-labelledby="inklands-title">
-      <div class="territory-mist" aria-hidden="true"></div>
-
       <div class="shell territory-inner">
-        <div class="territory-head">
+        <div class="territory-teaser">
           <p class="territory-poetic">The Inklands</p>
           <h2 id="inklands-title">Reading &amp; Writing</h2>
-          <p class="territory-status">Work in progress</p>
+          <p class="territory-hint">
+            Stories, imagination, and an original novel in progress.
+          </p>
+
+          <button
+            class="reveal-control"
+            type="button"
+            aria-expanded="false"
+            aria-controls="inklands-detail"
+          >
+            Reveal The Inklands
+          </button>
         </div>
 
-        <div class="territory-content">
+        <div class="territory-mist" aria-hidden="true"></div>
+
+        <div class="territory-detail" id="inklands-detail" hidden>
           <p class="territory-intro">
             Stories let me explore possibilities, perspectives,
             and worlds beyond everyday life.
           </p>
 
-          <div class="territory-panels">
-            <article class="atlas-panel">
+          <div class="territory-markers">
+            <article class="atlas-marker">
               <h3>What draws me here</h3>
               <p>
-                I enjoy web novels and fanfiction that take familiar worlds
-                and ask, “What if something changed?”
+                I enjoy fanfiction that takes familiar worlds and asks,
+                “What if something changed?”
               </p>
+            </article>
+
+            <article class="atlas-marker">
+              <h3>Current reading</h3>
               <p>
-                I am especially drawn to stories where a different decision,
-                overlooked character, or unused possibility changes the
-                direction of the original story.
+                Fanfiction inspired by Harry Potter, Game of Thrones, Marvel,
+                popular serials, and online publications.
               </p>
             </article>
 
-            <article class="atlas-panel">
-              <h3>Worlds &amp; influences</h3>
-              <ul class="marker-list">
-                <li>Harry Potter</li>
-                <li>Game of Thrones</li>
-                <li>Marvel</li>
-                <li>Popular serials</li>
-                <li>Online publications</li>
-              </ul>
-            </article>
-
-            <article class="atlas-panel">
+            <article class="atlas-marker">
               <h3>Original novel</h3>
               <p>
-                An original novel is in progress—beginning at the academy
-                level and gradually expanding toward the wider world stage.
-              </p>
-              <p>
-                Current status: world-building, outlining, drafting,
+                In early development—world-building, outlining, drafting,
                 and making adjustments.
               </p>
             </article>
@@ -165,56 +164,69 @@
 
           <p class="territory-future">
             Future route: continue developing the world, characters, and plot.
-            Publishing details will be shared when the story is ready.
           </p>
+
+          <button class="cover-control" type="button" aria-expanded="true" aria-controls="inklands-detail">
+            Cover territory
+          </button>
         </div>
       </div>
     </section>
 
     <!-- THE STRATEGY ISLES -->
     <section class="territory territory-strategy" id="strategy-isles" aria-labelledby="strategy-title">
-      <div class="territory-mist" aria-hidden="true"></div>
-
       <div class="shell territory-inner">
-        <div class="territory-head">
+        <div class="territory-teaser">
           <p class="territory-poetic">The Strategy Isles</p>
           <h2 id="strategy-title">Games &amp; Strategy</h2>
-          <p class="territory-status">Active</p>
+          <p class="territory-hint">
+            Tactical worlds, adaptation, and steady improvement.
+          </p>
+
+          <button
+            class="reveal-control"
+            type="button"
+            aria-expanded="false"
+            aria-controls="strategy-detail"
+          >
+            Reveal The Strategy Isles
+          </button>
         </div>
 
-        <div class="territory-content">
+        <div class="territory-mist" aria-hidden="true"></div>
+
+        <div class="territory-detail" id="strategy-detail" hidden>
           <p class="territory-intro">
             Games are where I enjoy planning, adapting,
             and finding a way forward.
           </p>
 
-          <div class="territory-panels">
-            <article class="atlas-panel">
+          <div class="territory-markers">
+            <article class="atlas-marker">
               <h3>Currently playing</h3>
-              <p><strong>Game of Thrones: Kings Road</strong></p>
               <p>
-                Working toward completing the game and continuing to improve
-                as a player—one strategy, adjustment, and match at a time.
+                <strong>Game of Thrones: Kings Road</strong> — working toward
+                completing the game and becoming a stronger player.
               </p>
             </article>
 
-            <article class="atlas-panel">
+            <article class="atlas-marker">
               <h3>Memorable games</h3>
               <ul class="marker-list">
-                <li>Clash of Clans — strategy and base-building</li>
-                <li>Minecraft — open-world and sandbox</li>
-                <li>Need for Speed — racing and control</li>
-                <li>Call of Duty — action and competition</li>
-                <li>SimCity — simulation and city-building</li>
+                <li>Clash of Clans</li>
+                <li>Minecraft</li>
+                <li>Need for Speed</li>
+                <li>Call of Duty</li>
+                <li>SimCity</li>
               </ul>
             </article>
 
-            <article class="atlas-panel">
-              <h3>Strategy notes</h3>
+            <article class="atlas-marker">
+              <h3>Strategy note</h3>
               <p>
-                Planning makes the process smoother. Sometimes decisive,
-                forward movement clears obstacles; sometimes the better choice
-                is to adapt, accept the outcome, and adjust from there.
+                Planning makes the process smoother. Sometimes decisive movement
+                clears obstacles; sometimes the better choice is to adapt and
+                accept the outcome.
               </p>
             </article>
           </div>
@@ -223,103 +235,118 @@
             Future route: keep exploring game development and stay open to
             esports curiosity.
           </p>
+
+          <button class="cover-control" type="button" aria-expanded="true" aria-controls="strategy-detail">
+            Cover territory
+          </button>
         </div>
       </div>
     </section>
 
     <!-- THE MAKER'S COAST -->
     <section class="territory territory-makers" id="makers-coast" aria-labelledby="makers-title">
-      <div class="territory-mist" aria-hidden="true"></div>
-
       <div class="shell territory-inner">
-        <div class="territory-head">
+        <div class="territory-teaser">
           <p class="territory-poetic">The Maker’s Coast</p>
           <h2 id="makers-title">Making &amp; Building</h2>
-          <p class="territory-status">Building</p>
+          <p class="territory-hint">
+            Offline tools, visual ideas, and useful experiments.
+          </p>
+
+          <button
+            class="reveal-control"
+            type="button"
+            aria-expanded="false"
+            aria-controls="makers-detail"
+          >
+            Reveal The Maker’s Coast
+          </button>
         </div>
 
-        <div class="territory-content">
+        <div class="territory-mist" aria-hidden="true"></div>
+
+        <div class="territory-detail" id="makers-detail" hidden>
           <p class="territory-intro">
             I enjoy turning small, repetitive problems into simple tools
             that save time.
           </p>
 
-          <div class="territory-panels">
-            <article class="atlas-panel">
-              <h3>Current experiments</h3>
-              <ul class="tool-list">
-                <li>
-                  <strong>Resume Template Builder</strong>
-                  <span>Creates offline PDF resumes with editable sections and basic layout options.</span>
-                </li>
-                <li>
-                  <strong>Job Fit Tracker</strong>
-                  <span>Reviews a job description and resume, then provides a compatibility score.</span>
-                </li>
-                <li>
-                  <strong>Message Builder</strong>
-                  <span>Creates ready-to-use messages for professional and personal social platforms.</span>
-                </li>
-              </ul>
-            </article>
-
-            <article class="atlas-panel">
-              <h3>Why offline-first</h3>
+          <div class="territory-markers">
+            <article class="atlas-marker">
+              <h3>Resume Template Builder</h3>
               <p>
-                These tools are intentionally offline-first. They may have fewer
-                features than large online platforms, but they are designed for
-                quick personal use—without depending on someone else’s
-                configuration or workflow.
+                Creates offline PDF resumes with editable sections and basic
+                layout options.
               </p>
             </article>
 
-            <article class="atlas-panel">
-              <h3>Currently making</h3>
+            <article class="atlas-marker">
+              <h3>Job Fit Tracker</h3>
               <p>
-                Personal and professional portfolios on GitHub—refining how my
-                work, interests, and experiments are presented.
+                Reviews a job description and resume, then provides a
+                compatibility score.
+              </p>
+            </article>
+
+            <article class="atlas-marker">
+              <h3>Message Builder</h3>
+              <p>
+                Creates ready-to-use messages for professional and personal
+                social platforms.
               </p>
             </article>
           </div>
 
           <p class="territory-future">
-            Future route: continue improving the tools and share selected
-            experiments when they are ready.
+            Future route: continue improving these offline-first tools and
+            share selected experiments when ready.
           </p>
+
+          <button class="cover-control" type="button" aria-expanded="true" aria-controls="makers-detail">
+            Cover territory
+          </button>
         </div>
       </div>
     </section>
 
     <!-- THE CURIOSITY EXPANSE -->
     <section class="territory territory-curiosity" id="curiosity-expanse" aria-labelledby="curiosity-title">
-      <div class="territory-mist" aria-hidden="true"></div>
-
       <div class="shell territory-inner">
-        <div class="territory-head">
+        <div class="territory-teaser">
           <p class="territory-poetic">The Curiosity Expanse</p>
           <h2 id="curiosity-title">Learning &amp; Exploration</h2>
-          <p class="territory-status">In progress</p>
+          <p class="territory-hint">
+            Data, AI tools, and practical skills.
+          </p>
+
+          <button
+            class="reveal-control"
+            type="button"
+            aria-expanded="false"
+            aria-controls="curiosity-detail"
+          >
+            Reveal The Curiosity Expanse
+          </button>
         </div>
 
-        <div class="territory-content">
+        <div class="territory-mist" aria-hidden="true"></div>
+
+        <div class="territory-detail" id="curiosity-detail" hidden>
           <p class="territory-intro">
             Learning is how I stay curious, adapt to change,
             and keep improving.
           </p>
 
-          <div class="territory-panels">
-            <article class="atlas-panel">
+          <div class="territory-markers">
+            <article class="atlas-marker">
               <h3>Currently learning</h3>
-              <p><strong>Data Analytics Certification</strong></p>
-              <ul class="marker-list">
-                <li>SQL</li>
-                <li>Tableau</li>
-                <li>Power BI</li>
-                <li>Advanced Excel</li>
-              </ul>
+              <p>
+                Data Analytics Certification — SQL, Tableau, Power BI,
+                and Advanced Excel.
+              </p>
             </article>
 
-            <article class="atlas-panel">
+            <article class="atlas-marker">
               <h3>AI tools I explore</h3>
               <ul class="marker-list">
                 <li>Claude</li>
@@ -330,12 +357,12 @@
               </ul>
             </article>
 
-            <article class="atlas-panel">
+            <article class="atlas-marker">
               <h3>Recent field note</h3>
               <p>
-                A stronger network and wider reach can create more options.
-                Explore new technology, understand where it helps, and combine
-                it with traditional strengths to improve further.
+                A stronger network and wider reach create more options. Explore
+                new technology, understand where it helps, and combine it with
+                traditional strengths.
               </p>
             </article>
           </div>
@@ -344,29 +371,44 @@
             Future route: apply analytical thinking to personal projects and
             keep exploring useful technology.
           </p>
+
+          <button class="cover-control" type="button" aria-expanded="true" aria-controls="curiosity-detail">
+            Cover territory
+          </button>
         </div>
       </div>
     </section>
 
     <!-- THE SAFFRON SHORES -->
     <section class="territory territory-saffron" id="saffron-shores" aria-labelledby="saffron-title">
-      <div class="territory-mist" aria-hidden="true"></div>
-
       <div class="shell territory-inner">
-        <div class="territory-head">
+        <div class="territory-teaser">
           <p class="territory-poetic">The Saffron Shores</p>
           <h2 id="saffron-title">Food &amp; Curiosity</h2>
-          <p class="territory-status">Exploring</p>
-        </div>
-
-        <div class="territory-content">
-          <p class="territory-intro">
-            Food is one of the simplest ways to explore culture,
-            memory, and everyday curiosity.
+          <p class="territory-hint">
+            Vegetarian flavours, cuisines, and everyday discovery.
           </p>
 
-          <div class="territory-panels">
-            <article class="atlas-panel">
+          <button
+            class="reveal-control"
+            type="button"
+            aria-expanded="false"
+            aria-controls="saffron-detail"
+          >
+            Reveal The Saffron Shores
+          </button>
+        </div>
+
+        <div class="territory-mist" aria-hidden="true"></div>
+
+        <div class="territory-detail" id="saffron-detail" hidden>
+          <p class="territory-intro">
+            Food is one of the simplest ways to explore culture, memory,
+            and everyday curiosity.
+          </p>
+
+          <div class="territory-markers">
+            <article class="atlas-marker">
               <h3>What draws me here</h3>
               <p>
                 I enjoy vegetarian food and the many ways different cuisines
@@ -374,21 +416,18 @@
               </p>
             </article>
 
-            <article class="atlas-panel">
+            <article class="atlas-marker">
               <h3>Currently exploring</h3>
               <p>
-                Healthy salads, bowls, and different filling combinations—
-                trying new bases, textures, and flavours while keeping meals
-                simple and enjoyable.
+                Healthy salads, bowls, and different filling combinations.
               </p>
             </article>
 
-            <article class="atlas-panel">
+            <article class="atlas-marker">
               <h3>Food map</h3>
               <p>
-                A personal food map is planned, beginning from Hyderabad,
-                Telangana — India. It will gradually collect cuisines, dishes,
-                and food experiences worth remembering.
+                Planned but not started yet—beginning from Hyderabad,
+                Telangana, India.
               </p>
             </article>
           </div>
@@ -397,34 +436,31 @@
             Future route: explore continental vegetarian options and document
             dishes worth remembering.
           </p>
+
+          <button class="cover-control" type="button" aria-expanded="true" aria-controls="saffron-detail">
+            Cover territory
+          </button>
         </div>
       </div>
     </section>
 
     <!-- PROFESSIONAL SHORE -->
     <section class="territory territory-professional" id="professional-shore" aria-labelledby="professional-title">
-      <div class="territory-mist" aria-hidden="true"></div>
-
       <div class="shell territory-inner">
-        <div class="territory-head">
+        <div class="territory-teaser">
           <p class="territory-poetic">The Professional Shore</p>
           <h2 id="professional-title">Experience, impact &amp; opportunities</h2>
-          <p class="territory-status">Bridge</p>
-        </div>
-
-        <div class="territory-content">
-          <p class="territory-intro">
-            This route leads to my professional portfolio—experience, impact,
-            recognition, and opportunities.
+          <p class="territory-hint">
+            The bridge to my professional portfolio.
           </p>
 
-          <div class="bridge-actions">
-            <a class="btn btn-primary" href="https://revanth-matta.github.io/" target="_blank" rel="noopener noreferrer">
-              View Professional Portfolio
-              <span class="sr-only">(opens in a new tab)</span>
-            </a>
-          </div>
+          <a class="btn btn-primary" href="https://revanth-matta.github.io/" target="_blank" rel="noopener noreferrer">
+            View Professional Portfolio
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
         </div>
+
+        <div class="territory-mist" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -482,10 +518,6 @@
           </a>
           <a class="btn btn-ghost" href="https://revanth-matta.github.io/" target="_blank" rel="noopener noreferrer">
             Professional Portfolio
-            <span class="sr-only">(opens in a new tab)</span>
-          </a>
-          <a class="btn btn-ghost" href="https://revanth-matta.github.io/" target="_blank" rel="noopener noreferrer">
-            Resume
             <span class="sr-only">(opens in a new tab)</span>
           </a>
         </div>
