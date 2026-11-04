@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const revealItems = document.querySelectorAll(".reveal");
   const territories = document.querySelectorAll(".territory");
+  const mistLayers = document.querySelectorAll(".mist-territory");
   const routes = document.querySelectorAll(".water-routes .route");
   const atlasShip = document.querySelector(".atlas-ship");
 
@@ -138,32 +139,57 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------
-     Atlas: fog, preview, reveal, routes, ship
+     Atlas: mist, preview, reveal, routes, ship
   --------------------------------------------- */
   const territoryMeta = {
     "inklands": {
-      routeIndex: 0,
+      route: "[data-route='inklands']",
       ship: { x: "27%", y: "27%" }
     },
     "strategy-isles": {
-      routeIndex: 1,
+      route: "[data-route='strategy-isles']",
       ship: { x: "74%", y: "22%" }
     },
     "makers-coast": {
-      routeIndex: 2,
+      route: "[data-route='makers-coast']",
       ship: { x: "72%", y: "55%" }
     },
     "curiosity-expanse": {
-      routeIndex: 3,
+      route: "[data-route='curiosity-expanse']",
       ship: { x: "34%", y: "63%" }
     },
     "saffron-shores": {
-      routeIndex: 4,
+      route: "[data-route='saffron-shores']",
       ship: { x: "72%", y: "79%" }
     },
     "professional-shore": {
-      routeIndex: 5,
+      route: "[data-route='professional-shore']",
       ship: { x: "44%", y: "85%" }
+    }
+  };
+
+  const getMistLayer = (territoryId) => {
+    return document.querySelector(`.mist-territory[data-mist="${territoryId}"]`);
+  };
+
+  const getRoute = (territoryId) => {
+    const meta = territoryMeta[territoryId];
+    return meta ? document.querySelector(meta.route) : null;
+  };
+
+  const setMistState = (territoryId, state) => {
+    const mist = getMistLayer(territoryId);
+
+    if (!mist) return;
+
+    mist.classList.remove("is-covered", "is-previewed", "is-revealed");
+
+    if (state === "covered") {
+      mist.classList.add("is-covered");
+    } else if (state === "previewed") {
+      mist.classList.add("is-previewed");
+    } else if (state === "revealed") {
+      mist.classList.add("is-revealed");
     }
   };
 
@@ -174,11 +200,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const highlightRoute = (territoryId) => {
     clearAllRoutes();
 
-    const meta = territoryMeta[territoryId];
+    const route = getRoute(territoryId);
 
-    if (!meta || !routes[meta.routeIndex]) return;
-
-    routes[meta.routeIndex].classList.add("is-active");
+    if (route) {
+      route.classList.add("is-active");
+    }
   };
 
   const moveShip = (territoryId) => {
@@ -198,12 +224,28 @@ document.addEventListener("DOMContentLoaded", () => {
     atlasShip.style.top = meta.ship.y;
   };
 
+  const returnShipToArrival = () => {
+    if (!atlasShip) return;
+
+    if (reducedMotion) {
+      atlasShip.style.left = "48%";
+      atlasShip.style.top = "49%";
+      return;
+    }
+
+    atlasShip.style.left = "48%";
+    atlasShip.style.top = "49%";
+  };
+
   const coverTerritory = (territory, focusControl = false) => {
+    const territoryId = territory.id;
     const control = territory.querySelector(".territory-control");
     const detail = territory.querySelector(".territory-detail");
 
     territory.classList.remove("is-revealed");
     territory.classList.remove("is-previewed");
+
+    setMistState(territoryId, "covered");
 
     if (control) {
       control.setAttribute("aria-expanded", "false");
@@ -221,11 +263,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const coverAllTerritories = () => {
     territories.forEach((territory) => coverTerritory(territory));
     clearAllRoutes();
+    returnShipToArrival();
+  };
 
-    if (atlasShip && !reducedMotion) {
-      atlasShip.style.left = "48%";
-      atlasShip.style.top = "49%";
-    }
+  const previewTerritory = (territory) => {
+    if (territory.classList.contains("is-revealed")) return;
+
+    const territoryId = territory.id;
+
+    territory.classList.add("is-previewed");
+    setMistState(territoryId, "previewed");
+  };
+
+  const clearPreview = (territory) => {
+    if (territory.classList.contains("is-revealed")) return;
+
+    const territoryId = territory.id;
+
+    territory.classList.remove("is-previewed");
+    setMistState(territoryId, "covered");
   };
 
   const revealTerritory = (territory) => {
@@ -243,6 +299,8 @@ document.addEventListener("DOMContentLoaded", () => {
     territory.classList.add("is-revealed");
     territory.classList.remove("is-previewed");
 
+    setMistState(territoryId, "revealed");
+
     if (control) {
       control.setAttribute("aria-expanded", "true");
     }
@@ -255,48 +313,52 @@ document.addEventListener("DOMContentLoaded", () => {
     moveShip(territoryId);
   };
 
+  /* Initialise every territory as covered */
   territories.forEach((territory) => {
+    const territoryId = territory.id;
     const control = territory.querySelector(".territory-control");
     const detail = territory.querySelector(".territory-detail");
 
-    if (!control || !detail) return;
+    setMistState(territoryId, "covered");
+
+    if (control) {
+      control.setAttribute("aria-expanded", "false");
+    }
+
+    if (detail) {
+      detail.hidden = true;
+    }
 
     /* Hover preview */
     territory.addEventListener("mouseenter", () => {
-      if (territory.classList.contains("is-revealed")) return;
-
-      territory.classList.add("is-previewed");
+      previewTerritory(territory);
     });
 
     territory.addEventListener("mouseleave", () => {
-      territory.classList.remove("is-previewed");
+      clearPreview(territory);
     });
 
     /* Keyboard focus preview */
-    control.addEventListener("focus", () => {
-      if (territory.classList.contains("is-revealed")) return;
+    if (control) {
+      control.addEventListener("focus", () => {
+        previewTerritory(territory);
+      });
 
-      territory.classList.add("is-previewed");
-    });
+      control.addEventListener("blur", () => {
+        clearPreview(territory);
+      });
 
-    control.addEventListener("blur", () => {
-      territory.classList.remove("is-previewed");
-    });
-
-    /* Click / Enter / Space reveal */
-    control.addEventListener("click", () => {
-      if (territory.classList.contains("is-revealed")) {
-        coverTerritory(territory);
-        clearAllRoutes();
-
-        if (atlasShip && !reducedMotion) {
-          atlasShip.style.left = "48%";
-          atlasShip.style.top = "49%";
+      /* Click / Enter / Space */
+      control.addEventListener("click", () => {
+        if (territory.classList.contains("is-revealed")) {
+          coverTerritory(territory);
+          clearAllRoutes();
+          returnShipToArrival();
+        } else {
+          revealTerritory(territory);
         }
-      } else {
-        revealTerritory(territory);
-      }
-    });
+      });
+    }
 
     /* Escape covers active territory */
     territory.addEventListener("keydown", (event) => {
@@ -306,16 +368,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ) {
         coverTerritory(territory, true);
         clearAllRoutes();
-
-        if (atlasShip && !reducedMotion) {
-          atlasShip.style.left = "48%";
-          atlasShip.style.top = "49%";
-        }
+        returnShipToArrival();
       }
     });
   });
 
-  /* Close active territory when clicking outside the Atlas */
+  /* Clicking outside the Atlas covers all territories */
   document.addEventListener("click", (event) => {
     const clickedInsideAtlas = event.target.closest(".atlas-world");
 
