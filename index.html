@@ -62,7 +62,6 @@
       <div class="arrival-routes" aria-hidden="true"></div>
 
       <div class="shell arrival-inner">
-        <!-- Map first: ship travels from right to left -->
         <div class="arrival-map reveal" aria-hidden="true">
           <div class="map-terrain"></div>
           <div class="map-coastline"></div>
@@ -119,7 +118,7 @@
             <title id="atlas-svg-title">Revanth’s Personal Atlas</title>
             <desc id="atlas-svg-description">
               A parchment map covered in mist. Hovering or selecting a territory
-              clears the mist locally and reveals its route.
+              clears the mist locally, reveals its route, and shows its landmark.
             </desc>
 
             <defs>
@@ -181,17 +180,30 @@
               <path d="M520 700q30-14 60 0t60 0"/>
             </g>
 
-            <!-- Landmasses -->
-            <g class="landmass landmass-inklands">
+            <!-- THE INKLANDS -->
+            <g class="landmass landmass-inklands" data-territory="inklands">
               <path
                 class="land-shape"
                 d="M70 90 C150 45, 260 55, 330 100 C390 140, 400 210, 350 260 C310 300, 230 315, 170 290 C100 260, 45 200, 55 145 C60 120, 60 105, 70 90 Z"
               />
               <path class="river" d="M150 140q40 30 30 80"/>
               <path class="coast-detail" d="M90 180q25 18 50 8"/>
+
+              <!-- Primary landmark: quill & inkwell -->
+              <g class="landmark primary-landmark" data-landmark="inklands">
+                <path class="landmark-ink" d="M185 175q25-18 45-8"/>
+                <circle class="landmark-inkwell" cx="240" cy="180" r="9"/>
+                <path class="landmark-quill" d="M200 190q18-28 42-18"/>
+              </g>
+
+              <!-- Secondary: open book -->
+              <g class="landmark secondary-landmark">
+                <path class="landmark-book" d="M130 230q30-14 55 0q25-14 55 0"/>
+              </g>
             </g>
 
-            <g class="landmass landmass-strategy">
+            <!-- THE STRATEGY ISLES -->
+            <g class="landmass landmass-strategy" data-territory="strategy-isles">
               <path
                 class="land-shape"
                 d="M830 75 C890 55, 960 70, 985 115 C1005 155, 975 195, 925 200 C875 205, 825 180, 815 140 C810 115, 810 90, 830 75 Z"
@@ -204,9 +216,19 @@
                 class="land-shape islet"
                 d="M870 235 C895 228, 920 240, 920 260 C920 282, 895 292, 875 284 C855 276, 852 245, 870 235 Z"
               />
+
+              <!-- Primary landmark: flag -->
+              <g class="landmark primary-landmark" data-landmark="strategy-isles">
+                <path class="landmark-flagpole" d="M900 120v45"/>
+                <path class="landmark-flag" d="M900 122q25 8 45 0l-8 18q-20 6-37-2z"/>
+              </g>
+
+              <!-- Secondary: ridge -->
+              <path class="landmark secondary-landmark landmark-ridge" d="M840 165q25-20 50-5"/>
             </g>
 
-            <g class="landmass landmass-arrival">
+            <!-- ARRIVAL -->
+            <g class="landmass landmass-arrival" data-territory="arrival">
               <path
                 class="land-shape"
                 d="M545 330 C590 305, 650 315, 670 355 C690 395, 660 435, 610 440 C560 445, 520 415, 520 380 C520 360, 528 342, 545 330 Z"
@@ -214,39 +236,84 @@
               <circle class="harbour-marker" cx="595" cy="385" r="7"/>
             </g>
 
-            <g class="landmass landmass-makers">
+            <!-- THE MAKER'S COAST -->
+            <g class="landmass landmass-makers" data-territory="makers-coast">
               <path
                 class="land-shape"
                 d="M760 330 C850 300, 960 320, 1030 370 C1090 415, 1090 480, 1030 515 C960 555, 850 550, 790 505 C735 465, 720 395, 760 330 Z"
               />
               <path class="cliff" d="M810 375q25 30 5 65"/>
               <path class="bay" d="M950 470q35 18 70 0"/>
+
+              <!-- Primary landmark: lighthouse -->
+              <g class="landmark primary-landmark" data-landmark="makers-coast">
+                <path class="landmark-tower" d="M880 400l10 45h20l10-45z"/>
+                <circle class="landmark-light" cx="900" cy="395" r="6"/>
+              </g>
+
+              <!-- Secondary: gear -->
+              <g class="landmark secondary-landmark">
+                <circle class="landmark-gear" cx="970" cy="430" r="10"/>
+                <path class="landmark-gear-teeth" d="M970 416v-6M970 450v-6M956 430h-6M990 430h-6"/>
+              </g>
             </g>
 
-            <g class="landmass landmass-curiosity">
+            <!-- THE CURIOSITY EXPANSE -->
+            <g class="landmass landmass-curiosity" data-territory="curiosity-expanse">
               <path
                 class="land-shape"
                 d="M90 430 C190 390, 310 410, 370 470 C420 520, 400 590, 330 625 C250 665, 130 650, 80 590 C35 535, 35 470, 90 430 Z"
               />
               <path class="valley" d="M150 520q60 35 130 15"/>
               <path class="route-node" d="M180 560l0 0"/>
+
+              <!-- Primary landmark: telescope -->
+              <g class="landmark primary-landmark" data-landmark="curiosity-expanse">
+                <path class="landmark-scope" d="M190 520l45-22"/>
+                <circle class="landmark-scope-end" cx="240" cy="495" r="7"/>
+                <path class="landmark-scope-leg" d="M205 530l15 22"/>
+              </g>
+
+              <!-- Secondary: data nodes -->
+              <g class="landmark secondary-landmark">
+                <circle class="landmark-node" cx="280" cy="560" r="5"/>
+                <circle class="landmark-node" cx="310" cy="590" r="4"/>
+                <path class="landmark-node-link" d="M285 563q15 12 22 24"/>
+              </g>
             </g>
 
-            <g class="landmass landmass-saffron">
+            <!-- THE SAFFRON SHORES -->
+            <g class="landmass landmass-saffron" data-territory="saffron-shores">
               <path
                 class="land-shape"
                 d="M790 590 C870 555, 980 570, 1040 620 C1090 665, 1070 720, 1000 735 C920 750, 820 730, 780 680 C750 640, 755 610, 790 590 Z"
               />
               <path class="beach" d="M830 690q45 25 100 10"/>
               <path class="cove" d="M950 640q30 20 60 5"/>
+
+              <!-- Primary landmark: bowl -->
+              <g class="landmark primary-landmark" data-landmark="saffron-shores">
+                <path class="landmark-bowl" d="M890 660q30 25 60 0"/>
+                <path class="landmark-steam" d="M905 645q5-10 0-18M925 645q5-10 0-18"/>
+              </g>
+
+              <!-- Secondary: leaf -->
+              <path class="landmark secondary-landmark landmark-leaf" d="M980 690q25-18 45-5q-20 20-45 5z"/>
             </g>
 
-            <g class="landmass landmass-professional">
+            <!-- THE PROFESSIONAL SHORE -->
+            <g class="landmass landmass-professional" data-territory="professional-shore">
               <path
                 class="land-shape"
                 d="M430 620 C490 595, 560 610, 590 650 C615 690, 590 725, 540 730 C490 735, 440 715, 425 680 C415 655, 418 635, 430 620 Z"
               />
               <path class="bridge-route" d="M595 385q-20 130-105 245"/>
+
+              <!-- Primary landmark: bridge -->
+              <g class="landmark primary-landmark" data-landmark="professional-shore">
+                <path class="landmark-bridge" d="M460 665q50-28 100 0"/>
+                <path class="landmark-bridge-post" d="M480 665v-22M540 665v-22"/>
+              </g>
             </g>
 
             <!-- Water routes -->
@@ -332,7 +399,7 @@
             </g>
           </svg>
 
-          <!-- Territory labels: no card containers -->
+          <!-- Territory labels -->
           <div class="territory-layer">
             <article class="territory territory-inklands" id="inklands" aria-labelledby="inklands-button">
               <button
