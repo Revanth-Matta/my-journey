@@ -58,9 +58,28 @@
     <!-- ARRIVAL -->
     <section class="arrival" id="arrival" aria-labelledby="arrival-title">
       <div class="parchment-layer" aria-hidden="true"></div>
-      <div class="contour-layer" aria-hidden="true"></div>
+      <div class="map-grain" aria-hidden="true"></div>
+      <div class="arrival-routes" aria-hidden="true"></div>
 
       <div class="shell arrival-inner">
+        <!-- Map first: ship travels from right to left -->
+        <div class="arrival-map reveal" aria-hidden="true">
+          <div class="map-terrain"></div>
+          <div class="map-coastline"></div>
+          <div class="map-route"></div>
+
+          <svg class="ship" viewBox="0 0 64 40" role="img" aria-label="Ship travelling across open water toward Arrival">
+            <path class="ship-hull" d="M10 27h44l-7 9H17z"/>
+            <path class="ship-sail" d="M32 5v20"/>
+            <path class="ship-sail-shape" d="M32 7c9 3 13 9 13 18H32z"/>
+          </svg>
+
+          <div class="arrival-marker">
+            <span class="marker-dot"></span>
+            <span class="marker-label">Arrival</span>
+          </div>
+        </div>
+
         <div class="arrival-copy reveal">
           <p class="eyebrow">Personal Atlas</p>
           <h1 id="arrival-title">You’ve arrived<br>at Revanth’s Atlas.</h1>
@@ -73,22 +92,6 @@
             <a class="btn btn-primary" href="#atlas">Explore the Atlas</a>
           </div>
         </div>
-
-        <div class="arrival-map reveal" aria-hidden="true">
-          <div class="map-terrain"></div>
-          <div class="map-route"></div>
-
-          <svg class="ship" viewBox="0 0 64 40" role="img" aria-label="Small ship travelling to Arrival">
-            <path class="ship-hull" d="M10 27h44l-7 9H17z"/>
-            <path class="ship-sail" d="M32 5v20"/>
-            <path class="ship-sail-shape" d="M32 7c9 3 13 9 13 18H32z"/>
-          </svg>
-
-          <div class="arrival-marker">
-            <span class="marker-dot"></span>
-            <span class="marker-label">Arrival</span>
-          </div>
-        </div>
       </div>
 
       <a class="skip-intro" href="#atlas">Skip to Atlas</a>
@@ -99,11 +102,10 @@
       <div class="shell">
         <div class="section-head reveal">
           <p class="eyebrow">The Atlas</p>
-          <h2 id="atlas-title">Choose a territory to explore</h2>
+          <h2 id="atlas-title">A world beneath the mist</h2>
           <p class="section-lede">
-            The Atlas begins beneath mist.
-            Hover or focus to glimpse a territory;
-            select it to clear the mist and reveal its route.
+            Hover or focus to glimpse a territory.
+            Select it to clear the mist and reveal its route.
           </p>
         </div>
 
@@ -160,7 +162,7 @@
               </filter>
 
               <filter id="routeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="6" result="blur"/>
+                <feGaussianBlur stdDeviation="7" result="blur"/>
                 <feMerge>
                   <feMergeNode in="blur"/>
                   <feMergeNode in="SourceGraphic"/>
@@ -261,65 +263,65 @@
             <g class="mist-atlas" aria-hidden="true">
               <rect
                 class="mist-base"
-                x="-60"
-                y="-60"
-                width="1320"
-                height="880"
+                x="-80"
+                y="-80"
+                width="1360"
+                height="920"
                 filter="url(#softMist)"
               />
             </g>
 
             <!-- Territory mist clouds -->
             <g class="mist-territory" data-mist="inklands" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="190" cy="160" rx="190" ry="105"/>
-              <ellipse class="mist-cloud" cx="290" cy="210" rx="170" ry="90"/>
-              <ellipse class="mist-cloud" cx="150" cy="240" rx="160" ry="85"/>
-              <ellipse class="mist-cloud" cx="250" cy="120" rx="150" ry="80"/>
-              <ellipse class="mist-cloud" cx="90" cy="160" rx="130" ry="80"/>
-              <ellipse class="mist-cloud" cx="330" cy="170" rx="130" ry="75"/>
+              <ellipse class="mist-cloud" cx="190" cy="160" rx="200" ry="115"/>
+              <ellipse class="mist-cloud" cx="300" cy="210" rx="180" ry="95"/>
+              <ellipse class="mist-cloud" cx="140" cy="250" rx="170" ry="90"/>
+              <ellipse class="mist-cloud" cx="250" cy="110" rx="160" ry="85"/>
+              <ellipse class="mist-cloud" cx="80" cy="160" rx="140" ry="85"/>
+              <ellipse class="mist-cloud" cx="340" cy="170" rx="140" ry="80"/>
             </g>
 
             <g class="mist-territory" data-mist="strategy-isles" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="920" cy="150" rx="190" ry="95"/>
-              <ellipse class="mist-cloud" cx="1030" cy="200" rx="160" ry="80"/>
-              <ellipse class="mist-cloud" cx="860" cy="220" rx="150" ry="75"/>
-              <ellipse class="mist-cloud" cx="980" cy="100" rx="150" ry="75"/>
-              <ellipse class="mist-cloud" cx="880" cy="280" rx="130" ry="65"/>
-              <ellipse class="mist-cloud" cx="1070" cy="150" rx="120" ry="65"/>
+              <ellipse class="mist-cloud" cx="920" cy="150" rx="200" ry="100"/>
+              <ellipse class="mist-cloud" cx="1040" cy="200" rx="170" ry="85"/>
+              <ellipse class="mist-cloud" cx="850" cy="220" rx="160" ry="80"/>
+              <ellipse class="mist-cloud" cx="980" cy="90" rx="160" ry="80"/>
+              <ellipse class="mist-cloud" cx="870" cy="290" rx="140" ry="70"/>
+              <ellipse class="mist-cloud" cx="1080" cy="150" rx="130" ry="70"/>
             </g>
 
             <g class="mist-territory" data-mist="makers-coast" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="900" cy="420" rx="210" ry="100"/>
-              <ellipse class="mist-cloud" cx="800" cy="470" rx="170" ry="85"/>
-              <ellipse class="mist-cloud" cx="1010" cy="480" rx="170" ry="80"/>
-              <ellipse class="mist-cloud" cx="900" cy="340" rx="170" ry="80"/>
-              <ellipse class="mist-cloud" cx="770" cy="390" rx="130" ry="70"/>
-              <ellipse class="mist-cloud" cx="1050" cy="420" rx="130" ry="70"/>
+              <ellipse class="mist-cloud" cx="900" cy="420" rx="220" ry="105"/>
+              <ellipse class="mist-cloud" cx="790" cy="470" rx="180" ry="90"/>
+              <ellipse class="mist-cloud" cx="1020" cy="480" rx="180" ry="85"/>
+              <ellipse class="mist-cloud" cx="900" cy="330" rx="180" ry="85"/>
+              <ellipse class="mist-cloud" cx="760" cy="390" rx="140" ry="75"/>
+              <ellipse class="mist-cloud" cx="1060" cy="420" rx="140" ry="75"/>
             </g>
 
             <g class="mist-territory" data-mist="curiosity-expanse" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="220" cy="530" rx="200" ry="100"/>
-              <ellipse class="mist-cloud" cx="320" cy="590" rx="170" ry="85"/>
-              <ellipse class="mist-cloud" cx="150" cy="600" rx="160" ry="80"/>
-              <ellipse class="mist-cloud" cx="240" cy="450" rx="160" ry="80"/>
-              <ellipse class="mist-cloud" cx="90" cy="520" rx="130" ry="75"/>
-              <ellipse class="mist-cloud" cx="360" cy="520" rx="130" ry="70"/>
+              <ellipse class="mist-cloud" cx="220" cy="530" rx="210" ry="105"/>
+              <ellipse class="mist-cloud" cx="330" cy="590" rx="180" ry="90"/>
+              <ellipse class="mist-cloud" cx="140" cy="600" rx="170" ry="85"/>
+              <ellipse class="mist-cloud" cx="240" cy="440" rx="170" ry="85"/>
+              <ellipse class="mist-cloud" cx="80" cy="520" rx="140" ry="80"/>
+              <ellipse class="mist-cloud" cx="370" cy="520" rx="140" ry="75"/>
             </g>
 
             <g class="mist-territory" data-mist="saffron-shores" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="910" cy="660" rx="200" ry="95"/>
-              <ellipse class="mist-cloud" cx="1020" cy="700" rx="160" ry="75"/>
-              <ellipse class="mist-cloud" cx="820" cy="700" rx="160" ry="75"/>
-              <ellipse class="mist-cloud" cx="930" cy="600" rx="160" ry="75"/>
-              <ellipse class="mist-cloud" cx="790" cy="640" rx="130" ry="65"/>
-              <ellipse class="mist-cloud" cx="1050" cy="650" rx="130" ry="65"/>
+              <ellipse class="mist-cloud" cx="910" cy="660" rx="210" ry="100"/>
+              <ellipse class="mist-cloud" cx="1030" cy="700" rx="170" ry="80"/>
+              <ellipse class="mist-cloud" cx="810" cy="700" rx="170" ry="80"/>
+              <ellipse class="mist-cloud" cx="930" cy="590" rx="170" ry="80"/>
+              <ellipse class="mist-cloud" cx="780" cy="640" rx="140" ry="70"/>
+              <ellipse class="mist-cloud" cx="1060" cy="650" rx="140" ry="70"/>
             </g>
 
             <g class="mist-territory" data-mist="professional-shore" aria-hidden="true" filter="url(#mistTexture)">
-              <ellipse class="mist-cloud" cx="510" cy="680" rx="170" ry="85"/>
-              <ellipse class="mist-cloud" cx="590" cy="710" rx="140" ry="65"/>
-              <ellipse class="mist-cloud" cx="450" cy="700" rx="130" ry="65"/>
-              <ellipse class="mist-cloud" cx="530" cy="630" rx="130" ry="65"/>
+              <ellipse class="mist-cloud" cx="510" cy="680" rx="180" ry="90"/>
+              <ellipse class="mist-cloud" cx="600" cy="710" rx="150" ry="70"/>
+              <ellipse class="mist-cloud" cx="440" cy="700" rx="140" ry="70"/>
+              <ellipse class="mist-cloud" cx="530" cy="620" rx="140" ry="70"/>
             </g>
 
             <!-- Compass -->
@@ -330,7 +332,7 @@
             </g>
           </svg>
 
-          <!-- Territory controls -->
+          <!-- Territory labels: no card containers -->
           <div class="territory-layer">
             <article class="territory territory-inklands" id="inklands" aria-labelledby="inklands-button">
               <button
@@ -535,34 +537,44 @@
 
     <!-- FIELD NOTES -->
     <section class="field-notes" id="field-notes" aria-labelledby="field-notes-title">
+      <div class="section-route" aria-hidden="true"></div>
+
       <div class="shell">
         <div class="section-head reveal">
           <p class="eyebrow">Field Notes</p>
-          <h2 id="field-notes-title">Currently across the Atlas</h2>
+          <h2 id="field-notes-title">Dispatches from the Atlas</h2>
+          <p class="section-lede">
+            Current notes from the territories—learning, making,
+            playing, and exploring.
+          </p>
         </div>
 
-        <div class="notes-grid">
-          <article class="note reveal">
-            <p class="note-label">Currently learning</p>
-            <h3>Data Analytics Certification</h3>
+        <div class="dispatch-grid">
+          <article class="dispatch dispatch-one reveal">
+            <p class="dispatch-region">From the Curiosity Expanse</p>
+            <h3>Currently learning</h3>
+            <p class="dispatch-title">Data Analytics Certification</p>
             <p>SQL, Tableau, Power BI, and Advanced Excel.</p>
           </article>
 
-          <article class="note reveal">
-            <p class="note-label">Currently making</p>
-            <h3>Personal &amp; professional portfolios</h3>
+          <article class="dispatch dispatch-two reveal">
+            <p class="dispatch-region">From the Maker’s Coast</p>
+            <h3>Currently making</h3>
+            <p class="dispatch-title">Personal &amp; professional portfolios</p>
             <p>Refining my GitHub-based portfolio experiments.</p>
           </article>
 
-          <article class="note reveal">
-            <p class="note-label">Currently playing</p>
-            <h3>Game of Thrones: Kings Road</h3>
+          <article class="dispatch dispatch-three reveal">
+            <p class="dispatch-region">From the Strategy Isles</p>
+            <h3>Currently playing</h3>
+            <p class="dispatch-title">Game of Thrones: Kings Road</p>
             <p>Working toward completing the game and becoming a stronger player.</p>
           </article>
 
-          <article class="note reveal">
-            <p class="note-label">Currently exploring</p>
-            <h3>AI tools &amp; healthy food combinations</h3>
+          <article class="dispatch dispatch-four reveal">
+            <p class="dispatch-region">From the Saffron Shores</p>
+            <h3>Currently exploring</h3>
+            <p class="dispatch-title">AI tools &amp; healthy food combinations</p>
             <p>Finding practical ways to learn, create, and enjoy.</p>
           </article>
         </div>
@@ -576,8 +588,8 @@
 
       <div class="shell onward-inner reveal">
         <p class="eyebrow">Onward</p>
-        <h2 id="onward-title">Opportunities, collaborations,<br>and conversations ahead.</h2>
-        <p class="onward-lede">My inbox is open.</p>
+        <h2 id="onward-title">The route continues<br>beyond the Atlas.</h2>
+        <p class="onward-lede">Opportunities, collaborations, and conversations ahead.</p>
 
         <div class="onward-actions">
           <a class="btn btn-primary" href="mailto:revanthkm13@gmail.com">Email Revanth</a>
