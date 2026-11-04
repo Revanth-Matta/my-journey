@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------
-     Atlas: mist, landmarks, routes, ship
+     Atlas: mist, landmarks, discoveries, routes, ship
   --------------------------------------------- */
 
   const territoryMeta = {
@@ -148,36 +148,42 @@ document.addEventListener("DOMContentLoaded", () => {
       mist: "[data-mist='inklands']",
       route: "[data-route='inklands']",
       landmark: "[data-landmark='inklands']",
+      discovery: "[data-discovery='inklands']",
       ship: { x: "24%", y: "23%", rotate: "-9deg" }
     },
     "strategy-isles": {
       mist: "[data-mist='strategy-isles']",
       route: "[data-route='strategy-isles']",
       landmark: "[data-landmark='strategy-isles']",
+      discovery: "[data-discovery='strategy-isles']",
       ship: { x: "77%", y: "19%", rotate: "11deg" }
     },
     "makers-coast": {
       mist: "[data-mist='makers-coast']",
       route: "[data-route='makers-coast']",
       landmark: "[data-landmark='makers-coast']",
+      discovery: "[data-discovery='makers-coast']",
       ship: { x: "74%", y: "57%", rotate: "7deg" }
     },
     "curiosity-expanse": {
       mist: "[data-mist='curiosity-expanse']",
       route: "[data-route='curiosity-expanse']",
       landmark: "[data-landmark='curiosity-expanse']",
+      discovery: "[data-discovery='curiosity-expanse']",
       ship: { x: "32%", y: "65%", rotate: "-11deg" }
     },
     "saffron-shores": {
       mist: "[data-mist='saffron-shores']",
       route: "[data-route='saffron-shores']",
       landmark: "[data-landmark='saffron-shores']",
+      discovery: "[data-discovery='saffron-shores']",
       ship: { x: "75%", y: "81%", rotate: "9deg" }
     },
     "professional-shore": {
       mist: "[data-mist='professional-shore']",
       route: "[data-route='professional-shore']",
       landmark: "[data-landmark='professional-shore']",
+      discovery: "[data-discovery='professional-shore']",
       ship: { x: "42%", y: "87%", rotate: "-7deg" }
     }
   };
@@ -201,12 +207,19 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const getLandmass = (territoryId) => {
-    return document.querySelector(`.landmass[data-territory="${territoryId}"]`);
+    return document.querySelector(
+      `.landmass[data-territory="${territoryId}"]`
+    );
   };
 
   const getLandmark = (territoryId) => {
     const meta = getMeta(territoryId);
     return meta ? document.querySelector(meta.landmark) : null;
+  };
+
+  const getDiscovery = (territoryId) => {
+    const meta = getMeta(territoryId);
+    return meta ? document.querySelector(meta.discovery) : null;
   };
 
   const setMistState = (territoryId, state) => {
@@ -251,6 +264,22 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (state === "revealed") {
         landmark.classList.add("is-revealed");
       }
+    }
+  };
+
+  const setDiscoveryState = (territoryId, state) => {
+    const discovery = getDiscovery(territoryId);
+
+    if (!discovery) return;
+
+    discovery.classList.remove("is-covered", "is-previewed", "is-revealed");
+
+    if (state === "covered") {
+      discovery.classList.add("is-covered");
+    } else if (state === "previewed") {
+      discovery.classList.add("is-previewed");
+    } else if (state === "revealed") {
+      discovery.classList.add("is-revealed");
     }
   };
 
@@ -305,6 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setMistState(territoryId, "covered");
     setLandmarkState(territoryId, "covered");
+    setDiscoveryState(territoryId, "covered");
 
     if (control) {
       control.setAttribute("aria-expanded", "false");
@@ -333,6 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
     territory.classList.add("is-previewed");
     setMistState(territoryId, "previewed");
     setLandmarkState(territoryId, "previewed");
+    setDiscoveryState(territoryId, "previewed");
   };
 
   const clearPreview = (territory) => {
@@ -343,6 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
     territory.classList.remove("is-previewed");
     setMistState(territoryId, "covered");
     setLandmarkState(territoryId, "covered");
+    setDiscoveryState(territoryId, "covered");
   };
 
   const revealTerritory = (territory) => {
@@ -362,6 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setMistState(territoryId, "revealed");
     setLandmarkState(territoryId, "revealed");
+    setDiscoveryState(territoryId, "revealed");
 
     if (control) {
       control.setAttribute("aria-expanded", "true");
@@ -383,6 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setMistState(territoryId, "covered");
     setLandmarkState(territoryId, "covered");
+    setDiscoveryState(territoryId, "covered");
 
     if (control) {
       control.setAttribute("aria-expanded", "false");
