@@ -1,15 +1,15 @@
 /* =========================================
    Revanth’s Personal Atlas
-   Ink, Saffron & Moss — Revised Phase 1
+   Ink, Saffron & Moss — Map Edition
 ========================================= */
 
 :root {
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
 
-  --shell-max: 1180px;
+  --shell-max: 1240px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --transition: 0.4s var(--ease);
+  --transition: 0.35s var(--ease);
 
   --radius-sm: 10px;
   --radius-md: 18px;
@@ -28,15 +28,16 @@ html[data-theme="dark"] {
   --text-muted: #b8ac9e;
   --accent: #e8a33d;
   --accent-strong: #f0b45a;
-  --accent-soft: rgba(232, 163, 61, 0.16);
+  --accent-soft: rgba(232, 163, 61, 0.18);
   --moss: #7fa98a;
-  --moss-soft: rgba(127, 169, 138, 0.16);
+  --moss-soft: rgba(127, 169, 138, 0.18);
   --clay: #d97a6c;
-  --clay-soft: rgba(217, 122, 108, 0.16);
+  --clay-soft: rgba(217, 122, 108, 0.18);
   --line: rgba(243, 237, 226, 0.12);
   --line-strong: rgba(243, 237, 226, 0.22);
-  --mist: rgba(20, 18, 16, 0.88);
-  --shadow: 0 20px 55px rgba(0, 0, 0, 0.4);
+  --fog: rgba(20, 18, 16, 0.94);
+  --fog-preview: rgba(20, 18, 16, 0.55);
+  --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
   --header-bg: rgba(20, 18, 16, 0.85);
   --focus: #e8a33d;
 }
@@ -50,14 +51,15 @@ html[data-theme="light"] {
   --text-muted: #6b625a;
   --accent: #b97a17;
   --accent-strong: #a06610;
-  --accent-soft: rgba(185, 122, 23, 0.14);
+  --accent-soft: rgba(185, 122, 23, 0.15);
   --moss: #3f6b4f;
-  --moss-soft: rgba(63, 107, 79, 0.12);
+  --moss-soft: rgba(63, 107, 79, 0.14);
   --clay: #c25b4e;
-  --clay-soft: rgba(194, 91, 78, 0.12);
+  --clay-soft: rgba(194, 91, 78, 0.14);
   --line: rgba(29, 26, 23, 0.12);
   --line-strong: rgba(29, 26, 23, 0.22);
-  --mist: rgba(245, 239, 228, 0.88);
+  --fog: rgba(245, 239, 228, 0.94);
+  --fog-preview: rgba(245, 239, 228, 0.55);
   --shadow: 0 18px 45px rgba(29, 26, 23, 0.10);
   --header-bg: rgba(245, 239, 228, 0.88);
   --focus: #b97a17;
@@ -131,7 +133,6 @@ h3 {
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0;
 }
 
 p {
@@ -184,7 +185,6 @@ p {
   align-items: center;
   gap: 0.6rem;
   margin-bottom: 1rem;
-  font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -205,10 +205,10 @@ p {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 3rem;
-  padding: 0.8rem 1.4rem;
+  min-height: 2.9rem;
+  padding: 0.7rem 1.3rem;
   border-radius: var(--radius-pill);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
   transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
 }
@@ -292,7 +292,7 @@ p {
 
 .atlas-rail a {
   display: block;
-  padding: 0.45rem 0.65rem;
+  padding: 0.45rem 0.7rem;
   border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 500;
@@ -358,7 +358,7 @@ p {
 }
 
 .mobile-navigation.is-open {
-  max-height: 34rem;
+  max-height: 24rem;
 }
 
 .mobile-navigation ul {
@@ -532,163 +532,286 @@ p {
   border-color: var(--accent);
 }
 
-/* Territories */
-.territory {
-  position: relative;
-  padding: 5.5rem 0;
-  overflow: hidden;
-}
-
-.territory:nth-of-type(even) {
+/* Atlas map */
+.atlas {
+  padding: 6rem 0;
   background: var(--atlas-bg-alt);
 }
 
-.territory-inner {
-  position: relative;
+.section-head {
+  max-width: 42rem;
+  margin-bottom: 2.5rem;
 }
 
-/* Teaser remains above mist */
-.territory-teaser {
+.section-lede {
+  margin-top: 1rem;
+  color: var(--text-muted);
+}
+
+.atlas-map {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(11rem, auto);
+  gap: 1.1rem;
+  min-height: min(78vh, 46rem);
+}
+
+.map-surface,
+.map-contours,
+.map-routes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.map-surface {
+  background:
+    radial-gradient(circle at 20% 25%, var(--accent-soft), transparent 45%),
+    radial-gradient(circle at 80% 70%, var(--moss-soft), transparent 45%),
+    var(--atlas-bg);
+}
+
+.map-contours {
+  background-image:
+    radial-gradient(circle at 30% 40%, transparent 58%, var(--line) 59%, transparent 60%),
+    radial-gradient(circle at 70% 60%, transparent 55%, var(--line) 56%, transparent 57%),
+    radial-gradient(circle at 50% 80%, transparent 62%, var(--line) 63%, transparent 64%);
+  opacity: 0.3;
+}
+
+.map-routes {
+  background:
+    linear-gradient(115deg, transparent 42%, var(--line) 43%, transparent 44%),
+    linear-gradient(65deg, transparent 58%, var(--line) 59%, transparent 60%);
+  opacity: 0.55;
+}
+
+.compass-rose {
+  position: absolute;
+  right: 4%;
+  bottom: 6%;
+  width: 4.5rem;
+  height: 4.5rem;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.compass-rose span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: var(--line-strong);
+  transform-origin: center;
+}
+
+.compass-rose span:nth-child(1) { transform: translate(-50%, -50%); }
+.compass-rose span:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg); }
+.compass-rose span:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg); }
+.compass-rose span:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg); }
+
+.compass-rose::after {
+  content: "N";
+  position: absolute;
+  top: -0.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+/* Territory placement */
+.territory-inklands {
+  grid-column: 1 / span 4;
+  grid-row: 1 / span 2;
+}
+
+.territory-strategy {
+  grid-column: 8 / span 5;
+  grid-row: 1 / span 2;
+}
+
+.territory-makers {
+  grid-column: 6 / span 4;
+  grid-row: 2 / span 2;
+}
+
+.territory-curiosity {
+  grid-column: 1 / span 4;
+  grid-row: 3 / span 2;
+}
+
+.territory-saffron {
+  grid-column: 8 / span 5;
+  grid-row: 3 / span 2;
+}
+
+.territory-professional {
+  grid-column: 5 / span 3;
+  grid-row: 4 / span 1;
+}
+
+/* Territory */
+.territory {
+  position: relative;
+  display: grid;
+  align-content: start;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.territory:hover,
+.territory:focus-within,
+.territory.is-revealed {
+  border-color: var(--accent);
+  box-shadow: 0 18px 45px var(--accent-soft);
+  transform: translateY(-3px);
+  z-index: 5;
+}
+
+.territory-control {
   position: relative;
   z-index: 3;
-  max-width: 34rem;
+  display: grid;
+  gap: 0.35rem;
+  text-align: left;
+  width: 100%;
+  padding: 0;
 }
 
 .territory-poetic {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--accent);
 }
 
-.territory-teaser h2 {
-  margin-top: 0.5rem;
+.territory-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text);
 }
 
-.territory-hint {
-  margin-top: 0.8rem;
-  max-width: 28rem;
+.territory-preview {
+  max-width: 24rem;
   color: var(--text-muted);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--transition), transform var(--transition);
 }
 
-.reveal-control {
+.territory:hover .territory-preview,
+.territory:focus-within .territory-preview,
+.territory.is-revealed .territory-preview {
+  opacity: 1;
+  transform: none;
+}
+
+.territory-action {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.4rem;
-  padding: 0.65rem 1.15rem;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  color: var(--text);
-  font-size: 0.88rem;
-  font-weight: 600;
-  transition: border-color var(--transition), color var(--transition), background var(--transition), transform var(--transition);
-}
-
-.reveal-control:hover,
-.reveal-control:focus-visible {
-  border-color: var(--accent);
+  gap: 0.4rem;
+  margin-top: 0.7rem;
   color: var(--accent);
-  background: var(--accent-soft);
-  transform: translateY(-2px);
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity var(--transition);
 }
 
-/* Mist sits above detail content */
-.territory-mist {
+.territory:hover .territory-action,
+.territory:focus-within .territory-action,
+.territory.is-revealed .territory-action {
+  opacity: 1;
+}
+
+.territory-action::after {
+  content: "→";
+}
+
+/* Fog */
+.territory-fog {
   position: absolute;
   inset: 0;
   z-index: 2;
+  border-radius: inherit;
   background:
-    radial-gradient(circle at 30% 30%, var(--accent-soft), transparent 55%),
-    var(--mist);
+    radial-gradient(circle at 35% 30%, var(--accent-soft), transparent 55%),
+    var(--fog);
   pointer-events: none;
-  transition: opacity 0.5s var(--ease);
+  transition: opacity var(--transition);
 }
 
-.territory.is-revealed .territory-mist {
+.territory:hover .territory-fog,
+.territory:focus-within .territory-fog {
+  background:
+    radial-gradient(circle at 35% 30%, var(--accent-soft), transparent 55%),
+    var(--fog-preview);
+}
+
+.territory.is-revealed .territory-fog {
   opacity: 0;
 }
 
-/* Detail content sits below mist until revealed */
+/* Territory detail */
 .territory-detail {
   position: relative;
-  z-index: 1;
-  margin-top: 2.5rem;
-  max-width: 52rem;
+  z-index: 3;
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
 }
 
 .territory-intro {
   color: var(--text-muted);
-  font-size: 1.02rem;
 }
 
 .territory-markers {
   display: grid;
-  gap: 1rem;
-  margin-top: 1.8rem;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
 }
 
-.atlas-marker {
-  padding: 1.3rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-}
-
-.atlas-marker p {
-  margin-top: 0.55rem;
-  color: var(--text-muted);
-}
-
-.marker-list li {
+.territory-markers li {
   position: relative;
-  padding-left: 1.2rem;
-  margin-top: 0.45rem;
+  padding-left: 1.1rem;
   color: var(--text-muted);
+  font-size: 0.92rem;
 }
 
-.marker-list li::before {
+.territory-markers li::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.6rem;
-  width: 0.4rem;
-  height: 0.4rem;
+  top: 0.55rem;
+  width: 0.38rem;
+  height: 0.38rem;
   border-radius: 50%;
   background: var(--accent);
 }
 
 .territory-future {
-  margin-top: 1.8rem;
-  padding-top: 1.2rem;
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
   border-top: 1px solid var(--line);
   color: var(--text-muted);
-}
-
-.cover-control {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin-top: 1.5rem;
-  padding: 0.55rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-pill);
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 0.82rem;
-  font-weight: 500;
-  transition: color var(--transition), border-color var(--transition);
-}
-
-.cover-control:hover,
-.cover-control:focus-visible {
-  color: var(--accent);
-  border-color: var(--accent);
+  font-size: 0.9rem;
 }
 
 /* Professional shore */
-.territory-professional .territory-teaser {
-  max-width: 38rem;
+.professional-control {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.professional-control .btn {
+  justify-self: start;
+  margin-top: 0.8rem;
 }
 
 /* Field notes */
@@ -831,12 +954,30 @@ p {
     grid-template-columns: 1.05fr 0.95fr;
   }
 
-  .territory-markers {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .notes-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .atlas-map {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .territory-inklands,
+  .territory-strategy,
+  .territory-makers,
+  .territory-curiosity,
+  .territory-saffron,
+  .territory-professional {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .compass-rose {
+    display: none;
   }
 }
 
@@ -856,7 +997,9 @@ p {
     opacity: 0.9;
   }
 
-  .territory-mist {
+  .territory-fog,
+  .territory-preview,
+  .territory-action {
     transition: none;
   }
 }
