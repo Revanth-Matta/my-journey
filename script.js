@@ -141,35 +141,55 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------------------------------------------
      Atlas: mist, preview, reveal, routes, ship
   --------------------------------------------- */
+
+  /*
+    Each territory has:
+    - a matching SVG mist layer
+    - a water route
+    - an exploration destination for the ship
+  */
   const territoryMeta = {
     "inklands": {
+      mist: "[data-mist='inklands']",
       route: "[data-route='inklands']",
-      ship: { x: "27%", y: "27%" }
+      ship: { x: "25%", y: "24%", rotate: "-8deg" }
     },
     "strategy-isles": {
+      mist: "[data-mist='strategy-isles']",
       route: "[data-route='strategy-isles']",
-      ship: { x: "74%", y: "22%" }
+      ship: { x: "76%", y: "20%", rotate: "10deg" }
     },
     "makers-coast": {
+      mist: "[data-mist='makers-coast']",
       route: "[data-route='makers-coast']",
-      ship: { x: "72%", y: "55%" }
+      ship: { x: "73%", y: "56%", rotate: "6deg" }
     },
     "curiosity-expanse": {
+      mist: "[data-mist='curiosity-expanse']",
       route: "[data-route='curiosity-expanse']",
-      ship: { x: "34%", y: "63%" }
+      ship: { x: "33%", y: "64%", rotate: "-10deg" }
     },
     "saffron-shores": {
+      mist: "[data-mist='saffron-shores']",
       route: "[data-route='saffron-shores']",
-      ship: { x: "72%", y: "79%" }
+      ship: { x: "74%", y: "80%", rotate: "8deg" }
     },
     "professional-shore": {
+      mist: "[data-mist='professional-shore']",
       route: "[data-route='professional-shore']",
-      ship: { x: "44%", y: "85%" }
+      ship: { x: "43%", y: "86%", rotate: "-6deg" }
     }
   };
 
+  const arrivalPosition = {
+    x: "48%",
+    y: "49%",
+    rotate: "0deg"
+  };
+
   const getMistLayer = (territoryId) => {
-    return document.querySelector(`.mist-territory[data-mist="${territoryId}"]`);
+    const meta = territoryMeta[territoryId];
+    return meta ? document.querySelector(meta.mist) : null;
   };
 
   const getRoute = (territoryId) => {
@@ -215,26 +235,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!meta) return;
 
     if (reducedMotion) {
-      atlasShip.style.left = "48%";
-      atlasShip.style.top = "49%";
+      atlasShip.style.left = arrivalPosition.x;
+      atlasShip.style.top = arrivalPosition.y;
+      atlasShip.style.transform = `rotate(${arrivalPosition.rotate})`;
       return;
     }
 
     atlasShip.style.left = meta.ship.x;
     atlasShip.style.top = meta.ship.y;
+    atlasShip.style.transform = `rotate(${meta.ship.rotate})`;
   };
 
   const returnShipToArrival = () => {
     if (!atlasShip) return;
 
-    if (reducedMotion) {
-      atlasShip.style.left = "48%";
-      atlasShip.style.top = "49%";
-      return;
-    }
-
-    atlasShip.style.left = "48%";
-    atlasShip.style.top = "49%";
+    atlasShip.style.left = arrivalPosition.x;
+    atlasShip.style.top = arrivalPosition.y;
+    atlasShip.style.transform = `rotate(${arrivalPosition.rotate})`;
   };
 
   const coverTerritory = (territory, focusControl = false) => {
@@ -313,7 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
     moveShip(territoryId);
   };
 
-  /* Initialise every territory as covered */
+  /* Initialise: entire Atlas begins under mist */
   territories.forEach((territory) => {
     const territoryId = territory.id;
     const control = territory.querySelector(".territory-control");
