@@ -1,13 +1,13 @@
 /* =========================================
    Revanth’s Personal Atlas
-   Ink, Saffron & Moss — Work 4: Discovery Layer
+   Ink, Saffron & Moss — Work 5: Material Depth
 ========================================= */
 
 :root {
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
 
-  --shell-max: 1280px;
+  --shell-max: 1320px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --transition: 0.45s var(--ease);
 
@@ -44,8 +44,8 @@ html[data-theme="dark"] {
   --land-detail: rgba(232, 163, 61, 0.35);
 
   --mist: #d8d2c6;
-  --mist-base: rgba(216, 210, 198, 0.82);
-  --mist-strong: rgba(216, 210, 198, 0.92);
+  --mist-base: rgba(216, 210, 198, 0.84);
+  --mist-strong: rgba(216, 210, 198, 0.94);
   --mist-medium: rgba(216, 210, 198, 0.55);
   --mist-soft: rgba(216, 210, 198, 0.25);
   --mist-clear: rgba(216, 210, 198, 0);
@@ -61,6 +61,10 @@ html[data-theme="dark"] {
 
   --discovery: #d97a6c;
   --discovery-soft: rgba(217, 122, 108, 0.18);
+
+  --paper-stain: rgba(232, 163, 61, 0.07);
+  --paper-fibre: rgba(243, 237, 226, 0.045);
+  --paper-vignette: rgba(0, 0, 0, 0.38);
 
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
   --header-bg: rgba(20, 18, 16, 0.85);
@@ -92,8 +96,8 @@ html[data-theme="light"] {
   --land-detail: rgba(185, 122, 23, 0.4);
 
   --mist: #ffffff;
-  --mist-base: rgba(255, 255, 255, 0.82);
-  --mist-strong: rgba(255, 255, 255, 0.94);
+  --mist-base: rgba(255, 255, 255, 0.84);
+  --mist-strong: rgba(255, 255, 255, 0.95);
   --mist-medium: rgba(255, 255, 255, 0.58);
   --mist-soft: rgba(255, 255, 255, 0.28);
   --mist-clear: rgba(255, 255, 255, 0);
@@ -109,6 +113,10 @@ html[data-theme="light"] {
 
   --discovery: #b04a3e;
   --discovery-soft: rgba(176, 74, 62, 0.14);
+
+  --paper-stain: rgba(185, 122, 23, 0.08);
+  --paper-fibre: rgba(29, 26, 23, 0.035);
+  --paper-vignette: rgba(29, 26, 23, 0.12);
 
   --shadow: 0 18px 45px rgba(29, 26, 23, 0.10);
   --header-bg: rgba(245, 239, 228, 0.88);
@@ -431,24 +439,63 @@ p {
   background: var(--accent-soft);
 }
 
-/* Parchment */
+/* =========================================
+   Heavy parchment material
+========================================= */
+
 .parchment-layer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background:
     radial-gradient(circle at 18% 22%, var(--accent-soft), transparent 42%),
     radial-gradient(circle at 82% 72%, var(--moss-soft), transparent 42%),
     var(--atlas-bg);
-  pointer-events: none;
+}
+
+.parchment-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--paper-stain), transparent 32%),
+    radial-gradient(circle at 78% 28%, var(--moss-soft), transparent 34%),
+    radial-gradient(circle at 34% 78%, var(--clay-soft), transparent 36%),
+    radial-gradient(circle at 62% 18%, var(--paper-stain), transparent 30%),
+    radial-gradient(circle at 88% 62%, var(--paper-stain), transparent 32%);
+  opacity: 0.9;
+}
+
+.parchment-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      var(--paper-fibre) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--paper-fibre) 0 1px,
+      transparent 1px 4px
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 55%,
+      var(--paper-vignette) 100%
+    );
+  opacity: 0.75;
 }
 
 .map-grain {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.55;
+  opacity: 0.75;
   background-image:
-    radial-gradient(circle at 12% 18%, var(--accent-soft), transparent 34%),
+    radial-gradient(circle at 12% 18%, var(--paper-stain), transparent 34%),
     radial-gradient(circle at 78% 28%, var(--moss-soft), transparent 36%),
     radial-gradient(circle at 34% 78%, var(--clay-soft), transparent 38%),
     radial-gradient(circle at 66% 82%, var(--line) 0 1px, transparent 1px),
@@ -471,7 +518,10 @@ p {
   opacity: 0.45;
 }
 
-/* Arrival */
+/* =========================================
+   Arrival
+========================================= */
+
 .arrival {
   position: relative;
   min-height: 100svh;
@@ -484,12 +534,31 @@ p {
 .arrival-inner {
   position: relative;
   display: grid;
-  gap: 3rem;
+  gap: 3.5rem;
   align-items: center;
 }
 
 .arrival-copy {
   max-width: 36rem;
+}
+
+.portrait-medallion {
+  margin: 0 0 1.5rem;
+  width: 8.5rem;
+  border: 2px solid var(--line-strong);
+  border-radius: 50%;
+  padding: 0.35rem;
+  background:
+    radial-gradient(circle at 35% 30%, var(--accent-soft), transparent 65%),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.portrait-medallion img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  filter: saturate(0.82) contrast(1.04);
 }
 
 .arrival-lede {
@@ -508,7 +577,7 @@ p {
 
 .arrival-map {
   position: relative;
-  min-height: 22rem;
+  min-height: 24rem;
 }
 
 .map-terrain {
@@ -542,13 +611,13 @@ p {
   position: absolute;
   right: 8%;
   top: 49%;
-  width: 3rem;
+  width: 3.2rem;
   opacity: 0.95;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .ship {
-    animation: sailArrival 3.4s var(--ease) forwards;
+    animation: sailArrival 3.6s var(--ease) forwards;
   }
 }
 
@@ -616,7 +685,10 @@ p {
   border-color: var(--accent);
 }
 
-/* Atlas section */
+/* =========================================
+   Expanded Atlas
+========================================= */
+
 .atlas {
   padding: 6rem 0;
   background: var(--atlas-bg-alt);
@@ -624,7 +696,7 @@ p {
 
 .section-head {
   max-width: 42rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
 }
 
 .section-lede {
@@ -632,11 +704,10 @@ p {
   color: var(--text-muted);
 }
 
-/* Continuous Atlas world */
 .atlas-world {
   position: relative;
   width: 100%;
-  aspect-ratio: 1200 / 760;
+  aspect-ratio: 1200 / 920;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -651,7 +722,6 @@ p {
   height: 100%;
 }
 
-/* Ocean */
 .ocean {
   fill: var(--ocean);
 }
@@ -663,7 +733,6 @@ p {
   opacity: 0.5;
 }
 
-/* Landmasses */
 .land-shape {
   fill: var(--land);
   stroke: var(--land-edge);
@@ -957,7 +1026,10 @@ p {
   }
 }
 
-/* Territory labels */
+/* =========================================
+   Territory labels: overlap-safe
+========================================= */
+
 .territory-layer {
   position: absolute;
   inset: 0;
@@ -966,7 +1038,7 @@ p {
 
 .territory {
   position: absolute;
-  max-width: 20rem;
+  max-width: 21rem;
   padding: 0.8rem 0.9rem;
   border: 0;
   background: transparent;
@@ -1047,8 +1119,8 @@ p {
   background:
     radial-gradient(
       circle at 30% 25%,
-      color-mix(in srgb, var(--surface) 72%, transparent),
-      transparent 72%
+      color-mix(in srgb, var(--surface) 76%, transparent),
+      transparent 74%
     );
 }
 
@@ -1063,9 +1135,10 @@ p {
   transform: none;
 }
 
+/* Expanded map positions with clear zones */
 .territory-inklands {
   left: 4%;
-  top: 6%;
+  top: 5%;
 }
 
 .territory-strategy {
@@ -1074,13 +1147,13 @@ p {
 }
 
 .territory-makers {
-  right: 5%;
-  top: 43%;
+  right: 4%;
+  top: 42%;
 }
 
 .territory-curiosity {
   left: 4%;
-  top: 55%;
+  top: 53%;
 }
 
 .territory-saffron {
@@ -1089,7 +1162,7 @@ p {
 }
 
 .territory-professional {
-  left: 35%;
+  left: 34%;
   bottom: 3%;
 }
 
@@ -1149,7 +1222,7 @@ p {
 }
 
 /* =========================================
-   Work 4: Discovery layer
+   Discovery layer
 ========================================= */
 
 .territory-discovery {
@@ -1179,7 +1252,6 @@ p {
   box-shadow: 0 0 0 4px var(--discovery-soft);
 }
 
-/* Discovery appears only after full reveal */
 .territory.is-revealed .territory-discovery {
   opacity: 1;
   transform: translateY(0);
@@ -1208,7 +1280,7 @@ p {
   z-index: 6;
   left: 48%;
   top: 49%;
-  width: 2.8rem;
+  width: 2.9rem;
   color: var(--text);
   transition:
     left 2.2s var(--ease),
@@ -1252,12 +1324,31 @@ p {
   }
 }
 
-/* Field Notes */
+/* =========================================
+   Field Notes: dispatches
+========================================= */
+
 .field-notes {
   position: relative;
-  padding: 6rem 0;
+  padding: 6.5rem 0;
   background: var(--atlas-bg-alt);
   overflow: hidden;
+}
+
+.field-notes::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 18% 25%, var(--paper-stain), transparent 35%),
+    radial-gradient(circle at 82% 70%, var(--moss-soft), transparent 35%),
+    repeating-linear-gradient(
+      0deg,
+      var(--paper-fibre) 0 1px,
+      transparent 1px 4px
+    );
+  opacity: 0.7;
 }
 
 .section-route {
@@ -1272,19 +1363,19 @@ p {
 
 .dispatch-grid {
   display: grid;
-  gap: 1.4rem;
+  gap: 1.6rem;
 }
 
 .dispatch {
   position: relative;
-  padding: 1.7rem 1.6rem;
+  padding: 1.8rem 1.7rem 2rem;
   border: 1px solid var(--line);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background:
     linear-gradient(
       145deg,
-      color-mix(in srgb, var(--surface) 94%, transparent),
-      color-mix(in srgb, var(--surface-raised) 88%, transparent)
+      color-mix(in srgb, var(--surface) 95%, transparent),
+      color-mix(in srgb, var(--surface-raised) 86%, transparent)
     );
   box-shadow: var(--shadow);
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
@@ -1293,46 +1384,46 @@ p {
 .dispatch::before {
   content: "";
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 0.65rem;
-  height: 0.65rem;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 0.7rem;
+  height: 0.7rem;
   border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.75;
+  background: var(--discovery);
+  box-shadow: 0 0 0 4px var(--discovery-soft);
 }
 
 .dispatch::after {
   content: "";
   position: absolute;
-  left: 1.6rem;
-  right: 1.6rem;
-  bottom: 1.1rem;
+  left: 1.7rem;
+  right: 1.7rem;
+  bottom: 1.2rem;
   height: 1px;
   background: var(--line);
 }
 
 .dispatch-one {
-  transform: rotate(-0.7deg);
+  transform: rotate(-1deg);
 }
 
 .dispatch-two {
-  transform: rotate(0.5deg);
+  transform: rotate(0.7deg);
 }
 
 .dispatch-three {
-  transform: rotate(-0.4deg);
+  transform: rotate(-0.5deg);
 }
 
 .dispatch-four {
-  transform: rotate(0.7deg);
+  transform: rotate(0.9deg);
 }
 
 .dispatch:hover,
 .dispatch:focus-within {
-  transform: translateY(-5px) rotate(0deg);
+  transform: translateY(-6px) rotate(0deg);
   border-color: var(--accent);
-  box-shadow: 0 22px 55px var(--accent-soft);
+  box-shadow: 0 24px 60px var(--accent-soft);
 }
 
 .dispatch-region {
@@ -1344,24 +1435,24 @@ p {
 }
 
 .dispatch h3 {
-  margin-top: 0.7rem;
+  margin-top: 0.75rem;
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .dispatch-title {
-  margin-top: 0.45rem;
+  margin-top: 0.5rem;
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   color: var(--text);
 }
 
 .dispatch p:last-of-type {
-  margin-top: 0.55rem;
-  padding-bottom: 0.5rem;
+  margin-top: 0.6rem;
+  padding-bottom: 0.6rem;
   color: var(--text-muted);
 }
 
@@ -1373,7 +1464,7 @@ p {
 /* Onward */
 .onward {
   position: relative;
-  padding: 7rem 0;
+  padding: 7.5rem 0;
   overflow: hidden;
 }
 
@@ -1494,21 +1585,21 @@ p {
   .atlas-svg {
     position: relative;
     height: auto;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
   }
 
   .territory-layer {
     position: relative;
     inset: auto;
     display: grid;
-    gap: 1.2rem;
+    gap: 1.5rem;
   }
 
   .territory {
     position: relative;
     inset: auto;
     max-width: none;
-    padding: 1.1rem 1.2rem;
+    padding: 1.2rem 1.3rem;
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     background: var(--surface);
@@ -1546,6 +1637,10 @@ p {
   .landmark {
     opacity: 0.85;
     transform: none;
+  }
+
+  .portrait-medallion {
+    width: 7rem;
   }
 
   .dispatch-one,
