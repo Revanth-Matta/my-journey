@@ -1,7 +1,8 @@
 /* ==========================================================================
    Revanth’s Journey — script.js
-   Vanilla JavaScript: navigation, map route, route spaces, reveals,
-   visitor counter, and accessibility behavior.
+   Vanilla JavaScript: arrival sequence, continuous twilight world,
+   navigation, map route, route spaces, reveals, visitor counter,
+   and accessibility behavior.
    ========================================================================== */
 
 (() => {
@@ -13,6 +14,9 @@
 
   const header = document.querySelector(".site-header");
   const pageThread = document.querySelector(".page-thread span");
+  const hero = document.querySelector(".hero");
+  const welcomeNote = document.getElementById("welcome-note");
+  const world = document.querySelector(".world");
   const mapBoard = document.getElementById("map-board");
   const mapSection = document.getElementById("journey-map");
   const routeStage = document.querySelector(".route-stage");
@@ -32,7 +36,10 @@
     "saffron-shores"
   ];
 
+  const visitedKey = "revanthJourneyVisited";
+
   let activeRoute = null;
+  let arrivalFinished = false;
 
   /* ------------------------------------------------------------------------
      Utilities
@@ -59,6 +66,284 @@
     });
   };
 
+  const clamp = (value, minimum, maximum) =>
+    Math.min(Math.max(value, minimum), maximum);
+
+  const mixColor = (from, to, progress) => {
+    const mixed = from.map((channel, index) =>
+      Math.round(channel + ((to[index] - channel) * progress))
+    );
+
+    return `rgb(${mixed[0]} ${mixed[1]} ${mixed[2]})`;
+  };
+
+  const rgbToValues = (rgb) =>
+    rgb.replace("rgb(", "").replace(")", "");
+
+  /* ------------------------------------------------------------------------
+     Continuous twilight world
+     ------------------------------------------------------------------------ */
+
+  const worldMoods = [
+    {
+      top: [16, 26, 38],
+      middle: [22, 35, 47],
+      bottom: [29, 43, 54],
+      glow: [255, 166, 58],
+      glowOpacity: .48,
+      glowPosition: "24% 88%",
+      mist: [241, 230, 204],
+      mistOpacity: .3,
+      stars: .42,
+      cloud: [241, 230, 204],
+      cloudOpacity: .14
+    },
+    {
+      top: [12, 22, 32],
+      middle: [17, 29, 39],
+      bottom: [22, 35, 44],
+      glow: [94, 158, 148],
+      glowOpacity: .32,
+      glowPosition: "40% 90%",
+      mist: [226, 236, 232],
+      mistOpacity: .4,
+      stars: .5,
+      cloud: [226, 236, 232],
+      cloudOpacity: .17
+    },
+    {
+      top: [13, 22, 38],
+      middle: [21, 32, 52],
+      bottom: [27, 39, 58],
+      glow: [122, 146, 220],
+      glowOpacity: .34,
+      glowPosition: "62% 86%",
+      mist: [222, 231, 246],
+      mistOpacity: .26,
+      stars: .8,
+      cloud: [222, 231, 246],
+      cloudOpacity: .12
+    },
+    {
+      top: [10, 18, 34],
+      middle: [17, 28, 50],
+      bottom: [24, 36, 58],
+      glow: [154, 174, 240],
+      glowOpacity: .36,
+      glowPosition: "50% 82%",
+      mist: [216, 228, 248],
+      mistOpacity: .2,
+      stars: 1,
+      cloud: [216, 228, 248],
+      cloudOpacity: .11
+    },
+    {
+      top: [20, 24, 36],
+      middle: [36, 34, 40],
+      bottom: [54, 44, 40],
+      glow: [255, 176, 82],
+      glowOpacity: .48,
+      glowPosition: "72% 88%",
+      mist: [248, 234, 205],
+      mistOpacity: .28,
+      stars: .56,
+      cloud: [248, 234, 205],
+      cloudOpacity: .14
+    },
+    {
+      top: [30, 25, 28],
+      middle: [58, 40, 31],
+      bottom: [82, 53, 32],
+      glow: [255, 176, 70],
+      glowOpacity: .58,
+      glowPosition: "50% 92%",
+      mist: [255, 236, 200],
+      mistOpacity: .32,
+      stars: .38,
+      cloud: [255, 236, 200],
+      cloudOpacity: .16
+    },
+    {
+      top: [12, 20, 31],
+      middle: [19, 30, 43],
+      bottom: [26, 38, 50],
+      glow: [255, 190, 100],
+      glowOpacity: .4,
+      glowPosition: "78% 86%",
+      mist: [235, 233, 216],
+      mistOpacity: .26,
+      stars: .66,
+      cloud: [235, 233, 216],
+      cloudOpacity: .12
+    }
+  ];
+
+  let currentMoodProgress = -1;
+  let worldScrollPending = false;
+
+  const applyWorldMood = (progress) => {
+    if (!world) return;
+
+    const scaled = clamp(progress, 0, 1) * (worldMoods.length - 1);
+    const index = Math.floor(scaled);
+    const nextIndex = Math.min(index + 1, worldMoods.length - 1);
+    const localProgress = scaled - index;
+
+    const from = worldMoods[index];
+    const to = worldMoods[nextIndex];
+    const rootStyle = document.documentElement.style;
+
+    rootStyle.setProperty("--world-top", mixColor(from.top, to.top, localProgress));
+    rootStyle.setProperty("--world-middle", mixColor(from.middle, to.middle, localProgress));
+    rootStyle.setProperty("--world-bottom", mixColor(from.bottom, to.bottom, localProgress));
+
+    const glowColor = rgbToValues(mixColor(from.glow, to.glow, localProgress));
+    const glowOpacity = from.glowOpacity + ((to.glowOpacity - from.glowOpacity) * localProgress);
+    const mistColor = rgbToValues(mixColor(from.mist, to.mist, localProgress));
+    const mistOpacity = from.mistOpacity + ((to.mistOpacity - from.mistOpacity) * localProgress);
+    const cloudColor = rgbToValues(mixColor(from.cloud, to.cloud, localProgress));
+    const cloudOpacity = from.cloudOpacity + ((to.cloudOpacity - from.cloudOpacity) * localProgress);
+    const stars = from.stars + ((to.stars - from.stars) * localProgress);
+
+    rootStyle.setProperty("--world-glow", `rgba(${glowColor}, ${glowOpacity.toFixed(3)})`);
+    rootStyle.setProperty("--world-glow-position", localProgress > .5 ? to.glowPosition : from.glowPosition);
+    rootStyle.setProperty("--world-mist", `rgba(${mistColor}, ${mistOpacity.toFixed(3)})`);
+    rootStyle.setProperty("--world-cloud", `rgba(${cloudColor}, ${cloudOpacity.toFixed(3)})`);
+    rootStyle.setProperty("--world-stars", stars.toFixed(3));
+  };
+
+  const updateWorldMood = () => {
+    if (!world || worldScrollPending) return;
+
+    worldScrollPending = true;
+
+    window.requestAnimationFrame(() => {
+      worldScrollPending = false;
+
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const progress = scrollable > 0
+        ? clamp(window.pageYOffset / scrollable, 0, 1)
+        : 0;
+
+      if (Math.abs(progress - currentMoodProgress) < .002) return;
+
+      currentMoodProgress = progress;
+      applyWorldMood(progress);
+    });
+  };
+
+  const initWorld = () => {
+    if (prefersReducedMotion) {
+      currentMoodProgress = 0;
+      applyWorldMood(0);
+      return;
+    }
+
+    updateWorldMood();
+    window.addEventListener("scroll", updateWorldMood, { passive: true });
+    window.addEventListener("resize", updateWorldMood, { passive: true });
+  };
+
+  /* ------------------------------------------------------------------------
+     Arrival sequence
+     ------------------------------------------------------------------------ */
+
+  const markVisitAsCompleted = () => {
+    try {
+      window.localStorage.setItem(visitedKey, "true");
+    } catch (error) {
+      /* Storage unavailable; the arrival can still complete. */
+    }
+  };
+
+  const revealCamp = () => {
+    if (arrivalFinished) return;
+    arrivalFinished = true;
+
+    hero?.classList.remove("is-arriving");
+    hero?.classList.remove("is-returning");
+    hero?.classList.add("is-lit");
+    hero?.removeEventListener("click", handleArrivalClick);
+
+    markVisitAsCompleted();
+  };
+
+  const handleArrivalClick = () => {
+    revealCamp();
+  };
+
+  const startFirstVisitArrival = () => {
+    if (!hero) {
+      markVisitAsCompleted();
+      arrivalFinished = true;
+      return;
+    }
+
+    hero.classList.add("is-arriving");
+    hero.addEventListener("click", handleArrivalClick);
+
+    window.setTimeout(revealCamp, prefersReducedMotion ? 1400 : 10000);
+  };
+
+  const startReturningVisitArrival = () => {
+    if (!hero) {
+      arrivalFinished = true;
+      showWelcomeBack();
+      return;
+    }
+
+    hero.classList.add("is-returning");
+    arrivalFinished = true;
+
+    window.setTimeout(() => {
+      hero.classList.remove("is-returning");
+      hero.classList.add("is-lit");
+      showWelcomeBack();
+    }, prefersReducedMotion ? 500 : 1600);
+  };
+
+  const showWelcomeBack = () => {
+    if (!welcomeNote) return;
+
+    welcomeNote.hidden = false;
+
+    window.requestAnimationFrame(() => {
+      welcomeNote.classList.add("is-visible");
+    });
+
+    window.setTimeout(() => {
+      welcomeNote.classList.add("is-leaving");
+      welcomeNote.classList.remove("is-visible");
+
+      window.setTimeout(() => {
+        welcomeNote.hidden = true;
+        welcomeNote.classList.remove("is-leaving");
+      }, prefersReducedMotion ? 0 : 750);
+    }, prefersReducedMotion ? 1200 : 3000);
+  };
+
+  const initArrival = () => {
+    window.scrollTo(0, 0);
+
+    let hasVisitedBefore = false;
+
+    try {
+      hasVisitedBefore =
+        window.localStorage.getItem(visitedKey) === "true";
+    } catch (error) {
+      hasVisitedBefore = false;
+    }
+
+    if (hasVisitedBefore) {
+      startReturningVisitArrival();
+      return;
+    }
+
+    startFirstVisitArrival();
+  };
+
   /* ------------------------------------------------------------------------
      Scroll progress thread
      ------------------------------------------------------------------------ */
@@ -70,7 +355,7 @@
       document.documentElement.scrollHeight - window.innerHeight;
 
     const progress = scrollable > 0
-      ? Math.min(Math.max(window.pageYOffset / scrollable, 0), 1)
+      ? clamp(window.pageYOffset / scrollable, 0, 1)
       : 0;
 
     pageThread.style.width = `${progress * 100}%`;
@@ -362,6 +647,7 @@
 
     resizeTimer = window.setTimeout(() => {
       buildRouteThread();
+      updateWorldMood();
 
       if (activeRoute) {
         drawThreadProgress(activeRoute);
@@ -376,6 +662,8 @@
      ------------------------------------------------------------------------ */
 
   const init = () => {
+    initArrival();
+    initWorld();
     updateScrollThread();
     buildRouteThread();
     initReveals();

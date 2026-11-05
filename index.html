@@ -5,13 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Revanth’s Journey</title>
   <meta name="description" content="A living map of curiosity, stories, strategy, making, and everyday discovery.">
-  <meta name="theme-color" content="#F1E6CC">
+  <meta name="theme-color" content="#101A26">
   <script>document.documentElement.className = 'js';</script>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="world" aria-hidden="true">
+    <div class="world__sky"></div>
+    <div class="world__clouds"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="world__stars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="world__glow"></div>
+    <div class="world__mist"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="world__grain"></div>
+  </div>
 
   <header class="site-header">
     <a class="brand" href="#arrival-gate">Revanth’s Journey</a>
@@ -35,8 +44,18 @@
     <section id="arrival-gate" class="hero" aria-labelledby="hero-title">
       <img class="hero__img" src="assets/hero-camp.jpg" alt="Expedition camp gate at dusk, with lanterns, distant mountains and drifting mist" fetchpriority="high" decoding="async">
       <div class="hero__shade" aria-hidden="true"></div>
-      <div class="hero__mist" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="hero__mist" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="hero__lantern" aria-hidden="true"></div>
+
+      <div class="arrival-overlay" id="arrival-overlay" aria-hidden="true">
+        <div class="arrival-overlay__mist"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="arrival-overlay__embers"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="arrival-overlay__darkness"></div>
+        <div class="arrival-overlay__clearing"></div>
+      </div>
+
       <div class="hero__content">
+        <p class="welcome-note" id="welcome-note" hidden>Welcome back, traveler — the route continues.</p>
         <p class="eyebrow">A Personal Expedition</p>
         <h1 id="hero-title">Revanth’s Journey</h1>
         <p class="hero__sub">A living map of curiosity, stories, strategy, making, and everyday discovery.</p>
