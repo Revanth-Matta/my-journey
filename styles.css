@@ -1,0 +1,254 @@
+:root {
+  --sky-deep: #070b18;
+  --sky-base: #0b1226;
+  --sky-indigo: #141c38;
+  --text-bright: #eaf2ff;
+  --text-body: #c9d6e8;
+  --text-muted: #8fa3bd;
+  --cyan: #67e8f9;
+  --violet: #a78bfa;
+  --amber: #fbbf24;
+  --saffron: #f6ad55;
+  --ink-veil: rgba(7, 11, 24, 0.68);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text-body);
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.65;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(167, 139, 250, 0.16), transparent 38%),
+    radial-gradient(circle at 82% 32%, rgba(103, 232, 249, 0.12), transparent 40%),
+    radial-gradient(circle at 24% 68%, rgba(246, 173, 85, 0.10), transparent 42%),
+    linear-gradient(180deg, var(--sky-deep), var(--sky-base) 45%, var(--sky-indigo));
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+}
+
+.nebula-violet {
+  width: 55vw;
+  height: 55vw;
+  top: -12vw;
+  left: -12vw;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.35), transparent 70%);
+}
+
+.nebula-cyan {
+  width: 48vw;
+  height: 48vw;
+  top: 35%;
+  right: -15vw;
+  background: radial-gradient(circle, rgba(103, 232, 249, 0.25), transparent 70%);
+}
+
+.nebula-amber {
+  width: 52vw;
+  height: 52vw;
+  bottom: -15vw;
+  left: 10vw;
+  background: radial-gradient(circle, rgba(246, 173, 85, 0.20), transparent 70%);
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 32% 42%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 58% 22%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 74% 58%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 34%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 76%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 48% 88%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 68% 78%, #eaf2ff 50%, transparent 51%);
+  opacity: 0.55;
+}
+
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 8rem 1.25rem 6rem;
+}
+
+section {
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--cyan);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0 0 1rem;
+  color: var(--text-bright);
+  font-family: "Fraunces", serif;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 7vw, 5rem);
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.intro {
+  max-width: 42ch;
+  margin: 0 0 1.5rem;
+  color: var(--text-bright);
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+}
+
+.welcome,
+.territory p,
+.coordinates p,
+.connect p {
+  max-width: 62ch;
+  margin: 0;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background: radial-gradient(circle at 50% 50%, var(--ink-veil), transparent 78%);
+}
+
+.route-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: var(--cyan);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(103, 232, 249, 0.45);
+}
+
+.route-link:hover,
+.route-link:focus-visible {
+  color: var(--text-bright);
+  border-bottom-color: var(--text-bright);
+}
+
+.wormhole {
+  position: fixed;
+  top: 50%;
+  right: 1.25rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  color: var(--text-bright);
+  text-decoration: none;
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  border-radius: 999px;
+  background: rgba(7, 11, 24, 0.72);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.wormhole:hover,
+.wormhole:focus-visible {
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+.wormhole-core {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #070b18 25%, rgba(103, 232, 249, 0.8) 55%, rgba(167, 139, 250, 0.35) 75%, transparent 80%);
+  box-shadow: 0 0 18px rgba(103, 232, 249, 0.55);
+}
+
+.wormhole-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.72rem;
+  line-height: 1.25;
+}
+
+.wormhole-label strong {
+  color: var(--text-bright);
+}
+
+.wormhole-label span {
+  color: var(--text-muted);
+}
+
+footer {
+  padding: 4rem 1.25rem 3rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+footer a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  main {
+    padding-top: 6rem;
+  }
+
+  section {
+    min-height: 78vh;
+  }
+
+  .wormhole {
+    right: 0.75rem;
+    padding: 0.5rem 0.7rem;
+  }
+
+  .wormhole-label {
+    max-width: 8.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .wormhole,
+  .wormhole-core {
+    transition: none;
+    animation: none;
+  }
+}
