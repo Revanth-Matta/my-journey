@@ -582,62 +582,177 @@ h2 {
 }
 
 /* =========================================
-   Wormhole
+   Wormhole Gateway
    ========================================= */
 
-.wormhole {
-  position: fixed;
-  top: 50%;
-  right: 1.25rem;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.65rem 0.9rem;
+.wormhole-gateway {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 6rem 1.25rem;
+  position: relative;
+}
+
+.wormhole-gateway::before {
+  content: "";
+  position: absolute;
+  inset: -10% -20%;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(103, 232, 249, 0.14),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(167, 139, 250, 0.14),
+      transparent 60%
+    );
+  pointer-events: none;
+}
+
+.wormhole-portal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(680px, 92vw);
+  aspect-ratio: 1 / 1;
   color: var(--text-bright);
   text-decoration: none;
-  border: 1px solid rgba(103, 232, 249, 0.35);
-  border-radius: 999px;
-  background: rgba(7, 11, 24, 0.72);
-  backdrop-filter: blur(8px);
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  border-radius: 50%;
+  transition: transform 0.45s ease, filter 0.45s ease;
 }
 
-.wormhole:hover,
-.wormhole:focus-visible {
-  border-color: var(--cyan);
-  transform: translateY(-2px);
+.wormhole-portal:hover {
+  transform: scale(1.03);
+  filter: brightness(1.08);
 }
 
-.wormhole-core {
-  width: 22px;
-  height: 22px;
-  flex: 0 0 auto;
+.wormhole-portal:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 8px;
+}
+
+.wormhole-visual {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.wormhole-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+
+.ring-one {
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    rgba(103, 232, 249, 0.05),
+    rgba(103, 232, 249, 0.55),
+    rgba(167, 139, 250, 0.35),
+    rgba(246, 173, 85, 0.18),
+    rgba(103, 232, 249, 0.05)
+  );
+  mask: radial-gradient(circle, transparent 58%, #000 60%);
+  animation: wormhole-spin 28s linear infinite;
+}
+
+.ring-two {
+  inset: 9%;
+  background: conic-gradient(
+    from 120deg,
+    rgba(167, 139, 250, 0.05),
+    rgba(167, 139, 250, 0.55),
+    rgba(103, 232, 249, 0.35),
+    rgba(246, 173, 85, 0.15),
+    rgba(167, 139, 250, 0.05)
+  );
+  mask: radial-gradient(circle, transparent 52%, #000 55%);
+  animation: wormhole-spin 38s linear infinite reverse;
+}
+
+.ring-three {
+  inset: 20%;
+  background: conic-gradient(
+    from 240deg,
+    rgba(246, 173, 85, 0.04),
+    rgba(246, 173, 85, 0.45),
+    rgba(103, 232, 249, 0.3),
+    rgba(167, 139, 250, 0.2),
+    rgba(246, 173, 85, 0.04)
+  );
+  mask: radial-gradient(circle, transparent 44%, #000 48%);
+  animation: wormhole-spin 48s linear infinite;
+}
+
+.wormhole-centre {
+  width: 42%;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   background:
     radial-gradient(
       circle at 50% 50%,
-      #070b18 25%,
-      rgba(103, 232, 249, 0.8) 55%,
-      rgba(167, 139, 250, 0.35) 75%,
-      transparent 80%
+      #02040a 0%,
+      #050a18 35%,
+      rgba(103, 232, 249, 0.22) 62%,
+      rgba(167, 139, 250, 0.16) 78%,
+      transparent 88%
     );
-  box-shadow: 0 0 18px rgba(103, 232, 249, 0.55);
+  box-shadow:
+    0 0 60px rgba(103, 232, 249, 0.28),
+    0 0 120px rgba(167, 139, 250, 0.18);
 }
 
-.wormhole-label {
+.wormhole-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  font-size: 0.72rem;
-  line-height: 1.25;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 34ch;
+  padding: 2rem;
+  text-align: center;
 }
 
-.wormhole-label strong {
+.wormhole-eyebrow {
+  color: var(--cyan);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.wormhole-title {
   color: var(--text-bright);
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  line-height: 1.05;
 }
 
-.wormhole-label span {
-  color: var(--text-muted);
+.wormhole-subtitle {
+  color: var(--violet);
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.1rem, 3vw, 1.8rem);
+  line-height: 1.2;
+}
+
+.wormhole-note {
+  max-width: 32ch;
+  margin-top: 0.75rem;
+  color: var(--text-body);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+@keyframes wormhole-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* =========================================
@@ -714,14 +829,25 @@ footer a:focus-visible {
   .territory-inner-reverse .constellation {
     order: -1;
   }
+}
 
-  .wormhole {
-    right: 0.75rem;
-    padding: 0.5rem 0.7rem;
+@media (max-width: 720px) {
+  .wormhole-gateway {
+    min-height: 88vh;
+    padding: 4rem 1rem;
   }
 
-  .wormhole-label {
-    max-width: 8.5rem;
+  .wormhole-portal {
+    width: min(420px, 94vw);
+  }
+
+  .wormhole-content {
+    max-width: 30ch;
+    padding: 1.5rem;
+  }
+
+  .wormhole-note {
+    font-size: 0.88rem;
   }
 }
 
@@ -746,9 +872,17 @@ footer a:focus-visible {
     transition: none;
   }
 
-  .wormhole,
-  .wormhole-core {
-    transition: none;
+  .ring-one,
+  .ring-two,
+  .ring-three {
     animation: none;
+  }
+
+  .wormhole-portal {
+    transition: none;
+  }
+
+  .wormhole-portal:hover {
+    transform: none;
   }
 }
