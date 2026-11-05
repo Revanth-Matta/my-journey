@@ -436,3 +436,40 @@ footer a {
     margin: 0 auto;
   }
 }
+/* Territory 3: Learning & Data */
+
+.territory-learning {
+  position: relative;
+}
+
+.territory-learning::before {
+  content: "";
+  position: absolute;
+  inset: -10% -20%;
+  z-index: -1;
+  background: radial-gradient(
+    circle at 25% 45%,
+    rgba(103, 232, 249, 0.16),
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.territory-learning .territory-number {
+  color: var(--cyan);
+}
+
+.territory-learning .star-main {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.8));
+}
+
+.territory-learning.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+@media (max-width: 819px) {
+  .territory-learning .constellation {
+    margin: 0 auto;
+  }
+}
