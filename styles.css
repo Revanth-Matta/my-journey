@@ -386,3 +386,53 @@ footer a {
     transition: none;
   }
 }
+/* Territory 2: Games & Thinking */
+
+.territory-games {
+  position: relative;
+}
+
+.territory-games::before {
+  content: "";
+  position: absolute;
+  inset: -10% -20%;
+  z-index: -1;
+  background: radial-gradient(
+    circle at 75% 45%,
+    rgba(103, 232, 249, 0.15),
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.territory-inner-reverse {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.territory-games .territory-number {
+  color: var(--cyan);
+}
+
+.territory-games .star-main {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.8));
+}
+
+.territory-games.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+@media (min-width: 820px) {
+  .territory-inner-reverse {
+    grid-template-columns: 1fr minmax(220px, 340px);
+  }
+}
+
+@media (max-width: 819px) {
+  .territory-inner-reverse .constellation {
+    order: -1;
+    margin: 0 auto;
+  }
+}
