@@ -555,3 +555,40 @@ footer a {
     margin: 0 auto;
   }
 }
+/* Territory 5: Food & Well-being */
+
+.territory-food {
+  position: relative;
+}
+
+.territory-food::before {
+  content: "";
+  position: absolute;
+  inset: -10% -20%;
+  z-index: -1;
+  background: radial-gradient(
+    circle at 25% 45%,
+    rgba(246, 173, 85, 0.16),
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.territory-food .territory-number {
+  color: var(--saffron);
+}
+
+.territory-food .star-main {
+  fill: var(--saffron);
+  filter: drop-shadow(0 0 8px rgba(246, 173, 85, 0.8));
+}
+
+.territory-food.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+@media (max-width: 819px) {
+  .territory-food .constellation {
+    margin: 0 auto;
+  }
+}
