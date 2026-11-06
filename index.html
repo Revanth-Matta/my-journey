@@ -11,7 +11,40 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<header class="site-nav">
+  <a class="nav-brand" href="#arrival">Revanth’s Atlas</a>
 
+  <button
+    class="nav-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="primary-navigation"
+  >
+    <span class="nav-toggle-line" aria-hidden="true"></span>
+    <span class="nav-toggle-line" aria-hidden="true"></span>
+    <span class="nav-toggle-line" aria-hidden="true"></span>
+    <span class="visually-hidden">Open navigation menu</span>
+  </button>
+
+  <nav class="nav-menu" id="primary-navigation" aria-label="Primary navigation">
+    <ul>
+      <li><a href="#arrival">Atlas</a></li>
+      <li><a href="#reading">Territories</a></li>
+      <li><a href="#now">Now</a></li>
+      <li><a href="#connect">Connect</a></li>
+      <li>
+        <a
+          class="nav-professional"
+          href="https://revanth-matta.github.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Beyond the Atlas
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
   <div class="sky" aria-hidden="true">
     <div class="nebula nebula-violet"></div>
     <div class="nebula nebula-cyan"></div>
