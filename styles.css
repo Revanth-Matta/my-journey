@@ -396,14 +396,22 @@ h2 {
 }
 
 /* =========================================
-   Next constellation
+   Constellation route controls
    ========================================= */
 
+.route-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.previous-route,
 .next-route {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1.75rem;
   color: var(--cyan);
   font-size: 0.9rem;
   font-weight: 600;
@@ -412,18 +420,31 @@ h2 {
   transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
+.previous-route:hover,
+.previous-route:focus-visible,
 .next-route:hover,
 .next-route:focus-visible {
   color: var(--text-bright);
   border-bottom-color: var(--text-bright);
+}
+
+.previous-route:hover,
+.previous-route:focus-visible {
+  transform: translateX(-4px);
+}
+
+.next-route:hover,
+.next-route:focus-visible {
   transform: translateX(4px);
 }
 
+.previous-route:focus-visible,
 .next-route:focus-visible {
   outline: 2px solid var(--cyan);
   outline-offset: 4px;
 }
 
+.previous-route span,
 .next-route span {
   font-size: 1.1rem;
 }
@@ -1313,10 +1334,12 @@ footer {
     transition: none;
   }
 
+  .previous-route,
   .next-route {
     transition: none;
   }
 
+  .previous-route:hover,
   .next-route:hover {
     transform: none;
   }
