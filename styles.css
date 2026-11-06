@@ -204,6 +204,7 @@ body {
   background-attachment: fixed;
   overflow-x: hidden;
 }
+
 /* =========================================
    Continuous Atlas route
    ========================================= */
@@ -392,6 +393,39 @@ h2 {
 .route-link:focus-visible {
   color: var(--text-bright);
   border-bottom-color: var(--text-bright);
+}
+
+/* =========================================
+   Next constellation
+   ========================================= */
+
+.next-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  color: var(--cyan);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(103, 232, 249, 0.35);
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.next-route:hover,
+.next-route:focus-visible {
+  color: var(--text-bright);
+  border-bottom-color: var(--text-bright);
+  transform: translateX(4px);
+}
+
+.next-route:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.next-route span {
+  font-size: 1.1rem;
 }
 
 /* =========================================
@@ -1234,9 +1268,11 @@ footer {
   html {
     scroll-behavior: auto;
   }
-.atlas-route-line {
-  animation: none;
-}
+
+  .atlas-route-line {
+    animation: none;
+  }
+
   .route-line,
   .coordinates .route-line {
     stroke-dashoffset: 0;
@@ -1275,5 +1311,13 @@ footer {
 
   .back-to-top-tooltip {
     transition: none;
+  }
+
+  .next-route {
+    transition: none;
+  }
+
+  .next-route:hover {
+    transform: none;
   }
 }
