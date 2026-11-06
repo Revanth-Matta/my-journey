@@ -22,6 +22,7 @@ if (navToggle && navMenu) {
     }
   });
 }
+
 const revealSections = document.querySelectorAll("section");
 
 const observer = new IntersectionObserver(
