@@ -525,14 +525,18 @@ h2 {
 .territory-reading::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 12%;
+  left: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
   z-index: -1;
   background: radial-gradient(
-    75% 75% at 25% 40%,
-    rgba(167, 139, 250, 0.14) 0%,
-    rgba(167, 139, 250, 0.07) 35%,
-    transparent 70%
+    closest-side,
+    rgba(167, 139, 250, 0.16) 0%,
+    rgba(167, 139, 250, 0.08) 45%,
+    transparent 100%
   );
+  filter: blur(42px);
   pointer-events: none;
 }
 
@@ -556,14 +560,18 @@ h2 {
 .territory-games::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 15%;
+  right: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
   z-index: -1;
   background: radial-gradient(
-    75% 75% at 75% 45%,
-    rgba(103, 232, 249, 0.11) 0%,
-    rgba(103, 232, 249, 0.06) 35%,
-    transparent 70%
+    closest-side,
+    rgba(103, 232, 249, 0.13) 0%,
+    rgba(103, 232, 249, 0.06) 45%,
+    transparent 100%
   );
+  filter: blur(42px);
   pointer-events: none;
 }
 
@@ -587,14 +595,18 @@ h2 {
 .territory-learning::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 15%;
+  left: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
   z-index: -1;
   background: radial-gradient(
-    75% 75% at 25% 45%,
-    rgba(103, 232, 249, 0.12) 0%,
-    rgba(103, 232, 249, 0.06) 35%,
-    transparent 70%
+    closest-side,
+    rgba(103, 232, 249, 0.14) 0%,
+    rgba(103, 232, 249, 0.06) 45%,
+    transparent 100%
   );
+  filter: blur(42px);
   pointer-events: none;
 }
 
@@ -618,14 +630,18 @@ h2 {
 .territory-making::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 15%;
+  right: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
   z-index: -1;
   background: radial-gradient(
-    75% 75% at 75% 45%,
-    rgba(251, 191, 36, 0.10) 0%,
-    rgba(251, 191, 36, 0.05) 35%,
-    transparent 70%
+    closest-side,
+    rgba(251, 191, 36, 0.12) 0%,
+    rgba(251, 191, 36, 0.05) 45%,
+    transparent 100%
   );
+  filter: blur(42px);
   pointer-events: none;
 }
 
@@ -680,14 +696,18 @@ h2 {
 .territory-food::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 15%;
+  left: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
   z-index: -1;
   background: radial-gradient(
-    75% 75% at 25% 45%,
-    rgba(246, 173, 85, 0.12) 0%,
-    rgba(246, 173, 85, 0.06) 35%,
-    transparent 70%
+    closest-side,
+    rgba(246, 173, 85, 0.14) 0%,
+    rgba(246, 173, 85, 0.06) 45%,
+    transparent 100%
   );
+  filter: blur(42px);
   pointer-events: none;
 }
 
@@ -715,14 +735,19 @@ h2 {
 .coordinates::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, 48vw);
+  height: min(420px, 55vh);
   z-index: -1;
   background: radial-gradient(
-    75% 75% at 50% 45%,
-    rgba(103, 232, 249, 0.10) 0%,
-    rgba(103, 232, 249, 0.05) 35%,
-    transparent 70%
+    closest-side,
+    rgba(103, 232, 249, 0.12) 0%,
+    rgba(103, 232, 249, 0.05) 45%,
+    transparent 100%
   );
+  filter: blur(42px);
   pointer-events: none;
 }
 
@@ -1349,6 +1374,26 @@ footer {
   .back-to-top-tooltip {
     right: 56px;
     font-size: 0.68rem;
+  }
+}
+
+/* =========================================
+   Large-screen glow refinement
+   ========================================= */
+
+@media (min-width: 1600px) {
+  .territory-reading::before,
+  .territory-games::before,
+  .territory-learning::before,
+  .territory-making::before,
+  .territory-food::before {
+    width: min(640px, 38vw);
+    height: min(520px, 50vh);
+  }
+
+  .coordinates::before {
+    width: min(720px, 42vw);
+    height: min(560px, 50vh);
   }
 }
 
