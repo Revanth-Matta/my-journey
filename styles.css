@@ -894,6 +894,8 @@ h2 {
   display: grid;
   place-items: center;
   pointer-events: none;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 /* Deep tunnel base: unifies all rings into one continuous vortex */
@@ -925,6 +927,7 @@ h2 {
   border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: screen;
+  opacity: 0.82;
 }
 
 /* Outermost ring: melts and fades into the Atlas sky */
@@ -934,17 +937,17 @@ h2 {
   background: conic-gradient(
     from 0deg,
     rgba(103, 232, 249, 0.00),
-    rgba(103, 232, 249, 0.28),
-    rgba(167, 139, 250, 0.18),
-    rgba(246, 173, 85, 0.09),
+    rgba(103, 232, 249, 0.20),
+    rgba(167, 139, 250, 0.13),
+    rgba(246, 173, 85, 0.06),
     rgba(103, 232, 249, 0.00)
   );
   mask: radial-gradient(
     circle,
-    transparent 52%,
-    rgba(0, 0, 0, 0.16) 64%,
-    rgba(0, 0, 0, 0.42) 75%,
-    rgba(0, 0, 0, 0.16) 86%,
+    transparent 48%,
+    rgba(0, 0, 0, 0.10) 60%,
+    rgba(0, 0, 0, 0.30) 72%,
+    rgba(0, 0, 0, 0.10) 84%,
     transparent 100%
   );
   animation: wormhole-spin 38s linear infinite;
@@ -1323,11 +1326,11 @@ footer {
 @media (max-width: 720px) {
   .wormhole-gateway {
     min-height: 92vh;
-    padding: 4rem 1rem;
+    padding: 4rem 1.5rem;
   }
 
   .wormhole-portal {
-    width: min(440px, 96vw);
+    width: min(360px, 86vw);
   }
 
   .wormhole-content {
