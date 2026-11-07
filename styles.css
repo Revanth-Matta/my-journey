@@ -13,7 +13,6 @@
   --violet: #a78bfa;
   --amber: #fbbf24;
   --saffron: #f6ad55;
-  --ink-veil: rgba(7, 11, 24, 0.68);
 }
 
 /* =========================================
@@ -367,13 +366,6 @@ h2 {
 .connect p {
   max-width: 62ch;
   margin: 0;
-  padding: 1.5rem;
-  border-radius: 1.5rem;
-  background: radial-gradient(
-    circle at 50% 50%,
-    var(--ink-veil),
-    transparent 78%
-  );
 }
 
 /* =========================================
@@ -514,15 +506,6 @@ h2 {
 .territory-detail {
   max-width: 62ch;
   margin: 0 0 1.25rem;
-  padding: 1.5rem;
-  border-radius: 0;
-  background: radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(7, 11, 24, 0.36) 0%,
-    rgba(7, 11, 24, 0.20) 38%,
-    rgba(7, 11, 24, 0.06) 58%,
-    transparent 74%
-  );
 }
 
 .future-route {
@@ -668,15 +651,6 @@ h2 {
 
 .experiment-list li {
   margin-bottom: 1rem;
-  padding: 1.25rem 1.5rem;
-  border-radius: 0;
-  background: radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(7, 11, 24, 0.36) 0%,
-    rgba(7, 11, 24, 0.20) 38%,
-    rgba(7, 11, 24, 0.06) 58%,
-    transparent 74%
-  );
 }
 
 .experiment-list strong {
@@ -793,15 +767,6 @@ h2 {
 
 .coordinate {
   margin-bottom: 1.25rem;
-  padding: 1.25rem 1.5rem;
-  border-radius: 0;
-  background: radial-gradient(
-    100% 100% at 50% 50%,
-    rgba(7, 11, 24, 0.36) 0%,
-    rgba(7, 11, 24, 0.20) 38%,
-    rgba(7, 11, 24, 0.06) 58%,
-    transparent 74%
-  );
 }
 
 .coordinate dt {
