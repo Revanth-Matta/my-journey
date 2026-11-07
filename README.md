@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./Images/atlas-banner.gif" alt="Revanth’s Atlas — a living map of curiosity, stories, strategy, making, and everyday discovery" width="100%" />
+<img src="./images/atlas-banner.gif" alt="Revanth’s Atlas — a living map of curiosity, stories, strategy, making, and everyday discovery" width="100%" />
 
 # Revanth’s Atlas
 
@@ -25,6 +25,18 @@
 Revanth’s Atlas is a personal space for following curiosity, collecting ideas, and turning small interests into projects, reflections, and useful experiments.
 
 It is not a finished portfolio or a fixed website. It is a living map—designed to grow as new interests, questions, and ideas appear.
+
+<br>
+
+## 🖼️ Atlas Preview
+
+<div align="center">
+
+<a href="https://revanth-matta.github.io/revanth-journey/">
+  <img src="./images/atlas-preview.png" alt="Revanth’s Atlas preview" width="100%" />
+</a>
+
+</div>
 
 <br>
 
